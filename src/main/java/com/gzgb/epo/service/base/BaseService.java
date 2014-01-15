@@ -1,0 +1,188 @@
+package com.gzgb.epo.service.base;
+
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.gzgb.epo.dao.base.BaseDao;
+import com.gzgb.epo.entity.BaseEntity;
+
+/**
+ * 
+ * <pre>
+ * 基础service实现类
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2013-12-18
+ */
+@Service
+@Transactional(readOnly = true)
+public class BaseService<T extends BaseEntity> {
+	private static Logger log = LoggerFactory.getLogger(BaseService.class);
+	@Autowired
+	@Qualifier("baseDaoImpl")
+	private BaseDao<T> baseDao;
+
+	/**
+	 * 
+	 * <pre>
+	 * 删除一条记录
+	 * </pre>
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	@Transactional(readOnly = false)
+	public void delete(T t) {
+		try {
+			baseDao.delete(t);
+		} catch (Exception ex) {
+			log.error(ex.toString());
+		}
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 查询所有记录
+	 * </pre>
+	 * 
+	 * @param cls
+	 * @return
+	 */
+	public List<T> findAll(Class<T> cls) {
+		try {
+			return baseDao.findAll(cls);
+		} catch (Exception ex) {
+			log.error(ex.toString());
+			return null;
+		}
+
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据id和class得到一条实体
+	 * </pre>
+	 * 
+	 * @param id
+	 * @param cls
+	 * @return
+	 */
+	public T findById(Object id, Class<T> cls) {
+		try {
+			return (T) baseDao.findById(id, cls);
+		} catch (Exception ex) {
+			log.error(ex.toString());
+			return null;
+		}
+
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 添加一条记录
+	 * </pre>
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	@Transactional(readOnly = false)
+	public void save(T t) {
+		try {
+			baseDao.save(t);
+		} catch (Exception ex) {
+			log.error(ex.toString());
+		}
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 更新一条记录
+	 * </pre>
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	@Transactional(readOnly = false)
+	public void update(T t) {
+		try {
+			baseDao.update(t);
+		} catch (Exception ex) {
+			log.error(ex.toString());
+		}
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 查询所有记录,附带参数,参数要严格相等
+	 * </pre>
+	 * 
+	 * @param cls
+	 *            实体类
+	 * @param map
+	 *            参数列表
+	 * @return
+	 */
+	public List<T> getAll(Class<T> cls, final Map map) {
+		try {
+			return baseDao.getAll(cls, map);
+		} catch (Exception ex) {
+			log.error(ex.toString());
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 查询所有记录,附带参数并排序,参数可模糊匹配
+	 * </pre>
+	 * 
+	 * @param cls
+	 *            实体类名
+	 * @param mapString
+	 *            字符串参数列表
+	 * @param mapByte
+	 *            字字节型参数列表
+	 * @param mapInt
+	 *            整形参数列表
+	 * @param mapLong
+	 *            Long型参数列表
+	 * @param page
+	 *            当前第几页
+	 * @param rows
+	 *            每页显示数目
+	 * @param sort
+	 *            按某字段排序
+	 * @param order
+	 *            升/降序
+	 * @return
+	 */
+	public Map<String, Object> getAll(Class<T> cls,
+			final Map<String, String> mapString,
+			final Map<String, Byte> mapByte, final Map<String, Integer> mapInt,
+			final Map<String, Long> mapLong, Integer page, Integer rows,
+			String sort, String order) {
+		try {
+			return baseDao.getAll(cls, mapString, mapByte, mapInt, mapLong,
+					page, rows, sort, order);
+		} catch (Exception ex) {
+			log.error(ex.toString());
+			return null;
+		}
+	}
+	
+
+}

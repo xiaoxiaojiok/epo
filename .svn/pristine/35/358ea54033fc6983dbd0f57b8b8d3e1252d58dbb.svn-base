@@ -1,0 +1,56 @@
+﻿@charset "utf-8";
+@import url(button.css);/*按钮样式*/
+
+
+.album_right{float:left;width:725px;background:#fff;padding:5px;min-height:649px;_height:649px;border-radius:0 6px 6px 0;}
+/*.wrap{width:935px;}*/
+.album_box{background:#fff;margin:10px 0;border:1px solid #ccc;border-radius:6px;min-height:500px;_height:500px;}
+.album_upload_box{width:725px;background:#fff;margin:20px auto;border-radius:6px}
+.album_title{border-bottom:1px solid #ccc;padding:5px 8px;line-height:27px;font-size:18px;font-weight:normal;}
+.album_title a:link,.album_title a:visited{color:#666}
+
+.m_1{margin-top:1px;}
+.album_no{background:url(../images/no_album.jpg) no-repeat center 50px;padding-top:250px;text-align:center;padding-bottom:100px;}
+.album_pic_no{background:url(../images/album_bg.jpg) no-repeat center 50px;padding-top:250px;text-align:center;padding-bottom:100px;}
+.album_list{padding-top:20px;background:#fff}
+.album_list li{float:left;width:168px;text-align:center;margin-left:35px;height:210px;_margin-left:30px;}
+.album_list li img{display:block;background:url(../images/album_bg.jpg) no-repeat;padding:13px 17px 8px 11px;overflow:hidden;text-align:left }
+.album_list li img{width:134px;height:134px;}
+
+.album_pic_list{padding-top:20px;}
+.album_pic_list li{float:left;border:1px solid #eee;padding:5px;margin-left:15px;*margin-left:12px;line-height:18px;margin-bottom:10px;color:#999;width:180px}
+.album_pic_list li img{;margin-bottom:5px;width:180px;}
+.album_pic_list li h3{font-size:14px;font-weight:bold;display:block;line-height:25px;}
+.album_pic_list li p{color:#666;line-height:200%;border-top:1px solid #F6F6F6;margin-top:5px;}
+.album_pic_list li p span{float:right;color:#aaa}
+
+.back_album{background:url(../images/button.gif) no-repeat -226px -110px;line-height:25px;height:25px;width:70px;text-indent:-999em;display:inline-block;text-align:left;}
+.back_album:hover{background:url(../images/button.gif) no-repeat -226px -135px;}
+.album_box_title{text-align:right;background:#EDEDED;padding:3px 8px;}
+.album_box_title .order{background:url(../images/button.gif) no-repeat -81px -55px;font-weight:bold;text-decoration:none;width:68px;height:24px;display:inline-block;text-align:center;line-height:24px;color:#666}
+.album_box_title .order:hover{background:url(../images/button.gif) no-repeat -81px -79px;color:#333}
+
+.album_tip_box {padding:0 20px 20px;}
+.album_tip_box p{text-aligN:center;font-size:20px;line-height:300%;color:#f40}
+.del_album{background:url(../images/button.gif) no-repeat -313px -109px;line-height:22px;height:22px;width:67px;text-indent:-999em;display:inline-block;text-align:left;}
+.del_album:hover{background:url(../images/button.gif) no-repeat -313px -132px;}
+.sub_add_ms{background:url(../images/sub_album.jpg) no-repeat left center;width:92px;height:27px;display:inline-block;text-indent:-999em;}
+.sub_add_pcs{background:url(../images/sub_album.jpg) no-repeat right center;width:92px;height:27px;display:inline-block;text-indent:-999em;}
+
+.ico_album{background:url(../images/post_ico.jpg) no-repeat left -28px;padding-left:20px;}
+
+.set_album_pic{background:url(../images/real.gif) no-repeat left center;display:inline-block;width:23px;text-indent:-999em;text-align:left}
+a.del_album_pic{background:url(../images/ico_del.jpg) no-repeat left center;display:inline-block;width:15px;text-indent:-999em;text-align:left}
+
+
+
+
+
+
+
+
+
+
+
+
+

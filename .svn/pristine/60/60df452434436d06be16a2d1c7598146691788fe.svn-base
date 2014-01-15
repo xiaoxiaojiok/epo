@@ -1,0 +1,130 @@
+function permQuery(){
+	var menuName = $("#sear_menuName").val();
+	$("#dg").datagrid("load", {menuName: menuName});
+}
+
+function del(id){
+	base.confirm("您确定要删除此权限吗?",'',function(){
+		base.request("/permission/delete","ids=" + id,function(result){
+				if(result == "success"){
+					base.tips("删除成功!",'success',1500);
+					setTimeout(function(){
+						$("#dg").datagrid("reload");
+					},2000);
+				}else{
+					base.tips("出现未知异常，操作失败!",'error');
+				}
+		},"POST","HTML");
+	});
+}
+
+function delMore(){
+	var mrow = $("#dg").datagrid("getSelections");
+	var ids = [];
+	if(mrow.length>0){
+		for(var i = 0;i<mrow.length;i++){
+			 ids.push(mrow[i].id);
+		}
+		del(ids);
+	}else{
+		$.messager.alert('提示','请选择您要删除的记录','warning');
+	}
+}
+
+function edit(i){
+	base.forward("/permission/edit/"+i);
+}
+
+function save(){
+	if(checkForms()){
+		base.processStatus(1,'save','process');
+		base.formSubmit("/permission/save",function(result){
+				if(result == "success"){
+					base.tips("操作成功",'success',1500);
+					setTimeout(function(){
+						base.forward("/permission/index");
+					},2000);
+				}else{
+					base.tips("出现未知异常，操作失败!",'error');
+				}
+				base.processStatus(0,'save','process');
+		},"permissionForm");
+	}else{
+		base.tips("请完善权限信息!",'warning',1500);
+	}
+}
+
+function menuChange()
+{
+	var varPermType = $("#permType").val();
+	if(varPermType =='undefined' || varPermType =='0' || varPermType =='1')
+	{
+		$("#permValue").attr("value",'');
+	}
+	if(varPermType =='-1')
+	{
+		$("#permValue").attr("value",$("#menuId option:selected").val());
+	}
+}
+
+function checkPermValue(){
+	var values =$("#permValue").val();
+	var id = $("#id").val();
+	var oldvalue =$("#oldpvalue").val();
+	if(id!="" && values == oldvalue){
+		return ;
+	}
+	if(values==""){
+		$("#tipvalue").html("权限值不能为空");
+		$("#permValue").focus();
+		return ;
+	}else{
+		base.request(
+				'/permission/checkValue',
+				'permValue='+encodeURI($("#permValue").val(),"utf-8"),
+				function(msg){
+					if(msg == "false"){
+						$("#tipvalue").html("此权限值已经存在");
+						$("#permValue").focus();
+					} else{
+						$("#tipvalue").html("");
+					}
+				},
+				'POST',
+				'HTML'
+		);
+	}
+}
+
+
+function checkForms(){
+	checkss('permName');
+	checkss('permType');
+	checkss('permValue');
+	if($("#tipone").html()=="" && $("#tiptwo").html()=="" && $("#tipvalue").html()==""){  
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function checkss(id){
+	if(id=='permName'){
+		var permName = $("#permName").val();
+		if(permName==""){
+			$("#tipone").html("权限名称不能为空！");
+			$("#permName").focus();
+		}else{
+			$("#tipone").html("");
+		}
+	}else if(id=='permType'){
+		var permType = $("#permType").val();
+		if(permType==0){
+			$("#tiptwo").html("请选择权限类型！");
+		}else{
+			$("#tiptwo").html("");
+		}		
+	}else if(id=='permValue'){
+		checkPermValue();
+	}	
+}

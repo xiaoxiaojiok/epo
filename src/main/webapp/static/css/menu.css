@@ -1,0 +1,17 @@
+body{margin:0; padding:0 ;background:#DBF5FA; width:200px; overflow:hidden;}
+#menu{position:absolute; width:220px;}
+#menu h1{cursor:pointer; color:#fff; font-size:14px; font-weight:bold;text-indent:2em; background-color:#53ceea; border-bottom:1px solid #fff; margin:0; height:30px; display:block;  line-height:250%;}
+#menu h1:link, #menu h1:visited{color:#fff; text-decoration:none;}
+#menu h1:hover{background-color:#0e677b;}
+#menu h1 a:link, #menu h1 a:visited{color:#fff; text-decoration:none; display:block; line-height:250%}
+#menu h1 a:hover{background-color:#0e677b;}
+#menu h2{cursor:pointer; color:#000; font-size:14px; font-weight:normal; text-indent:2.5em; background-color:#A9E6F4; border-bottom:1px solid #fff; margin:0; height:30px; display:block;  line-height:250%;}
+#menu h2:link, #menu h2:visited{color:#000; text-decoration:none;}
+#menu h2:hover{background-color:#FFF;}
+#menu h2 a:link, #menu h2 a:visited{color:#000; text-decoration:none; display:block; line-height:250%}
+#menu h2 a:hover{background-color:#FFF;}
+#menu ul{background:#e8e8e8; margin:0; padding:0; list-style:none}
+#menu ul li{ line-height:250%; font-size:12px; color:#14508f; margin:0; padding:0; text-indent:65px; display:block; line-height:250%; border-bottom:1px solid #fff}
+#menu ul li a:link, #menu ul li a:visited{color:#000; text-decoration:none; display:block; line-height:250%}
+#menu ul li a:hover{background-color:#dedede; border-left:2px solid #0e677b; border-right:2px solid #0e677b; text-indent:63px;}
+.no{display:none;}

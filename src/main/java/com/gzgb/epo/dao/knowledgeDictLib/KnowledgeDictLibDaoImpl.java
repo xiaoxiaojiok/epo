@@ -1,0 +1,118 @@
+package com.gzgb.epo.dao.knowledgeDictLib;
+import java.util.Collection;
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.QueryException;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
+
+import com.gzgb.epo.dao.base.BaseDaoImpl;
+import com.gzgb.epo.entity.KnowledgeDictLib;
+
+/**
+ * 
+ * <pre>
+ * 词库管理DAOImpl
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-01-01
+ */
+@Repository
+public class KnowledgeDictLibDaoImpl extends BaseDaoImpl<KnowledgeDictLib> implements KnowledgeDictLibDao{
+	
+	/**
+	 * 
+	 * <pre>
+	 * 通过parentId找出子级词库
+	 * </pre>
+	 * 
+	 * @param parentId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<KnowledgeDictLib> findAllChildrenLibByPid(Long parentId){
+		if(parentId <= 0)
+			return null;
+		try{
+			KnowledgeDictLib parent = findById(parentId, KnowledgeDictLib.class);
+			Criteria criteria = getSession().createCriteria(KnowledgeDictLib.class);
+			Collection<KnowledgeDictLib> collection = criteria.add(Restrictions.eq("kdlParentId", parent)).list();
+			return collection;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 找出一级词库的数量
+	 * </pre>
+	 * 
+	 * @param parentId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public int getCountOfLib() throws QueryException{
+		try{
+			Criteria criteria = getSession().createCriteria(KnowledgeDictLib.class);
+			criteria.add(Restrictions.eq("kdlLevel", 1));
+			return criteria.list().size();
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据级别找出词库List
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<KnowledgeDictLib> getLibByLevel(int level) throws QueryException{
+		try {
+			Criteria criteria = getSession().createCriteria(KnowledgeDictLib.class);
+			criteria.add(Restrictions.eq("kdlLevel", level));
+			return criteria.list();	
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据词库的名字查找词库
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public KnowledgeDictLib findByName(String kdlName) throws QueryException{
+		try {
+			Criteria criteria = getSession().createCriteria(KnowledgeDictLib.class);
+			criteria.add(Restrictions.eq("kdlName", kdlName));
+			List<KnowledgeDictLib> list = criteria.list();
+			if(list.size() == 0){
+				return null;
+			}	
+			return list.get(0);	
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	
+}

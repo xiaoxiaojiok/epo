@@ -1,0 +1,118 @@
+body{font-family: Microsoft Yahei, Verdana, Geneva, sans-serif; color: #333;font-size:12px; background:url(../images/page_bg2.png) repeat; margin:0px;padding:0px;overflow:hidden;}
+
+.top {width:100%; height:40px;  background:#A9E6F4 url(../images/page_bg1.jpg) repeat-x;}
+.middle {width:100%; height:100%;}
+.bottom {width:100%; height:40px;  background:#A9E6F4; position:absolute; bottom:0;}
+.clear{clear:both}
+.logo_yun{width:119px ;height:67px; margin:20px; float:left;}
+.splitline{width:1px ;height:67px; margin:20px 0; border-left:1px solid #8BAF20; float:left;}
+.logo_ecs{width:250px ;height:67px; margin:20px 0 20px 20px; float:left;}
+.logo_ecs .cname{width:500px ;height:42px; font-size:30px; color:#444; line-height:42px;}
+.logo_ecs .ename{width:187px ;height:25px; font-size:14px; color:#aaa; line-height:25px;}
+.hotline{width:220px; height:85px; text-align:left; line-height:21px; color:#666; float:left; padding:22px 0 0 30px;}
+.logo_sys{width:200px ;height:107px; margin:0; float:left;}
+.info{width:450px ;height:107px; position:absolute; top:0; right:0;}
+.school{height:45px; margin:10px 30px; float:right; vertical-align:middle; font-size:16px; font-family:Microsoft Yahei;}
+.school_logo{vertical-align:middle; margin-right:10px;}
+.user_info{height:20px; margin:10px 30px 0 0; float:right; font-weight:bold; font-size:14px; font-family:Microsoft Yahei;}
+
+.banner1 {width:100%; height:40px; background:#0090B9;}
+.menu_a { width:250px; font-size:14px; font-family:Microsoft Yahei; font-weight:bold; padding:10px 20px; color:#FFF; float:left; }
+.menu_a a{color:#FFF;text-decoration:none; }
+.menu_b{width:370px ;height:40px;  position:absolute; top:107; right:0;}
+.time{margin:12px; float:left; color:#fff;}
+.ico_b{margin:5px 5px 0 5px; float:left;}
+
+.onMShow{float:left;width:100px;height:20px; font-size:14px; font-family:Microsoft Yahei; font-weight:bold; padding:10px 20px; color:#FFF; cursor:pointer; }
+.dingUnitSchoolSelector{float:left;width:400px;height:25px; font-size:14px; font-family:Microsoft Yahei; font-weight:bold; padding:0px 6px; color:#FFF; cursor:pointer; }
+#buttons {display:none; position:absolute; top:0; left:296px; background:url(../images/button_bg.png) no-repeat; width:780px; height:125px; z-index:10000;} 
+#buttons a{width:90px; height:19px; padding-top:77px; margin:7px 0 30px 10px; float:left; text-decoration:none; color:#FFF; text-align:center}
+
+.button01 a{background:url(../images/ico_01_1.png) no-repeat;}
+.button01 a:hover{background:url(../images/ico_01_2.png) no-repeat; }
+.button01 a.noclick{background:url(../images/ico_01_3.png) no-repeat; }
+
+.button02 a{background:url(../images/ico_02_1.png) no-repeat;}
+.button02 a:hover{background:url(../images/ico_02_2.png) no-repeat; }
+.button02 a.noclick{background:url(../images/ico_02_3.png) no-repeat; }
+
+.button03 a{background:url(../images/ico_03_1.png) no-repeat;}
+.button03 a:hover{background:url(../images/ico_03_2.png) no-repeat; }
+.button03 a.noclick{background:url(../images/ico_03_3.png) no-repeat; }
+
+.button04 a{background:url(../images/ico_04_1.png) no-repeat; }
+.button04 a:hover{background:url(../images/ico_04_2.png) no-repeat; }
+.button04 a.noclick{background:url(../images/ico_04_3.png) no-repeat; }
+
+.button05 a{background:url(../images/ico_05_1.png) no-repeat; }
+.button05 a:hover{background:url(../images/ico_05_2.png) no-repeat; }
+.button05 a.noclick{background:url(../images/ico_05_3.png) no-repeat; }
+
+.button06 a{background:url(../images/ico_06_1.png) no-repeat;}
+.button06 a:hover{background:url(../images/ico_06_2.png) no-repeat; }
+.button06 a.noclick{background:url(../images/ico_06_3.png) no-repeat; }
+
+.button07 a{background:url(../images/ico_07_1.png) no-repeat; }
+.button07 a:hover{background:url(../images/ico_07_2.png) no-repeat; }
+.button07 a.noclick{background:url(../images/ico_07_3.png) no-repeat; }
+
+.button08 a{background:url(../images/ico_08_1.png) no-repeat;}
+.button08 a:hover{background:url(../images/ico_08_2.png) no-repeat; }
+.button08 a.noclick{background:url(../images/ico_08_3.png) no-repeat; }
+
+.button09 a{background:url(../images/ico_09_1.png) no-repeat;}
+.button09 a:hover{background:url(../images/ico_09_2.png) no-repeat; }
+.button09 a.noclick{background:url(../images/ico_09_3.png) no-repeat; }
+
+.button10 a{background:url(../images/ico_10_1.png) no-repeat;}
+.button10 a:hover{background:url(../images/ico_10_2.png) no-repeat; }
+.button10 a.noclick{background:url(../images/ico_10_3.png) no-repeat; }
+
+.button11 a{background:url(../images/ico_11_1.png) no-repeat; }
+.button11 a:hover{background:url(../images/ico_11_2.png) no-repeat; }
+.button11 a.noclick{background:url(../images/ico_11_3.png) no-repeat; }
+
+.button12 a{background:url(../images/ico_12_1.png) no-repeat; }
+.button12 a:hover{background:url(../images/ico_12_2.png) no-repeat; }
+.button12 a.noclick{background:url(../images/ico_12_3.png) no-repeat; }
+
+.button13 a{background:url(../images/ico_13_1.png) no-repeat;}
+.button13 a:hover{background:url(../images/ico_13_2.png) no-repeat; }
+.button13 a.noclick{background:url(../images/ico_13_3.png) no-repeat; }
+
+.button14 a{background:url(../images/ico_14_1.png) no-repeat; }
+.button14 a:hover{background:url(../images/ico_14_2.png) no-repeat; }
+.button14 a.noclick{background:url(../images/ico_14_3.png) no-repeat; }
+
+.button15 a{background:url(../images/ico_15_1.png) no-repeat;}
+.button15 a:hover{background:url(../images/ico_15_2.png) no-repeat; }
+.button15 a.noclick{background:url(../images/ico_15_3.png) no-repeat; }
+
+.button16 a{background:url(../images/ico_16_1.png) no-repeat; }
+.button16 a:hover{background:url(../images/ico_16_2.png) no-repeat; }
+.button16 a.noclick{background:url(../images/ico_16_3.png) no-repeat; }
+
+.button17 a{background:url(../images/ico_17_1.png) no-repeat; }
+.button17 a:hover{background:url(../images/ico_17_2.png) no-repeat; }
+.button17 a.noclick{background:url(../images/ico_17_3.png) no-repeat; }
+
+.button18 a{background:url(../images/ico_18_1.png) no-repeat; }
+.button18 a:hover{background:url(../images/ico_18_2.png) no-repeat; }
+.button18 a.noclick{background:url(../images/ico_18_3.png) no-repeat; }
+
+.main{width:100%x; height:auto; min-height:500px; overflow: hidden; background: url(../images/iframe_bg.jpg) no-repeat right bottom ;}
+
+
+.banner2 {width:100%; height:40px; background:#0090B9; position:absolute; bottom:40px;}
+.menu_c {font-size:14px; font-family:Microsoft Yahei; padding:10px 30px; color:#fff; float:left; }
+.menu_c a{color:#fff;text-decoration:none; }
+.menu_c span{ color:#FF3}
+
+.copyright{padding: 9px; text-align:center; line-height:20px; color:#666; background:#fcfcfc;}
+.copyright img{vertical-align:middle; margin-right:10px; margin-bottom:2px;}
+
+
+#header{position:absolute;top:0px;left:0px;height:107px;width:100%;}
+#footer{width:100%;height:80px;position:absolute;bottom:0px;left:0px;}
+
+frame{border:0}

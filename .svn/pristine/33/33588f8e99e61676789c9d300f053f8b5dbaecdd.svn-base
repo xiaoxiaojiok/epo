@@ -1,0 +1,244 @@
+@charset "utf-8";
+/* CSS Document */
+
+/***** 全局 *****/
+body{ width:100%; margin:0; text-align:center; font-family:Microsoft YaHei,SimSun,Arial,Helvetica,San-serif; font-size:12px; color:#333;}
+a{ color:#333; text-decoration:none; margin:0; padding:0;}
+a:hover{ text-decoration:none;}
+a img{ border:0;}
+.fl{ float:left;}
+.fr{ float:right;}
+
+/***** 登录页 *****/
+.login{ width:426px; height:371px; background:url(../../images/view/login_bg.jpg) no-repeat; margin:20px auto 0; padding:200px 0 0 560px; text-align:left;}
+.login .name{ font-size:14px; color:#036; margin:0; padding:7px 0;}
+.login .name input{ width:195px; height:24px; line-height:24px; border:1px solid #036; padding:0 5px; vertical-align:middle;}
+.login .code{ font-size:14px; color:#036; margin:0; padding:7px 0;}
+.login .code input{ width:90px; height:24px; line-height:24px; border:1px solid #036; padding:0 5px; vertical-align:middle;}
+.login .code img{ padding:0 0 0 30px; vertical-align:middle;}
+.login .submit{ margin:0; padding:18px 0 0 55px;}
+.login .submit input{ width:200px; height:60px; border:none; background:url(../../images/view/login.png); cursor:pointer;}
+.login .error{ margin:0; padding:15px 0 0 30px; color:#f00;}
+.login .tips{ width:250px; line-height:18px; margin:0; padding:10px 0 0 30px; text-indent:-2em;}
+.login .tips span{ color:#f00;}
+.copy{ width:100%; height:80px;line-height:20px; margin:0 auto; padding:5px 0 0 0; color:#f60;}
+
+/***** 头部、中部、底部 布局 *****/
+.header{ width:100%; height:304px; background:url(../../images/view/header_bg.png) repeat-x;}
+.top{ width:980px; height:304px; background:url(../../images/view/top.jpg) no-repeat; margin:auto; position:relative;}
+.nav{ width:575px; height:88px; padding:212px 0 0 165px; float:left;}
+.nav a{ width:156px; height:88px; line-height:22px; background:url(../../images/view/nav.png); display:block; float:left; margin:0 3px; font-size:18px; cursor:pointer;}
+.nav a:hover{ color:#F30;}
+.nav a table{ width:156px; height:82px; vertical-align:middle; text-align:center;}
+.nav_sh{ width:100%; height:63px; position:absolute; top:299px; left:0; z-index:999; font-size:14px; color:#f30; overflow:hidden; display:none; text-align:center;}
+.nav_sh iframe{ position:absolute; width:980px; height:63px; z-index:-1;}
+.nav_sh span{ width:980px; height:50px; line-height:50px; padding:13px 0 0 0; display:block; margin:auto;}
+#nav2 span{ background:url(../../images/view/nav2.png) no-repeat;}
+#nav3 span{ background:url(../../images/view/nav3.png) no-repeat;}
+.nav_sh a{ margin:0 8px; color:#f30;}
+.nav_sh a:hover{ font-weight:bold;}
+
+.user{ width:240px; height:88px; background:url(../../images/view/user.png); float:right; margin:212px 0 0 0; font-size:12px;}
+.user .face{ width:62px; height:62px; float:left; padding:12px 5px 12px 12px;}
+.user .face img{ width:60px; height:60px; border:1px solid #ff0;}
+.user .info{ width:150px; height:60px; line-height:20px; overflow:hidden; float:left; margin:13px 0; text-align:left; }
+.user .info a{ color:#930; }
+.user .info a:hover{ color:#333; }
+
+.content{ width:980px; height:auto; overflow:hidden; margin:0 auto; padding:8px 0 0 0;}
+
+.footer{ width:100%; height:80px;line-height:20px; margin:0 auto; padding:15px 0 0 0; background:#689F1F; color:#fff;}
+.footer a{ color:#fff;}
+.footer a:hover{ text-decoration:underline;}
+
+/***** 首页 *****/
+.box_t{ width:980px; height:10px; background:url(../../images/view/box_t.png) no-repeat; overflow:hidden;}
+.box_m{ width:920px; height:auto; background:url(../../images/view/box_m.png) repeat-y; overflow:hidden; font-size:14px; padding:0 30px;}
+.box_b{ width:980px; height:10px; background:url(../../images/view/box_b.png) no-repeat; overflow:hidden; margin:0 0 8px 0;}
+
+.grade{ width:720px; height:30px; line-height:30px; float:left; text-align:left;}
+.term{ width:200px; height:30px; float:left; text-align:right;}
+.term select{ height:26px; background:#C8F2FF; font-family:"微软雅黑"; border:1px solid #689F1F; vertical-align:middle; margin:2px;}
+.assess{ height:630px; background:url(../../images/view/assess.jpg) no-repeat 20px bottom;}
+.result{ height:740px; background:url(../../images/view/result.jpg) no-repeat 280px bottom;}
+
+.box_title{ line-height:25px; font-size:20px; font-weight:bold; color:#f30; padding:20px 0;}
+.box_title span{ font-size:14px; color:#666;}
+.h150{ height:150px; cursor:pointer;}
+.list_box{ width:450px; height:auto; overflow:hidden; margin:0 0 20px 0;}
+.list_t{ width:450px; height:10px; background:url(../../images/view/list_t.png) no-repeat; overflow:hidden;}
+.list_m{ width:450px; background:url(../../images/view/list_m.png) repeat-y; overflow:hidden;}
+.list_b{ width:450px; height:10px; background:url(../../images/view/list_b.png) no-repeat; overflow:hidden;}
+.list_title{ font-size:16px; font-weight:bold; margin:3px 0;}
+.list_to{ margin:0 25px; text-align:left; line-height:20px; font-size:14px;}
+.list_text{ margin:0 25px; text-align:left; line-height:20px; font-size:14px; text-indent:2em;}
+.list_from{ margin:0 25px; text-align:right; line-height:20px; font-size:14px;}
+.rank{ width:400px; border-top:1px solid #f90; border-left:1px solid #f90; margin:8px auto;}
+.rank th{ height:28px; border-right:1px solid #f90; border-bottom:1px solid #f90; background:#FCE5CB;}
+.rank td{ height:25px; border-right:1px solid #f90; border-bottom:1px solid #f90;}
+.rank td span{ font-weight:bold; color:#f30;}
+
+.eject{ width:100%; background:url(../../images/view/hyaline.png); position:absolute; top:0; left:0; display:none;}
+.frame{ width:800px; height:auto; overflow:auto; margin:400px auto 0; overflow:hidden;}
+.frame_t{ width:800px; height:40px; background:url(../../images/view/frame_t.png) no-repeat;}
+.frame_t a{ width:30px; height:30px; margin:10px 10px 0 0; background:url(../../images/view/frame_c.png) no-repeat; display:block; float:right; cursor:pointer;}
+.frame_t a:hover{ background:url(../../images/view/frame_ch.png) no-repeat;}
+.frame_m{ width:800px; height:auto; background:url(../../images/view/frame_m.png) repeat-y; overflow:hidden; padding:0 0 10px 0; min-height:300px;}
+.frame_b{ width:800px; height:12px; background:url(../../images/view/frame_b.png) no-repeat;}
+
+/***** 内页 *****/
+.page_t{ width:920px; height:150px; padding:0 30px;}
+.page_m{ width:980px; height:auto; overflow:hidden; background:url(../../images/view/page_m.jpg) repeat-y;}
+.page_b{ width:980px; height:255px; background:url(../../images/view/page_b.jpg) no-repeat; margin:0 0 8px 0;}
+.top_01{ background:url(../../images/view/page_t_01.jpg) no-repeat;}
+.top_02{ background:url(../../images/view/page_t_02.jpg) no-repeat;}
+.top_03{ background:url(../../images/view/page_t_03.jpg) no-repeat;}
+.top_04{ background:url(../../images/view/page_t_04.jpg) no-repeat;}
+.top_05{ background:url(../../images/view/page_t_05.jpg) no-repeat;}
+.top_06{ background:url(../../images/view/page_t_06.jpg) no-repeat;}
+.top_07{ background:url(../../images/view/page_t_07.jpg) no-repeat;}
+.top_08{ background:url(../../images/view/page_t_08.jpg) no-repeat;}
+.top_09{ background:url(../../images/view/page_t_09.jpg) no-repeat;}
+.top_10{ background:url(../../images/view/page_t_10.jpg) no-repeat;}
+.top_11{ background:url(../../images/view/page_t_11.jpg) no-repeat;}
+
+.page_t span{ width:760px; height:40px; display:block; padding:30px 0 0 80px; font-size:30px; color:#f30; float:left; text-align:center;}
+.page_t input{ width:80px; height:30px; display:block; margin:35px 0 0 0; border:none; cursor:pointer; float:right;}
+.edits1,.add1{ background:url(../../images/view/edit.png) no-repeat}
+.edits2,.add2{ background:url(../../images/view/back.png) no-repeat}
+
+/**学期感言**/
+.summary #text1{ width:830px; height:auto; overflow:hidden; font:normal 16px/25px "微软雅黑"; padding:0; margin:0 auto; text-align:left;}
+.summary #text2 textarea{ width:830px; height:200px; overflow-y:scroll; font:normal 16px/25px "微软雅黑"; padding:0; margin:0 auto;}
+.summary #text2 p{ margin:10px;}
+.summary #text2 input{width:80px; height:30px; font:normal 14px "微软雅黑"; cursor:pointer;}
+
+/**个人信息**/
+.my_info{ width:auto; height:auto; overflow:hidden; margin:0 60px 20px; padding:0 0 20px 0; font-size:16px; color:#f63; border-bottom:1px solid #aaa;}
+.my_info .photo{ width:158px; height:158px; float:left;}
+.my_info .photo img{ width:150px; height:150px; padding:3px; border:1px solid #aaa;}
+.my_info .name{ width:860px; height:auto; overflow:hidden; text-align:left;}
+.my_info .name .w180{ width:180px; height:30px; line-height:30px; margin:0 0 2px 20px; float:left;}
+.my_info .name .w270{ width:270px; height:30px; line-height:30px; margin:0 0 2px 20px; float:left;}
+.my_info .name .w400{ width:400px; height:30px; line-height:30px; margin:0 0 2px 20px; float:left;}
+.my_info .name .w600{ width:600px; height:30px; line-height:30px; margin:0 0 2px 20px; float:left;}
+.my_info .name div .text{ margin:0 5px; color:#333;}
+.my_info .name div .gray{ color:#999;}
+.my_info .name div input{ width:120px; font:normal 16px/22px "微软雅黑";}
+.my_info .name .w30{ width:30px; text-align:center;}
+.my_info .name .w50{ width:50px; text-align:center;}
+.my_info .name .w150{ width:150px; text-align:center;}
+.my_info .name .w500{ width:500px;}
+.my_info #name2 div input{ border:1px solid #aaa; }
+.my_info #name2 .file{ clear:both; padding:10px 0; margin:0;}
+.my_info #name2 .file input{width:158px; height:28px; font:normal 14px "微软雅黑"; cursor:pointer; background:url(../../images/view/butn.png); border:none;}
+
+.my_info .title{ width:860px; height:50px;}
+.my_info .title span{ width:700px; height:40px; display:block; padding:0 0 0 80px; font-size:20px; font-weight:bold; color:#333; float:left; text-align:center;}
+.my_info .title input{ width:80px; height:30px; display:block; margin:5px 0 0 0; border:none; cursor:pointer; float:right;}
+
+.my_people{ width:auto; height:auto; overflow:hidden; margin:0 60px 20px; padding:0 0 20px 0; font-size:16px; color:#f63;}
+.my_people .title{ width:860px; height:50px;}
+.my_people .title span{ width:700px; height:40px; display:block; padding:0 0 0 80px; font-size:20px; font-weight:bold; color:#333; float:left; text-align:center;}
+.my_people .title input{ width:80px; height:30px; display:block; margin:5px 0 0 0; border:none; cursor:pointer; float:right;}
+
+.my_family{ width:860px; border-left:1px solid #690; border-top:1px solid #690;}
+.my_family th{ height:35px; font-weight:normal; border-right:1px solid #690; border-bottom:1px solid #690; background:#E5F4D5;}
+.my_family td{ height:30px; font-weight:normal; border-right:1px solid #690; border-bottom:1px solid #690; color:#333;}
+.my_family input{ width:95%; height:20px; border:1px solid #aaa; font:normal 16px "微软雅黑"}
+
+.save{ clear:both; margin:10px;  text-align:center;}
+.save input{width:80px; height:30px; font:normal 14px "微软雅黑"; cursor:pointer;}
+
+/**修改密码**/
+.pass_l{ width:380px; height:auto; overflow:hidden; line-height:25px; padding:0 50px 0 60px; float:left; text-align:right; border-right:1px solid #666; font-size:14px;}
+.pass_r{ width:380px; height:auto; overflow:hidden; line-height:25px; padding:0 0 0 50px; float:left; text-align:left; font-size:14px; color:#666;}
+.pass_l span,.pass_r span{ font-weight:bold; color:#F60; line-height:25px;}
+.pass_l p{ padding:0; margin:7px 0;}
+.pass_l input{ width:153px; height:20px; line-height:20px; vertical-align:middle; border:1px solid #aaa;}
+.pass_l .submit{ padding:0; margin:10px 0;}
+.pass_l .submit input{ width:155px; height:30px; line-height:30px; background:url(../../images/view/submit.png); border:none; font:normal 14px "微软雅黑"; color:#fff; cursor:pointer;}
+
+/**我的老师**/
+.teacher{ width:860px; border-left:1px solid #690; border-top:1px solid #690; text-align:center;}
+.teacher th{ height:35px; font-weight:normal; border-right:1px solid #690; border-bottom:1px solid #690; background:#E5F4D5;}
+.teacher td{ height:30px; font-weight:normal; border-right:1px solid #690; border-bottom:1px solid #690; color:#333;}
+.teacher span{ color:#999; padding:0 0 0 5px;}
+.teacher input{ width:95%; height:20px; border:1px solid #aaa; font:normal 16px "微软雅黑"}
+
+/**我的同学**/
+.classmate{ width:152px; height:184px; padding:0 2px 0 0; background:url(../../images/view/mate.png); font-size:16px; float:left; margin:0 8px 20px 8px;}
+.classmate a{ display:block;}
+.classmate a:hover{ color:#060;}
+.classmate .from{ font-size:14px; color:#999;}
+.classmate img{ width:100px; height:100px; padding:3px; border:1px solid #aaa; margin:20px auto 2px;}
+
+.page_num{ width:100%; height:40px; line-height:40px; clear:both; color:#333;}
+.page_num a{ font-size:14px; padding:2px 7px; margin:2px; border:1px solid #666; color:#666;}
+.page_num a:hover{ border:1px solid #060; color:#060;}
+.page_num a.current{ border:1px solid #060; color:#060; background:#C3D9A0; cursor:default;}
+
+/**我的作业、我的成绩、我的作习、我的荣誉**/
+.homework{ width:860px; border-left:1px solid #690; border-top:1px solid #690; text-align:center;}
+.homework th{ height:35px; font-weight:normal; border-right:1px solid #690; border-bottom:1px solid #690; background:#E5F4D5;}
+.homework td{ height:30px; font-weight:normal; border-right:1px solid #690; border-bottom:1px solid #690; color:#333;}
+.homework span{ color:#999; padding:0 0 0 5px;}
+.homework .text{ width:95%; height:20px; border:1px solid #aaa; font:normal 16px "微软雅黑";}
+.homework .button{ width:70px; height:26px; cursor:pointer; font:normal 14px "微软雅黑";}
+
+.homework .shw{ margin:0; cursor:pointer; vertical-align:middle;}
+.homework .bhw{ display:none; position:absolute; top:0; left:0; margin:auto; cursor:pointer; text-align:center;}
+.homework .bhw img{ max-width:800px; max-height:2000px; _width:800px; padding:5px; background:#fff; border:1px solid #aaa; margin:400px auto 0;}
+
+.homework .score{ width:40%; height:20px; border:1px solid #aaa; font:normal 16px "微软雅黑";}
+.homework .level{ width:95%; height:24px; border:1px solid #aaa; font:normal 16px "微软雅黑";}
+.homework .texta{ width:95%; border:1px solid #aaa; font:normal 16px "微软雅黑";}
+
+.pick{ height:auto; margin:0 0 15px 60px; font-size:16px; color:#060; text-align:left;}
+.pick .hwname{ width:180px; height:22px; line-height:22px; padding:0; border:1px solid #aaa; vertical-align:middle;}
+.pick .time{ width:100px; height:22px; line-height:22px; padding:0; border:1px solid #aaa; vertical-align:middle; text-align:center;}
+.pick .submit{ width:80px; height:26px; cursor:pointer; font:normal 14px "微软雅黑"; vertical-align:middle;}
+
+.pick .tname{ width:100px; height:22px; line-height:22px; padding:0; border:1px solid #aaa; vertical-align:middle;}
+.pick .day{ width:70px; height:22px; line-height:22px; padding:0; border:1px solid #aaa; vertical-align:middle; text-align:center;}
+.pick .sort{ width:auto; height:24px; line-height:22px; padding:0; border:1px solid #aaa; vertical-align:middle; font:normal 14px "微软雅黑";}
+.pick .check{ width:50px; height:26px; cursor:pointer; font:normal 14px "微软雅黑"; vertical-align:middle;}
+
+/**我的相册**/
+.album{ width:170px; height:200px; float:left; text-align:center; font-size:14px; line-height:22px;}
+.album .b{ width:124px; height:124px; border:1px solid #aaa; margin:auto;}
+.album .b a{ width:120px; height:120px; overflow:hidden; margin:2px; display:block;}
+.album .b a img{ width:120px; height:120px;}
+.album .n{ width:126px; margin:auto;}
+.album .n input{ width:124px; height:20px; border:1px solid #aaa; font:normal 14px "微软雅黑"; text-align:center; margin:2px 0 0 0;}
+.album .n span{ width:124px; height:22px; border:1px solid #aaa; background:#eee; text-align:center; margin:2px 0 0 0; display:block;}
+.album .n a:hover{ color:#F60;}
+.album .o{ width:126px; margin:auto; color:#999;}
+
+.myphoto{ width:172px; height:210px; float:left; text-align:center; font-size:14px; line-height:22px;}
+.myphoto .b{ width:120px; height:120px; border:1px solid #aaa; margin:auto;}
+.myphoto .b a{ width:120px; height:120px; overflow:hidden; margin:0; display:block;}
+.myphoto .b a img{ width:120px; height:120px;}
+.myphoto .n{ width:122px; margin:auto;}
+.myphoto .n input{ width:120px; height:20px; border:1px solid #aaa; font:normal 14px "微软雅黑"; text-align:center; margin:2px 0 0 0;}
+.myphoto .n span{ width:120px; height:22px; border:1px solid #aaa; background:#eee; text-align:center; margin:2px 0 0 0; display:block;}
+.myphoto .n a:hover{ color:#F60;}
+.myphoto .o{ width:122px; margin:auto; color:#999;}
+.myphoto .d{ width:122px; margin:auto; color:#999; font-size:12px;}
+
+.where{ height:auto; margin:0 80px 15px 80px; padding:0 0 20px 0; font-size:16px; color:#060; border-bottom:1px solid #060;}
+.where a{ color:#f60;}
+.where a:hover{ color:#333;}
+
+.pic_view{ width:800px; height:auto; overflow:hidden; text-align:center; margin:auto;}
+.pic_view .big_pic img{ max-width:800px; max-height:2000px; _width:800px; margin:auto;}
+.pic_info{ width:760px; height:auto; overflow:hidden; background:#eee; margin:20px auto; padding:10px 20px; font-size:14px; text-align:left; line-height:25px;}
+.pic_info span{ color:#999;}
+.pic_view .next{ width:240px; height:30px; margin:20px auto;}
+.pic_view .next a{ width:100px; height:30px; line-height:28px; background:url(../../images/view/next.png); display:block; color:#fff; font-size:14px; cursor:pointer; float:left; margin:0 10px; _margin:0 8px;}
+
+
+
+
+
+

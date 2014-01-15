@@ -1,0 +1,79 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>广州广报</title>
+<link type="text/css"  href="${ctx }/static/style/css.css" rel="stylesheet"/>
+<link rel="shortcut icon" href="${ctx }/favicon.ico" />
+<script type="text/javascript" src="${ctx }/static/js/base/base.js"></script>
+<script type="text/javascript" src="${ctx}/static/easyui/jquery-1.8.0.min.js"></script>
+
+<script type="text/javascript"> 
+//注销
+function logout(url){
+	if(!confirm("您确定要注销并退出系统吗?")){
+		return;
+	}
+	window.location.href=url;
+}
+
+$(function()
+{
+//鼠标经过列表时，改变列表背景
+$(".tableListDivTable tr").live("mouseover",function()
+{	
+	$(this).addClass("act");
+});
+
+$(".tableListDivTable tr").live("mouseout",function()
+{	
+	$(this).removeClass("act");
+});
+//执行返回顶部效果
+setInterval("backToTop()",100);
+
+});
+
+//返回顶部效果
+function backToTop()
+{
+	var top = ($(window).height() - $(".backTop").height())/2 + $(document).scrollTop() +'px';
+	$(".backTop").css({top:top,display:'block'});
+}
+
+//没有数据时，用此图片覆盖
+function nonum(boxid)
+{
+	$("#"+boxid).html('<img class="nonum" src="/static/images/nonum.jpg" />');
+
+}
+
+</script>
+</head>
+<body>
+<div class="con">
+
+<!-- 返回顶部 start -->
+<div class="backTop"><a href="#top"></a></div>
+<!-- 返回顶部 end -->
+
+	<div class="topBanner">
+		<div class="topBannerLeft">广州市舆情研判中心监控管理平台</div>
+		<div class="topBannerRight">
+			<span>${loginName}</span>|
+			<span><a href="/systemManage/personalCenter">个人中心</a></span>|
+			<span><a href="#">舆情搜索</a></span>|
+			<span><a href="javascript:logout('/logout')">退出</a></span>
+		</div>
+	</div>
+
+
+
+
+</div>
+</body>
+</html>

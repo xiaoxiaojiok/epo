@@ -1,0 +1,1515 @@
+body {font:12px arial,simsun,sans-serif; text-align:left; line-height:22px; margin:0; padding:0;background:#335f86;}
+form,p,ol,ul,p,h1,h2,h3,h4,h5 {margin:0;padding:0; font-size:12px;}
+ul {list-style:none;}
+img,fieldset {border:none; display:block;}
+a:link,a:visited {text-decoration:none;color:#000;}
+a:hover {text-decoration:underline;color:#000;}
+a:active {text-decoration:none;color:#000;}
+em {font-style:normal;}
+.clear {clear:both; width:100%; overflow:hidden; line-height:0; font-size:0;}
+.left{float:left;display:inline;}
+.right{float:right;display:inline;}
+.hidden{display:none;}
+
+/*-- topBanner  css -------------------------------
+-----------------------------------------------------------*/
+.con{width:1000px;margin:0px auto;position:relative;}
+.topBanner{width:1000px;overflow:hidden;height:40px;background:#000;clear:both;}
+.topBannerLeft{width:450px;overflow:hidden;line-height:40px;float:left;display:inline;color:#fff;text-indent:15px;font-family:'方正正黑';font-size:18px;font-weight:bold;}
+.topBannerRight{width:500px;overflow:hidden;float:right;display:inline;margin-right:10px;text-align:right;line-height:40px;color:#b3b3b3;}
+.topBannerRight span{margin:0px 10px;}
+.topBannerRight span a:link,.topBannerRight span a:visited,.topBannerRight span a:hover,.topBannerRight span a:active{color:#b3b3b3;}
+
+/*-- topNav  css -------------------------------
+-----------------------------------------------------------*/
+.topNav{width:1000px;height:46px;background:url(../images/yuq_3.jpg) no-repeat left top;}
+.topNav .navDiv{width:119px;height:46px;line-height:55px;letter-spacing:0px;font-size:15px;font-family:simhei;text-align:center;background:url(../images/yuq_1.jpg) no-repeat left top;float:left;display:inline;cursor:pointer;}
+.topNav .navDiv a:link,.topNav .navDiv a:visited,.topNav .navDiv a:hover,.topNav .navDiv a:active{text-decoration:none;}
+.topNav .act{background:url(../images/yuq_2.jpg) no-repeat left top;}
+.topNav .act a:link,.topNav .act a:visited,.topNav .act a:hover,.topNav .act a:active{text-decoration:none;color:#fff;}
+
+/*-- table content  css -------------------------------
+-----------------------------------------------------------*/
+.tableContent{width:100%;clear:btoh;margin:20px auto 0px;}
+.tableContentLeft{width:166px;overflow:hidden;}
+
+.navTitle{width:166px;overflow:hidden;height:53px;line-height:48px;text-align:center;margin-top:10px;}
+.navTitle a{width:166px;overflow:hidden;height:48px;display:block;font-size:18px;font-family:simhei;letter-spacing:1px;background:url(../images/yuq_2.gif) no-repeat left top;}
+.navTitle a:link,.navTitle a:visited,.navTitle a:hover,.navTitle a:active{text-decoration:none;color:#fff;}
+.navTitle a.act{background:url(../images/yuq_1.gif) no-repeat left top;}
+.navTitle a.act:link,.navTitle a.act:visited,.navTitle a.act:hover,.navTitle a.act:active{text-decoration:none;color:#95d1fa;}
+
+.navSubTitle{width:166px;overflow:hidden;height:48px;line-height:48px;text-align:center;margin-top:0px;}
+.navSubTitle a{width:166px;overflow:hidden;height:48px;display:block;font-size:16px;font-family:simsun;letter-spacing:1px;background:url(../images/yuq_3.gif) no-repeat left top;}
+.navSubTitle a:link,.navSubTitle a:visited,.navSubTitle a:hover,.navSubTitle a:active{text-decoration:none;color:#fff;}
+.navSubTitle a.act{background:url(../images/yuq_4.gif) no-repeat left top;}
+.navSubTitle a.act:link,.navSubTitle a.act:visited,.navSubTitle a.act:hover,.navSubTitle a.act:active{text-decoration:none;color:#95d1fa;font-weight:bold;}
+
+
+.navSupTitle{width:166px;overflow:hidden;height:48px;line-height:48px;text-align:center;margin-top:0px;}
+.navSupTitle a{width:166px;overflow:hidden;height:48px;display:block;font-size:16px;font-family:simsun;letter-spacing:1px;background:url(../images/yuq_5.gif) no-repeat left top;}
+.navSupTitle a:link,.navSupTitle a:visited,.navSupTitle a:hover,.navSupTitle a:active{text-decoration:none;color:#fff;}
+.navSupTitle span{background:url(../images/yuq_4.jpg) no-repeat 0px 6px;padding-left:10px;}
+.navSupTitle a.act{background:url(../images/yuq_6.gif) no-repeat left top;}
+.navSupTitle a.act:link,.navSupTitle a.act:visited,.navSupTitle a.act:hover,.navSupTitle a.act:active{text-decoration:none;color:#95d1fa;font-weight:bold;}
+
+.tdBak{border-left:5px solid #44aff9;width:830px;overflow:hidden;background:#fff;}
+.tableContentRight{width:830px;overflow:hidden;padding-bottom:10px;}
+.currentPosition{width:830px;height:30px;line-height:30px;background:url(../images/yuq_5.jpg) repeat-x left top;color:#808080;padding-left:10px;}
+.currentPosition span{color:#808080;margin:0px 3px;}
+.currentPosition span a:link,.currentPosition span a:visited,.currentPosition span a:hover,.currentPosition span a:active{color:#808080;}
+.bntDiv{width:400px;overflow:hidden;margin:50px auto 0px;}
+.bnt1{width:180px;height:70px;overflow:hidden;float:left;display:inline;margin:30px 0px 0px 20px;}
+.bnt1 a{width:180px;height:70px;display:block;background:url(../images/yuq_7.gif) no-repeat left top;}
+.bnt1 a:active,.bnt1 a:hover{background:url(../images/yuq_11.gif) no-repeat left top;}
+
+.bnt2{width:180px;height:70px;overflow:hidden;float:left;display:inline;margin:30px 0px 0px 20px;}
+.bnt2 a{width:180px;height:70px;display:block;background:url(../images/yuq_8.gif) no-repeat left top;}
+.bnt2 a:active,.bnt2 a:hover{background:url(../images/yuq_12.gif) no-repeat left top;}
+
+.bnt3{width:180px;height:70px;overflow:hidden;float:left;display:inline;margin:30px 0px 0px 20px;}
+.bnt3 a{width:180px;height:70px;display:block;background:url(../images/yuq_9.gif) no-repeat left top;}
+.bnt3 a:active,.bnt3 a:hover{background:url(../images/yuq_13.gif) no-repeat left top;}
+
+.bnt4{width:180px;height:70px;overflow:hidden;float:left;display:inline;margin:30px 0px 0px 20px;}
+.bnt4 a{width:180px;height:70px;display:block;background:url(../images/yuq_10.gif) no-repeat left top;}
+.bnt4 a:active,.bnt4 a:hover{background:url(../images/yuq_14.gif) no-repeat left top;}
+
+/*-- 系统管理——采集点管理  css -------------------------------
+-----------------------------------------------------------*/
+.systemSearch{width:660px;clear:both;margin:30px auto 0px;}
+.systemSearch span{color:#4d4d4d;font-weight:bold;line-height:25px;float:left;display:inline;height:28px;}
+.systemSearchLeft .select{width:140px;border:1px solid #cccccc;height:25px;line-height:25px;padding:2px 0px;}
+.systemSearchRight span{color:#4d4d4d;font-weight:bold;line-height:20px;}
+.systemSearchRight .select{width:95px;border:1px solid #cccccc;height:25px;line-height:25px;padding:2px 0px;}
+.input input{border:1px solid #cccccc;height:20px;line-height:20px;width:160px;margin-left:5px;position:relative;_top:-2px;_left:5px;}
+.input input.txt{border:1px solid #cccccc;height:20px;line-height:20px;width:140px;margin-left:5px;position:relative;_top:-2px;_left:5px;}
+.systemSearch .img{width:60px;height:28px;position:relative;left:15px;top:-2px;cursor:pointer;overflow:hidden;}
+.systemSearch .img a{display:block;width:60px;height:28px;background:url(../images/yuq_6.jpg) no-repeat left top;text-indent:-100px;}
+.systemSearch .img a:active,.systemSearch .img a:hover{background:url(../images/yuq_7.jpg) no-repeat left top;}
+.tableListDiv{width:770px;overflow:hidden;margin:30px auto 0px;clear:both;}
+.tableListDivNav{width:100%;clear:both;height:30px;overflow:hidden;}
+.tableListDivNavLeft{float:left;display:inline;width:300px;overflow:hidden;height:28px;line-height:40px;color:#4d4d4d;}
+.tableListDivNavLeft tt{color:#1486cd;font-family:Verdana;font-weight:bold;padding:0px 4px;}
+.tableListDivNavRight{float:right;display:inline;width:90px;height:30px;overflow:hidden;}
+.tableListDivNavRight a{display:block;width:90px;height:28px;background:url(../images/yuq_9.jpg) no-repeat left top;}
+.tableListDivNavRight a:active,.tableListDivNavRight a:hover{background:url(../images/yuq_8.jpg) no-repeat left top;}
+.tableListDivTable{width:770px;overflow:hidden;margin-top:5px;padding-bottom:45px;}
+.tableListDivTable table{border:1px solid #cccccc;width:768px;border-right:none;border-bottom:none;}
+.tableListDivTable table th{border:1px solid #cccccc;border-top:none;border-left:none;background:#e5e5e5;height:25px;line-height:25px;}
+.tableListDivTable table td{border:1px solid #cccccc;border-top:none;border-left:none;height:30px;color:#4d4d4d;cursor:pointer;}
+.tableListDivTable table td.title{padding:0px 5px;}
+.tableListDivTable table td.title .pTitle{height:25px;line-height:25px;overflow:hidden;text-align:left;padding:0px 8px;}
+.tableListDivTable table td .pTitle{height:25px;line-height:25px;overflow:hidden;text-align:left;padding:0px 8px;}
+
+.tableListDivTable table td.title .pTitle1{height:25px;line-height:25px;overflow:hidden;padding:0px 8px;}
+.tableListDivTable table td .pTitle1{height:25px;line-height:25px;overflow:hidden;padding:0px 8px;}
+.tableListDivTable table td.number{font-weight:bold;color:#1486cd;padding:0px 5px;}
+.tableListDivTable table td.normal{font-weight:bold;color:#63a114;}
+.tableListDivTable table td.close{font-weight:bold;color:#e27600;}
+.tableListDivTable table tr.act{background:#dde9f0;}
+.tableListDivTableBnt{width:60%;margin:0px auto;}
+.tableListDivTableBnt span.bntLeft{float:left;display:inline;width:34px;height:20px;}
+.tableListDivTableBnt span.bntLeft a{background:url(../images/yuq_10.jpg) no-repeat left top;display:block;width:34px;height:20px;}
+
+.tableListDivTableBnt span.bntLeft a:hover,.tableListDivTableBnt span.bntLeft a:active{background:url(../images/yuq_12.jpg) no-repeat left top;}
+
+.tableListDivTableBnt span.bntRight{float:right;display:inline;width:34px;height:20px;}
+.tableListDivTableBnt span.bntRight a{background:url(../images/yuq_11.jpg) no-repeat left top;display:block;width:34px;height:20px;}
+.tableListDivTableBnt span.bntRight a:hover,.tableListDivTableBnt span.bntRight a:active{background:url(../images/yuq_13.jpg) no-repeat left top;}
+.tablePage{width:100%;margin:20px auto 0px;height:28px;clear:both;}
+.tablePageRight{float:right;display:inline;width:128px;overflow:hidden;height:100%;}
+.tablePageRight span{float:left;display:inline;line-height:30px;margin:0px 3px;font-size:14px;}
+.tablePageRight span input{width:44px;height:22px;line-height:22px;border:1px solid #cccccc;}
+.tablePageRight span a{width:22px;height:22px;background:url(../images/yuq_18.jpg) no-repeat left top;display:block;position:relative;top:4px;left:8px;}
+.tablePageRight span a:hover,.tablePageRight span a:active{background:url(../images/yuq_19.jpg) no-repeat left top;}
+.tablePageNum{float:right;display:inline;margin-right:20px;}
+.tablePageNum span{float:left;display:inline;margin:0px 5px;}
+.tablePageNum span.normal{position:relative;top:3px;}
+.tablePageNum span.normal a{border:1px solid #cccccc;padding:2px 5px;text-decoration:none;background:url(../images/yuq_21.jpg) repeat-x left top;}
+.tablePageNum span.normal a:hover,.tablePageNum span.normal a:active{border:1px solid #fff;padding:2px 5px;text-decoration:none;background:none;color:#1486cd;font-weight:bold;}
+.tablePageNum span.act a{border:1px solid #fff;padding:2px 5px;text-decoration:none;background:none;color:#1486cd;font-weight:bold;}
+.tablePageNum span.up{width:60px;height:28px;}
+.tablePageNum span.up a{display:block;width:100%;height:100%;background:url(../images/yuq_14.jpg) no-repeat left top;}
+.tablePageNum span.up a:hover,.tablePageNum span.up a:active{background:url(../images/yuq_16.jpg) no-repeat left top;}
+.tablePageNum span.next{width:60px;height:28px;}
+.tablePageNum span.next a{display:block;width:100%;height:100%;background:url(../images/yuq_17.jpg) no-repeat left top;}
+.tablePageNum span.next a:hover,.tablePageNum span.next a:active{background:url(../images/yuq_15.jpg) no-repeat left top;}
+.backTop{width:20px;height:67px;position:absolute;top:0px;right:-25px;display:none;}
+.backTop a{width:20px;height:67px;display:block;background:url(../images/ftop1.gif) no-repeat left top;}
+.backTop a:hover,.backTop a:active{background:url(../images/ftop2.gif) no-repeat left top;}
+
+
+.tablePageNum span.upend{width:60px;height:28px;}
+.tablePageNum span.upend a{display:block;width:100%;height:100%;background:url(../images/yuq_14.jpg) no-repeat left top;}
+.tablePageNum span.upend a:hover,.tablePageNum span.upend a:active{background:url(../images/yuq_14.jpg) no-repeat left top;}
+.tablePageNum span.nextend{width:60px;height:28px;}
+.tablePageNum span.nextend a{display:block;width:100%;height:100%;background:url(../images/yuq_17.jpg) no-repeat left top;}
+.tablePageNum span.nextend a:hover,.tablePageNum span.nextend a:active{background:url(../images/yuq_17.jpg) no-repeat left top;}
+
+/*-- 系统管理——添加采集点  css -------------------------------
+-----------------------------------------------------------*/
+.addPoint{width:706px;overflow:hidden;margin:20px auto;clear:both;padding-bottom:30px;}
+.addPointInput{width:100%;clear:both;}
+.addPointInputBox{width:100%;height:30px;overflow:hidden;clear:both;margin-top:10px;}
+.inputTitle{width:135px;overflow:hidden;float:left;display:inline;line-height:30px;height:30px;font-weight:bold;text-align:right;color:#4c4c4c;position:relative;}
+.inputTitle tt{color:#ce0002;font-size:15px;font-family:none;position:relative;right:4px;top:1px;}
+.inputDiv{width:260px;height:25px;float:left;display:inline;color:#4c4c4c;}
+.inputDiv input{border:1px solid #cccccc;width:258px;height:23px;line-height:23px;color:#808080;}
+.inputPrompt{float:left;display:inline;height:30px;line-height:35px;background:url(../images/yuq_15.gif) no-repeat left 8px;margin-left:30px;text-indent:22px;color:#e27600;}
+.inputPrompt a:link,.inputPrompt a:visited,.inputPrompt a:active,.inputPrompt a:hover{color:#e27600;text-decoration:underline;}
+.radioDiv{float:left;display:inline; position:relative;top:5px;left:5px;line-height:20px;}
+.addPointCon{width:100%;clear:both;position:relative;margin-top:30px;}
+.addPointConBntLine{width:100%;height:30px;border-bottom:1px solid #cccccc;clear:both;position:relative;z-index:88;}
+.addPointConBnt{width:100%;height:35px;overflow:hidden;position:absolute;top:1px;left:0px;z-index:9999;}
+.addPointConBnt .addPointConBntDiv{width:70px;height:35px;overflow:hidden;color:#808080;font-weight:bold;text-align:center;line-height:38px;cursor:pointer;float:left;display:inline;margin-left:10px;}
+.addPointConBnt .addPointConBntAct{background:url(../images/yuq_16.gif) no-repeat left top;color:#335f86;}
+.addPointConContent{width:100%;padding-top:10px;clear:both;overflow:hidden;}
+.inputDiv input.inputWidth1{width:50px;}
+.inputDiv1{width:50px;height:25px;float:left;display:inline;}
+.inputText{line-height:35px;margin-left:10px;color:#000;}
+.addPointInputBox1{height:80px;}
+.inputTextarea{width:462px;height:80px;text-align:left;}
+.inputTextarea textarea{width:460px;height:70px;border:1px solid #cccccc;resize:none;color:#808080;padding:2px 2px 0px;color:#808080;font-size:12px;resize:none;}
+.submitBox{width:145px;overflow:hidden;height:30px;margin:30px auto 0px;}
+.submitBnt{width:70px;height:30px;float:left;display:inline;}
+.submitBnt a{display:block;width:70px;height:30px;background:url(../images/yuq_22.jpg) no-repeat left 1px;}
+.submitBnt a:hover,.submitBnt a:active{background:url(../images/yuq_23.jpg) no-repeat left 1px;}
+
+.submitBnt_1{width:70px;height:30px;float:left;display:inline;}
+.submitBnt_1 a{display:block;width:70px;height:30px;background:url(../images/yuq_22_1.jpg) no-repeat left 1px;}
+.submitBnt_1 a:hover,.submitBnt_1 a:active{background:url(../images/yuq_23_1.jpg) no-repeat left 1px;}
+
+.returnBnt{width:60px;height:30px;float:right;display:inline;}
+.returnBnt a{display:block;width:60px;height:30px;background:url(../images/yuq_24.jpg) no-repeat left top;}
+.returnBnt a:hover,.returnBnt a:active{background:url(../images/yuq_25.jpg) no-repeat left top;}
+.restate{width:100%;height:36px;text-align:center;margin-top:30px;_margin-top:20px;}
+.restate span{padding:10px 15px 10px 25px;background:#dde9f0;zoom:1;}
+.restate span img{display:inline;position:relative;top:3px;left:-10px;}
+.matchingBnt{float:right;width:60px;height:28px;overflow:hidden;display:inline;}
+.matchingBnt a{display:block;width:60px;height:28px;background:url(../images/yuq_26.jpg) no-repeat left top;}
+.matchingBnt a:hover,.matchingBnt a:active{background:url(../images/yuq_27.jpg) no-repeat left top;}
+.addPointTable{width:660px;overflow:hidden;margin-top:5px;padding-bottom:0px;float:right;display:inline;}
+.addPointTable table{border:1px solid #cccccc;width:660px;border-right:none;border-bottom:none;}
+.inputTextareaAdd{width:372px;height:80px;text-align:left;float:left;display:inline;}
+.inputTextareaAdd textarea{width:372px;height:70px;border:1px solid #cccccc;resize:none;color:#808080;padding:2px 2px 0px;color:#808080;font-size:12px;resize:none;}
+
+/*-- footer  css -------------------------------
+-----------------------------------------------------------*/
+.footer{width:100%;overflow:hidden;height:48px;border-top:5px solid #1486cd;clear:both;margin-top:20px;background:#000;color:#cccccc;text-align:center;line-height:48px;}
+
+/*-- 系统管理——个人中心  css -------------------------------
+-----------------------------------------------------------*/
+.indivlCenter{width:800px;overflow:hidden;margin:15px auto 0px;}
+.indivlCenterTableLeft{width:220px;overflow:hidden;}
+.indivlCenterPhoto{width:206px;border-bottom:1px dashed #cccccc;clear:both;padding-bottom:10px;margin-top:10px;}
+.photoLeft{width:98px;height:98px;float:left;display:inline;background:url(../images/yuq_28.jpg) no-repeat left top;}
+.photoLeft img{width:84px;height:84px;position:relative;top:7px;left:7px;}
+.photoRight{float:right;display:inline;width:105px;}
+.photoRight span{width:105px;height:25px;line-height:25px;text-align:center;display:block;overflow:hidden;color:#4c4c4c;}
+.photoTitle{font-size:20px;color:#1486cd;font-family:simhei;margin-top:20px;}
+.photoDocket{color:#4c4c4c;}
+.textTitle{font-weight:bold;color:#4c4c4c;width:100%;display:block;}
+.indivlCenterTableLeftBnt{width:130px;overflow:hidden;height:28px;margin:20px auto 0px;padding-bottom:15px;}
+.changePass{width:60px;height:28px;float:left;display:inline;}
+.changePass a{width:100%;height:100%;display:block;background:url(../images/yuq_29.jpg) no-repeat left top;}
+.changePass a:hover,.changePass a:active{width:100%;height:100%;display:block;background:url(../images/yuq_31.jpg) no-repeat left top;}
+.modifyInfor{width:60px;height:28px;float:right;display:inline;}
+.modifyInfor a{width:100%;height:100%;display:block;background:url(../images/yuq_30.jpg) no-repeat left top;}
+.modifyInfor a:hover,.modifyInfor a:active{width:100%;height:100%;display:block;background:url(../images/yuq_32.jpg) no-repeat left top;}
+.indivlCenterbak{border-left:1px solid #cccccc;width:830px;overflow:hidden;background:#fff;}
+.indivCenterRight{width:570px;overflow:hidden;margin:0px 0px 0px 10px;position:relative;}
+.lconBox{width:100%;clear:both;height:70px;overflow:hidden;margin-top:20px;}
+.lconDiv{float:left;display:inline;width:152px;height:70px;overflow:hidden;}
+.lconDiv .lconbak1{float:left;display:inline;background:url(../images/yuq_17.gif) no-repeat left top;height:100%;padding-left:7px;}
+.lconDiv .lconbak2{float:left;display:inline;background:url(../images/yuq_19.gif) repeat-x left top;height:100%;}
+.lconDiv .lconbak3{float:left;display:inline;background:url(../images/yuq_18.gif) no-repeat right top;height:100%;padding-right:5px;}
+.lconDiv .lconTitle{width:140px;overflow:hidden;height:30px;line-height:35px;border-bottom:1px dashed #cccccc;text-align:center;color:#4c4c4c;}
+.lconDiv .lconNumber{width:140px;height:40px;line-height:30px;text-align:center;color:#4c4c4c;}
+.lconDiv .lconNumber tt{color:#1486cd;font-size:28px;font-family:Verdana;color:#1486cd;position:relative;top:5px;left:-3px;}
+.lconDivWidth{width:90px;margin-left:14px;}
+.lconDivWidth .lconTitle{width:78px;}
+.lconDivWidth .lconNumber{width:78px;line-height:40px;}
+.lconDivWidth .lconNumber tt{font-size:18px;top:0px;}
+.lconTable{width:570px;overflow:hidden;margin-top:25px;padding-bottom:0px;}
+.lconTable table{border:1px solid #cccccc;width:568px;border-right:none;border-bottom:none;}
+
+/*-- 系统管理——个人中心——密码修改  css -------------------------------
+-----------------------------------------------------------*/
+.modifyIndiv{margin-top:30px;}
+.inputModifyTitle{width:240px;color:#4c4c4c;}
+.inputModifyDiv{width:160px;height:25px;float:left;display:inline;color:#4c4c4c;}
+.inputModifyDiv input{border:1px solid #cccccc;width:158px;height:23px;line-height:23px;color:#808080;}
+.modifyBox{margin-top:50px;}
+.modifyPassword a{display:block;width:70px;height:30px;background:url(../images/yuq_33.jpg) no-repeat left 1px;}
+.modifyPassword a:hover,.modifyPassword a:active{background:url(../images/yuq_34.jpg) no-repeat left 1px;}
+.inputModifyDiv select{width:160px;height:23px;line-height:23px;border:1px solid #CCCCCC;color:#4c4c4c;padding:3px 0px;}
+.modifyMessage a{display:block;width:70px;height:30px;background:url(../images/yuq_35.jpg) no-repeat left 1px;}
+.modifyMessage a:hover,.modifyMessage a:active{background:url(../images/yuq_36.jpg) no-repeat left 1px;}
+
+/*-- 系统管理——用户管理  css -------------------------------
+-----------------------------------------------------------*/
+.marginLeft{margin-left:10px;}
+.userManagement{width:80%;}
+.tableListDivTableBnt span.bntMidden{float:left;display:inline;width:56px;height:20px;margin-left:18px;}
+.tableListDivTableBnt span.bntMidden a{background:url(../images/yuq_40.jpg) no-repeat left top;display:block;width:56px;height:20px;}
+.tableListDivTableBnt span.bntMidden a:hover,.tableListDivTableBnt span.bntMidden a:active{background:url(../images/yuq_39.jpg) no-repeat left top;}
+.tableListDivAddUser{float:right;display:inline;width:70px;height:28px;overflow:hidden;}
+.tableListDivAddUser a{display:block;width:70px;height:28px;background:url(../images/yuq_37.jpg) no-repeat left top;}
+.tableListDivAddUser a:active,.tableListDivAddUser a:hover{background:url(../images/yuq_38.jpg) no-repeat left top;}
+.WebManagement{width:80%;}
+.WebManagement span.bntMidden{float:left;display:inline;width:70px;height:20px;margin-left:8px;}
+.WebManagement span.bntMidden a{background:url(../images/yuq_80.jpg) no-repeat left top;display:block;width:70px;height:20px;}
+.WebManagement span.bntMidden a:hover,.WebManagement span.bntMidden a:active{background:url(../images/yuq_79.jpg) no-repeat left top;}
+
+
+/*-- 系统管理——添加用户  css -------------------------------
+-----------------------------------------------------------*/
+.addUserBox{height:72px;}
+.addUserTextarea{width:228px;height:68px;}
+.addUserTextarea textarea{width:225px;height:65px;border:1px solid #cccccc;resize:none;color:#808080;resize:none;}
+
+
+/*-- 系统管理——添加站点  css -------------------------------
+-----------------------------------------------------------*/
+.tableListDivAddSite{float:right;display:inline;width:70px;height:28px;overflow:hidden;}
+.tableListDivAddSite a{display:block;width:70px;height:28px;background:url(../images/yuq_41.jpg) no-repeat left top;}
+.tableListDivAddSite a:active,.tableListDivAddSite a:hover{background:url(../images/yuq_42.jpg) no-repeat left top;}
+
+
+/*-- 系统管理—— 信息统计  css -------------------------------
+-----------------------------------------------------------*/
+.information{width:750px;overflow:hidden;clear:both;margin:20px auto 0;position:relative;}
+.informationDiv{width:100%;}
+.informationDivWidth{width:162px;margin-left:0px;}
+.informationDivWidth .lconTitle{width:150px;}
+.informationDivWidth .lconNumber{width:150px;line-height:40px;}
+.informationDivWidth .lconNumber tt{font-size:28px;top:0px;color:#eb6100;}
+.informationDivWidth1{width:110px;margin-left:7px;}
+.informationDivWidth1 .lconTitle{width:98px;}
+.informationDivWidth1 .lconNumber{width:98px;line-height:40px;}
+.informationDivWidth1 .lconNumber tt{font-size:18px;top:0px;}
+.informationChart{width:100%;margin-top:0px;clear:both;overflow:hidden;}
+.informationSource{width:750px;overflow:hidden;clear:both;margin:10px auto 0;}
+.informationSourceTitle{width:100%;height:40px;overflow:hidden;clear:both;border-bottom:1px solid #cccccc;}
+.sourceLeft{width:500px;float:left;display:inline;height:40px;line-height:48px;font-weight:bold;color:#335f86;font-size:14px;text-indent:5px;}
+.sourceRight{width:60px;height:28px;float:right;display:inline;margin-right:5px;margin-top:10px;}
+.sourceRight a{width:100%;display:block;height:100%;background:url(../images/yuq_43.jpg) no-repeat left top;}
+.sourceRight a:hover,.sourceRight a:active{background:url(../images/yuq_44.jpg) no-repeat left top;}
+.informationHistory{width:750px;overflow:hidden;clear:both;margin:10px auto 0;}
+.informationDivTable{width:750px;overflow:hidden;margin-top:20px;padding-bottom:45px;}
+.informationDivTable table{border:1px solid #cccccc;width:748px;border-right:none;border-bottom:none;}
+.chartBoxSelect{width:240px;float:right;display:inline;padding-top:30px;}
+
+.chartBoxSelectW{width:460px;float:right;display:inline;padding-top:30px;}
+.chartBoxSelectW .chbox{margin-left:9px;float:left;display:inline;width:58px;}
+
+.sourceChartBox{width:100%;clear:both;overflow:hidden;margin-top:10px;}
+.sourceChartBoxLeftDiv{width:100%;clear:both;overflow:hidden;margin-top:10px;height:290px;}
+.sourceChartBoxLeft{width:465px;overflow:hidden;float:left;display:inline;}
+.sourceChartBoxLeftTitle{float:left;display:inline;width:200px;overflow:hidden;}
+.sourceChartBoxLeftTitle a{font-size:12px;font-weight:bold;color:#335d85;text-decoration:none;}
+.sourceChartBoxLeftTitle a:hover,.sourceChartBoxLeftTitle a:active{text-decoration:none;color:#335d85;}
+.sourceChartBoxLeftSelect{float:right;display:inline;width:130px;overflow:hidden;}
+.sourceChartBoxRight{width:270px;float:right;display:inline;overflow:hidden;padding-top:10px;}
+.piechartBox{border:1px solid #cccccc;padding:2px;width:263px;overflow:hidden;margin-top:10px;}
+.sourceChartBoxRightTitle{width:100px;}
+.sourceChartBoxRightWidth{width:98px;}
+.surceWebBox{border:1px solid #cccccc;width:267px;overflow:hidden;margin-top:10px;}
+.surceWebTitle{width:100%;clear:both;height:29px;overflow:hidden;background:url(../images/yuq_59.jpg) repeat-x left top;}
+.surceWebTitle span{overflow:hidden;float:left;display:inline;color:#808080;line-height:26px;}
+.surceWebTitle .webTitle{width:115px;font-weight:bold;text-indent:5px;line-height:35px;}
+.surceWebTitle .bnt{padding:0px 5px;height:25px;margin-top:5px;cursor:pointer;}
+.surceWebTitle .act{background:#fff;border:1px solid #cccccc;border-bottom:none;font-weight:bold;}
+.webContent{width:100%;margin:0px auto;}
+.webContent ul{padding:15px 0px 5px 15px;}
+.webContent ul li{height:22px;line-height:22px;clear:both;}
+.webContent span{float:left;display:inline;overflow:hidden;}
+.webContent .count{text-align:right;width:20px;color:#4d4d4d;font-family:simsuni;font-weight:bold;font-size:12px;}
+.webContent .name{margin-left:5px;color:#4d4d4d;}
+.webContent .color{color:#1486cd;}
+.webContent .countSum{margin-left:5px;}
+.webContent .countSum tt{font-size:12px;font-family:verdana;color:#1486cd;font-weight:bold;margin-right:5px;}
+
+/*-- 系统管理—— 采集监控  css -------------------------------
+-----------------------------------------------------------*/
+.systemSearchH{width:760px;}
+.systemSearchH .img{width:60px;height:28px;position:relative;left:22px;top:-2px;cursor:pointer;overflow:hidden;}
+
+
+/*-- 知识库—— 案例库管理  css -------------------------------
+-----------------------------------------------------------*/
+.systemSearchCase{width:800px;clear:both;margin:40px auto 0px;}
+.systemSearchCase .systemSearchLeft .select{width:100px;border:1px solid #cccccc;height:25px;line-height:25px;padding:2px 0px;}
+.systemSearchCase .systemSearchRight .select{width:70px;border:1px solid #cccccc;height:25px;line-height:25px;padding:2px 0px;}
+.tableListCaseDiv{margin:20px auto 0px;}
+.tableListDivCaseRight{float:right;display:inline;width:70px;height:28px;overflow:hidden;}
+.tableListDivCaseRight a{display:block;width:70px;height:28px;background:url(../images/yuq_45.jpg) no-repeat left top;}
+.tableListDivCaseRight a:active,.tableListDivCaseRight a:hover{background:url(../images/yuq_46.jpg) no-repeat left top;}
+.tableListDivCaseTableBnt{width:70%;margin:0px auto;}
+.systemSearchCase .img{width:60px;height:28px;position:relative;left:10px;top:-2px;cursor:pointer;}
+
+
+/*-- 知识库—— 添加案例  css -------------------------------
+-----------------------------------------------------------*/
+.inputCase{width:85px;}
+.inputPromptCase{text-indent:0px;background:none;color:#808080;margin-left:5px;}
+.systemInputCase{margin-top:10px;}
+.addPointInputBox2{height:334px;}
+.addPointInputBox2 .inputTextarea{width:600px;height:334px;}
+.addPointInputBox2 .inputTextarea textarea{width:590px;height:328px;border:1px solid #cccccc;resize:none;color:#808080;resize:none;}
+
+/*-- 知识库—— 词库管理  css -------------------------------
+-----------------------------------------------------------*/
+.dataBase{margin:0px auto 0px;}
+.dataBaseBox{width:770px;overflow:hidden;margin:20px auto;clear:both;padding-bottom:30px;}
+.dataBasetableListDiv{margin-top:10px;}
+
+.dataBaseTableBnt{width:90%;margin:0px auto;}
+.dataBaseTableBnt span.bntLeft{float:left;display:inline;width:34px;height:20px;}
+.dataBaseTableBnt span.bntLeft a{background:url(../images/yuq_10.jpg) no-repeat left top;display:block;width:34px;height:20px;}
+.dataBaseTableBnt span.bntLeft a:hover,.dataBaseTableBnt span.bntLeft a:active{background:url(../images/yuq_12.jpg) no-repeat left top;}
+
+.dataBaseTableBnt span.bntRight{float:right;display:inline;width:60px;height:20px;}
+.dataBaseTableBnt span.bntRight a{background:url(../images/yuq_47.jpg) no-repeat left top;display:block;width:60px;height:20px;}
+.dataBaseTableBnt span.bntRight a:hover,.dataBaseTableBnt span.bntRight a:active{background:url(../images/yuq_48.jpg) no-repeat left top;}
+
+.dataBaseTableBnt span.bntMidden{float:left;display:inline;width:60px;height:20px;margin-left:5px;}
+.dataBaseTableBnt span.bntMidden a{background:url(../images/yuq_49.jpg) no-repeat left top;display:block;width:60px;height:20px;}
+.dataBaseTableBnt span.bntMidden a:hover,.dataBaseTableBnt span.bntMidden a:active{background:url(../images/yuq_50.jpg) no-repeat left top;}
+
+.tableListDivAddDataBase{float:right;display:inline;width:70px;height:28px;overflow:hidden;}
+.tableListDivAddDataBase a{display:block;width:70px;height:28px;background:url(../images/yuq_51.jpg) no-repeat left top;}
+.tableListDivAddDataBase a:active,.tableListDivAddDataBase a:hover{background:url(../images/yuq_52.jpg) no-repeat left top;}
+
+
+/*-- 知识库—— 案例库  css -------------------------------
+-----------------------------------------------------------*/
+.systemSearchBataCase{width:760px;clear:both;margin:40px auto 0px;}
+.systemSearchBataCase .systemSearchLeft .select{width:100px;border:1px solid #cccccc;height:25px;line-height:25px;padding:2px 0px;}
+.systemSearchBataCase .systemSearchRight .select{width:70px;border:1px solid #cccccc;height:25px;line-height:25px;padding:2px 0px;}
+.tableListDivTable table tr.checked{background:#dae8c9;}
+.tablePageLeft{float:left;display:inline;width:258px;overflow:hidden;height:100%;}
+.tablePageLeft span{float:left;display:inline;}
+.position{position:relative;left:2px;top:2px;color:#808080;}
+.position1{position:relative;top:2px;color:#808080;}
+.tablePageLeft span select{color:#808080;}
+.tableListDivCaseRight1{float:right;display:inline;width:70px;height:28px;overflow:hidden;margin-right:10px;}
+.tableListDivCaseRight1 a{display:block;width:70px;height:28px;background:url(../images/yuq_53.jpg) no-repeat left top;}
+.tableListDivCaseRight1 a:active,.tableListDivCaseRight1 a:hover{background:url(../images/yuq_54.jpg) no-repeat left top;}
+.tableListDivCaseRight2{float:right;display:inline;width:70px;height:28px;overflow:hidden;}
+.tableListDivCaseRight2 a{display:block;width:70px;height:28px;background:url(../images/yuq_55.jpg) no-repeat left top;}
+.tableListDivCaseRight2 a:active,.tableListDivCaseRight2 a:hover{background:url(../images/yuq_56.jpg) no-repeat left top;}
+
+/*-- 知识库—— 导入词条  css -------------------------------
+-----------------------------------------------------------*/
+.systemImport{width:630px;clear:both;margin:30px auto 0px;}
+.input1{height:30px;width:400px;}
+.input1 input{border:1px solid #cccccc;width:350px;margin-left:5px;position:relative;_top:-2px;_left:5px;height:25px;}
+.input1 input.inputAdd{width:110px;overflow:hidden;}
+.importPrompt{width:630px;overflow:hidden;height:30px;line-height:30px;text-align:center;color:#808080;margin:0px auto 0px;}
+.importBnt{width:70px;height:30px;float:left;display:inline;}
+.importBnt a{display:block;width:70px;height:30px;background:url(../images/yuq_57.jpg) no-repeat left 1px;}
+.importBnt a:hover,.importBnt a:active{background:url(../images/yuq_58.jpg) no-repeat left 1px;}
+
+/*-- 系统提示弹出框 css -----------------------------------
+-----------------------------------------------------------*/
+.popupBox{width:308px;height:188px;overflow:hidden;border:1px solid #cccccc;background:#fff url(../images/yuq_68.jpg) repeat-x left top;display:none;position:absolute;top:0px;left:0px;z-index:999999;}
+.popupBoxTitle{width:100%;height:29px;line-height:29px;color:#4c4c4c;overflow:hidden;background:url(../images/yuq_15.gif) no-repeat 10px 5px;letter-spacing:1px;text-indent:33px;font-size:14px;font-weight:bold;}
+.popupBoxCon{width:284px;height:80px;overflow:hidden;margin:30px auto 0px;color:#4c4c4c;font-size:14px;text-align:center;line-height:30px;}
+.popupBoxBnt{width:100%;height:28px;overflow:hidden;clear:both;}
+.popupBoxBnt a{float:left;display:inline;overflow:hidden;}
+.popupBoxBnt a.bntLeft{width:70px;height:29px;background:url(../images/yuq_60.jpg) no-repeat left top;margin-left:85px;}
+.popupBoxBnt a.bntLeft:hover,.popupBoxBnt a.bntLeft:active{background:url(../images/yuq_61.jpg) no-repeat left top;}
+.popupBoxBnt a.bntRight{width:70px;height:29px;background:url(../images/yuq_62.jpg) no-repeat left top;margin-left:10px;}
+.popupBoxBnt a.bntRight:hover,.popupBoxBnt a.bntRight:active{background:url(../images/yuq_63.jpg) no-repeat left top;}
+.popupBoxBnt a.bntCopy{width:70px;height:29px;background:url(../images/yuq_64.jpg) no-repeat left top;margin-left:70px;}
+.popupBoxBnt a.bntCopy:hover,.popupBoxBnt a.bntCopy:active{background:url(../images/yuq_65.jpg) no-repeat left top;}
+.popupBoxBnt a.bntClose{width:70px;height:29px;background:url(../images/yuq_66.jpg) no-repeat left top;margin-left:10px;}
+.popupBoxBnt a.bntCloseML{margin-left:120px;}
+.popupBoxBnt a.bntClose:hover,.popupBoxBnt a.bntClose:active{background:url(../images/yuq_67.jpg) no-repeat left top;}
+.popupBoxTitleXX{background:none;letter-spacing:1px;text-indent:13px;}
+.popupBoxConXX{height:180px;margin:5px auto 0px;}
+.popupBoxConXXSpan{width:290px;overflow:hidden;margin:10px auto 0px;height:30px;}
+.popupBoxConXXSpanL{float:left;display:inline;width:80px;overflow:hidden;line-height:40px;}
+.popupBoxConXXSpanR{float:left;display:inline;width:150px;overflow:hidden;height:40px;position:relative;top:8px;}
+.popupBoxConXXSpanR select{width:150px;height:20px;line-height:20px;overflow:hidden;border:1px solid #cccccc;}
+.popupBoxConXXSpanT{width:290px;overflow:hidden;margin:5px auto 0px;height:70px;}
+.popupBoxConXXSpanRT{float:left;display:inline;width:180px;overflow:hidden;height:60px;position:relative;top:8px;text-align:left;}
+.popupBoxConXXSpanRT textarea{width:144px;overflow:hidden;height:50px;border:1px solid #cccccc;padding:2px;resize:none;}
+.lineXX{height:40px;border-top:1px solid #cccccc;width:250px;margin:10px auto;font-size:12px;text-align:center;line-height:40px;color:#4c4c4c;}
+.popupBoxXX{width:308px;height:258px;overflow:hidden;border:1px solid #cccccc;background:#fff url(../images/yuq_68.jpg) repeat-x left top;display:none;position:absolute;top:0px;left:0px;z-index:999999;}
+
+
+.popupBoxBntXX{width:100%;height:28px;overflow:hidden;clear:both;}
+.popupBoxBntXX a{float:left;display:inline;overflow:hidden;}
+.popupBoxBntXX a.bntLeft{width:70px;height:28px;background:url(../images/yuq_107.jpg) no-repeat left top;margin-left:85px;}
+.popupBoxBntXX a.bntLeft:hover,.popupBoxBntXX a.bntLeft:active{background:url(../images/yuq_108.jpg) no-repeat left top;}
+.popupBoxBntXX a.bntRight{width:70px;height:28px;background:url(../images/yuq_109.jpg) no-repeat left top;margin-left:10px;}
+.popupBoxBntXX a.bntRight:hover,.popupBoxBntXX a.bntRight:active{background:url(../images/yuq_110.jpg) no-repeat left top;}
+.popupBoxBntXX a.bntCopy{width:70px;height:28px;background:url(../images/yuq_110.jpg) no-repeat left top;margin-left:70px;}
+.popupBoxBntXX a.bntCopy:hover,.popupBoxBntXX a.bntCopy:active{background:url(../images/yuq_110.jpg) no-repeat left top;}
+.popupBoxBntXX a.bntClose{width:70px;height:28px;background:url(../images/yuq_109.jpg) no-repeat left top;margin-left:10px;}
+.popupBoxBntXX a.bntClose:hover,.popupBoxBntXX a.bntClose:active{background:url(../images/yuq_110.jpg) no-repeat left top;}
+
+
+/*-- 知识库—— 首页  css -------------------------------
+-----------------------------------------------------------*/
+.knowledgeWidth{width:180px;margin-left:0px;}
+.knowledgeWidth .lconTitle{width:168px;}
+.knowledgeWidth .lconNumber{width:168px;line-height:40px;overflow:hidden;}
+.knowledgeWidth .lconNumber tt{font-size:28px;top:0px;color:#1486cd;}
+.knowledgeWidth1{width:180px;margin-left:6px;}
+.knowledgeWidth1 .lconTitle{width:168px;}
+.knowledgeWidth1 .lconNumber{width:168px;line-height:40px;overflow:hidden;}
+.knowledgeWidth1 .lconNumber tt{font-size:28px;top:0px;color:#1486cd;}
+.knowledgeWidth2{width:88px;margin-left:3px;height:46px;}
+.knowledgeWidth2 .lconTitle{width:76px;height:22px;line-height:25px;}
+.knowledgeWidth2 .lconNumber{width:76px;line-height:20px;overflow:hidden;}
+.knowledgeWidth2 .lconNumber tt{font-size:28px;top:0px;color:#1486cd;width:76px;overflow:hidden;font-family:verdana;font-weight:bold;font-size:12px;}
+.knowledgeWidth2 .lconbak1{float:left;display:inline;background:url(../images/yuq_20.gif) no-repeat left top;height:100%;padding-left:4px;}
+.knowledgeWidth2 .lconbak2{float:left;display:inline;background:url(../images/yuq_21.gif) repeat-x left top;height:100%;}
+.knowledgeWidth2 .lconbak3{float:left;display:inline;background:url(../images/yuq_22.gif) no-repeat right top;height:100%;padding-right:4px;}
+.knowledgeDiv{width:100%;margin:0px;}
+.knowledgeDivW{height:275px;}
+.webContentTable{width:98%;clear:both;margin:0px auto;padding-bottom:8px;}
+.webContentTh{width:100%;border-bottom:1px solid #cccccc;clear:both;margin-top:8px;}
+.webContentTh span{float:left;display:inline;font-weight:bold;text-align:center;overflow:hidden;color:#808080;}
+.webContentTh span.sort{width:40px;}
+.webContentTh span.entry{width:90px;}
+.webContentTh span.Thesaurus{width:60px;}
+.webContentTh span.time{width:70px;}
+.webContentTh span.title{width:150px;}
+.webContentTd{width:100%;border-bottom:none;clear:both;margin-top:0px;}
+.webContentTd span{float:left;display:inline;font-weight:normal;text-align:center;overflow:hidden;height:25px;line-height:27px;}
+.webContentTd span.sort{width:40px;font-weight:bold;}
+.webContentTd span.act{color:#1684cf;}
+.sourceRight1 a{width:100%;display:block;height:100%;background:url(../images/yuq_73.jpg) no-repeat left top;}
+.sourceRight1 a:hover,.sourceRight a:active{background:url(../images/yuq_74.jpg) no-repeat left top;}
+
+/*-- 主流媒体概况 css -------------------------------
+-----------------------------------------------------------*/
+.mainstream{width:790px;overflow:hidden;clear:both;margin:20px auto 0;position:relative;}
+.mainstream .basic{width:750px;margin:0px auto 0px;}
+.clumnTBox{width:100%;margin:10px auto;}
+.Choice{width:100%;height:26px;overflow:hidden;clear:both;}
+.Choice span{float:left;display:inline;margin-left:3px;color:#4d4d4d;}
+.Choice span.space1{margin-left:50px;}
+.Choice .amplification{float:right;display:inline;width:26px;height:26px;}
+.Choice .amplification a{width:26px;height:26px;display:block;background:url(../images/yuq_69.jpg) no-repeat left top;}
+.Choice .amplification a:hover,.amplification a:active{background:url(../images/yuq_70.jpg) no-repeat left top;}
+.newsCommentary{width:100%;clear:both;margin:10px auto 0px;overflow:hidden;}
+.newsBox{width:368px;overflow:hidden;float:left;display:inline;}
+.newsTitle a{color:#1486cd;font-size:14px;font-weight:bold;}
+.newsTitle a:link,.newsTitle a:visited,.newsTitle a:hover,.newsTitle a:active{color:#1486cd;}
+.newsDiv{width:100%;overflow:hidden;border-bottom:1px dashed #cccccc;padding-bottom:5px;margin-top:5px;}
+.newsDocket{width:100%;height:25px;overflow:hidden;line-height:25px;}
+.newsDocket tt{font-weight:bold;font-size:12px;color:#1486cd;}
+.newsDocket a:link,.newsDocket a:visited,.newsDocket a:hover,.newsDocket a:active{color:#335f86;}
+.sumTime{width:100%;line-height:25px;clear:both;}
+.sumTime .reprint{margin-left:10px;background:url(../images/yuq_71.gif) no-repeat left top;padding-left:20px;color:#4d4d4d;height:25px;line-height:25px;}
+.sumTime .reprint tt{font-size:12px;color:#1486cd;font-weight:bold;}
+.sumTime .time{margin-left:15px;background:url(../images/yuq_72.gif) no-repeat left top;padding-left:20px;color:#4d4d4d;height:25px;line-height:25px;}
+.sumTime .name{margin-left:15px;background:url(../images/yuq_76.gif) no-repeat left top;padding-left:20px;color:#4d4d4d;height:25px;line-height:25px;}
+.commentaryBox{float:right;}
+.commentaryTitle{color:#65b102;}
+.commentaryTitle a:link,.commentaryTitle a:visited,.commentaryTitle a:hover,.commentaryTitle a:active{color:#65b102;}
+.commentaryDocke tt{color:#65b102;}
+.newsCommentaryTop{width:100%;clear:both;margin:30px auto 0px;overflow:hidden;}
+.newsTop{width:368px;overflow:hidden;float:left;display:inline;}
+.newsTopTitle{clear:both;width:100%;overflow:hidden;height:25px;line-height:25px;border-bottom:1px solid #ccc;padding-bottom:5px;}
+.newsTopTitle .name{float:left;display:inline;width:60%;text-indent:10px;color:#335f86;font-size:14px;font-weight:bold;}
+.newsTopTitle .nameColor{color:#63b000;}
+.newsTopTitle .detail{float:right;display:inline;margin-right:10px;font-size:12px;letter-spacing:3px;}
+.newsTopBnt{width:150px;margin:5px auto 0;height:33px;overflow:hidden;clear:both;}
+.newsTopBnt .oneFive{width:60px;height:33px;overflow:hidden;float:left;display:inline;cursor:pointer;color:#4d4d4d;background:url(../images/yuq_24.gif) no-repeat left top;text-align:center;line-height:28px;letter-spacing:3px;font-weight:bold;}
+.newsTopBnt .sixTen{width:60px;height:33px;overflow:hidden;float:right;display:inline;cursor:pointer;background:url(../images/yuq_24.gif) no-repeat left top;text-align:center;line-height:28px;letter-spacing:3px;font-weight:bold;}
+.newsTopBnt .act{background:url(../images/yuq_23.gif) no-repeat left top;color:#1485cb;}
+.newsTopBnt .hact{background:url(../images/yuq_23.gif) no-repeat left top;color:#64b005;}
+.newsTopTable{width:100%;}
+.newsTopTable .newsCount{width:40px;font-family:Verdana;font-size:26px;color:#335f86;padding-right:5px;text-align:right;}
+.newsTopTable .newsCount2{color:#447500;}
+.newsTopTable table{margin-top:20px; display:none;}
+.newsBorder{border-left:5px solid #335f86;padding-left:8px;}
+.newsTopDocket{font-size:12px;color:#335f86;font-weight:bold;height:40px;line-height:20px;}
+.newsTopDocket a:link,.newsTopDocket a:visited,.newsTopDocket a:hover,.newsTopDocket a:acitve{color:#335f86;}
+.sumTime .newsTopReprint{margin-left:0px;}
+.sumTime .soucre{margin-left:5px;background:url(../images/yuq_25.gif) no-repeat left -1px;padding-left:20px;color:#4d4d4d;height:25px;line-height:25px;}
+.sumTime .commentaryColor tt{color:#65b102;}
+.commentaryTop{float:right;}
+.sumTime .commentaryTopReprint tt{color:#65b102;}
+.timeSum select{width:120px;height:23px;line-height:23px;border:1px solid #CCCCCC;color:#4c4c4c;padding:3px 0px;}
+.comparisonOrList{width:100%;overflow:hidden;overflow:hidden;margin:10px auto 0px;}
+.comparison{width:368px;overflow:hidden;float:left;display:inline;position:relative;}
+.comparison1{width:415px;overflow:hidden;float:left;display:inline;position:relative;}
+.circle_div{position:absolute;top:125px;left:80px;width:250px;height:250px;}
+.circle_div img{width:250px;height:250px;}
+
+.circle_div2{position:absolute;width:295px;height:295px;}
+.circle_div2 img{width:295px;height:295px;}
+
+.comparisonTitle{width:100%;font-size:14px;font-weight:bold;color:#2a84d0;}
+.PeopleWeb{width:368px;overflow:hidden;float:right;display:inline;}
+.PeopleWeb1{width:368px;overflow:hidden;float:right;display:inline;height:425px;}
+.PeopleDocket{font-size:12px;color:#335f86;font-weight:bold;height:20px;line-height:20px;}
+.sumTime .PeopleTime{margin-left:0px;height:25px;line-height:25px;}
+.PeopleBorder{border-left:5px solid #2a84d0;padding-left:8px;}
+.PeopleWebTable table{margin-top:20px;}
+.tableListBox{width:100%;clear:both;overflow:hidden;}
+.tableListBoxH{height:465px;}
+.tableList{float:left;display:inline;border-bottom:1px dashed #ccc;width:368px;overflow:hidden;padding-bottom:10px;margin:10px 0 0 15px;}
+.tableList .newsCount{width:40px;font-family:Verdana;font-size:26px;color:#335f86;padding-right:5px;text-align:right;}
+.newsMap{width:100%;overflow:hidden;overflow:hidden;margin:10px auto 0px;}
+.mainstreamW{width:760px;}
+.input2 input{border:1px solid #cccccc;height:20px;line-height:20px;width:100px;margin-left:5px;position:relative;_top:-2px;_left:5px;}
+.mainstreamB{padding-bottom:10px;}
+.tableListwidth{width:120px;}
+.tableListwidth .select{width:120px;border:1px solid #cccccc;height:25px;line-height:25px;padding:2px 0px;position:relative;top:5px;}
+.mainstreamTableBnt{width:90%;margin:0px auto;}
+.mainstreamTableBnt span.bntLeft{display:inline;width:57px;height:20px;}
+.mainstreamTableBnt span.bntLeft a{background:url(../images/yuq_77.jpg) no-repeat left top;display:block;width:57px;height:20px;}
+.mainstreamTableBnt span.bntLeft a:hover,.mainstreamTableBnt span.bntLeft a:active{background:url(../images/yuq_75.jpg) no-repeat left top;}
+.mainstreamTableBnt span.bntRight{float:right;display:inline;width:84px;height:20px;}
+.mainstreamTableBnt span.bntRight a{background:url(../images/yuq_78.jpg) no-repeat left top;display:block;width:84px;height:20px;}
+.mainstreamTableBnt span.bntRight a:hover,.mainstreamTableBnt span.bntRight a:active{background:url(../images/yuq_76.jpg) no-repeat left top;}
+.tableList .newsColor{color:#2a84d0;}
+.mainstream .marginTop2{margin-top:20px;}
+.inputDiv2{width:70px;height:25px;float:left;display:inline;color:#4c4c4c;}
+.inputDiv2 select{width:70px;height:23px;line-height:23px;border:1px solid #CCCCCC;color:#4c4c4c;padding:3px 0px;}
+.PeopleBorderC{border-left:5px solid #335f86;}
+.PeopleBorder1{border-left:5px solid #64b101;padding-left:8px;}
+.PeopleBorder1C{border-left:5px solid #335f86;}
+.tableList .newsCount1{color:#64b101;}
+.PeopleDocket1{color:#437400;font-size:12px;font-weight:bold;height:20px;line-height:20px;}
+.PeopleDocket1 a:linnk,.PeopleDocket1 a:visited,.PeopleDocket1 a:hover,.PeopleDocket1 a:active{color:#437400;}
+.newsTopTable .newsCount3{color:#437400;}
+.newsBorder1{border-left:5px solid #437501;padding-left:8px;}
+.tableList .newsCount4{color:#2a84d0;}
+.PeopleBorder2{border-left:5px solid #2a84d0;padding-left:8px;}
+.PeopleDocket2{color:#437400;font-size:12px;font-weight:bold;height:20px;line-height:20px;width:100%;}
+.PeopleDocket2 a.aTitle:linnk,.PeopleDocket2 a.aTitle:visited,.PeopleDocket2 a.aTitle:hover,.PeopleDocket2 a.aTitle:active{color:#437400;}
+.PeopleDocket2 a.aTitle{float:left;display:inline;width:282px;overflow:hidden;height:20px;}
+.PeopleDocket2 a.aImg{float:right;display:inline;width:26px;height:20px;overflow:hidden;background:url(../images/yuq_83.jpg) no-repeat left top;}
+.PeopleDocket2 a.aImg:active,.PeopleDocket2 a.aImg:hover{background:url(../images/yuq_84.jpg) no-repeat left top;}
+.PeopleDocket2 a.aImgOpen{float:right;display:inline;width:26px;height:20px;overflow:hidden;background:url(../images/yuq_81.jpg) no-repeat left top;}
+.PeopleDocket2 a.aImgOpen:active,.PeopleDocket2 a.aImgOpen:hover{background:url(../images/yuq_82.jpg) no-repeat left top;}
+.newsTopDocket1{font-size:12px;color:#64B005;font-weight:bold;height:40px;line-height:20px;}
+.newsTopDocket1 a:link,.newsTopDocket1 a:visited,.newsTopDocket1 a:hover,.newsTopDocket1 a:active{color:#64B005;}
+/*-- 舆情预警 css -------------------------------
+-----------------------------------------------------------*/
+.mainstream .warningBox{width:100%;margin:0px auto 0px;}
+.warning{width:197px;margin-left:0px;}
+.warning .lconTitle{width:168px;}
+.warning .lconNumber{width:168px;line-height:40px;overflow:hidden;}
+.warning .lconNumber tt{font-size:28px;top:0px;color:#1486cd;}
+.detxxi{float:right;display:inline;width:40px;margin-top:15px;letter-spacing:2px;}
+.tableListDivTable1{width:790px;margin-top:15px;padding:0px;}
+.tableListDivTable1 table{width:790px;}
+.sumTime .detailReprint{margin-left:0px;background:url(../images/yuq_27.gif) no-repeat left top;padding-left:20px;color:#335f86;height:25px;line-height:25px;}
+.sumTime .detailsoucre{margin-left:5px;background:url(../images/yuq_26.gif) no-repeat left -1px;padding-left:20px;color:#335f86;height:25px;line-height:25px;}
+.sumTime .detailsoucre tt{font-size:12px;color:#1486cd;font-weight:bold;}
+.sumTime .clubReprint{margin-left:0px;background:url(../images/yuq_29.gif) no-repeat left top;padding-left:20px;color:#335f86;height:25px;line-height:25px;}
+.sumTime .clubsoucre{margin-left:5px;background:url(../images/yuq_28.gif) no-repeat left -1px;padding-left:20px;color:#335f86;height:25px;line-height:25px;}
+.sumTime .clubsoucre tt{font-size:12px;color:#1486cd;font-weight:bold;}
+.sumTime .qxsoucre{margin-left:0px;background:url(../images/yuq_42.gif) no-repeat left -1px;padding-left:20px;color:#335f86;height:25px;line-height:25px;}
+.sumTime .qxsoucre tt{font-size:12px;color:#335f86;font-weight:normal;}
+.warningInput{width:100%;clear:both;margin:5px 0px 0px 0px;display:none;}
+.warningInput span{float:left;display:inline;color:#4d4d4d;}
+.warningSelect{width:100px;padding:2px 0px;border:1px solid #cccccc;}
+.opinion{width:38px;height:60px;overflow:hidden;margin-top:10px;line-height:15px;}
+.opinionArea{margin-top:5px;}
+.opinionArea textarea{width:240px;height:60px;overflow:hidden;border:1px solid #ccc;resize:none;}
+.Choice span.space2{margin-left:20px;}
+.mainstreamW1{width:760px;}
+.mainstreamW1 span{font-weight:normal;}
+.department{width:790px;}
+.departmentWin{width:395px;overflow:hidden;float:left;display:inline;}
+.departmentDiv{width:368px;overflow:hidden;}
+.systemSearchLeft .selectWidth{width:70px;}
+.systemSearchLeft .selectWidth1{width:80px;}
+.tableListLeftBox{width:368px;overflow:hidden;float:left;display:inline;}
+.tableListRightBox{width:368px;overflow:hidden;float:left;display:inline;margin-left:30px;}
+
+/*-- 区县 map css -------------------------------
+-----------------------------------------------------------*/
+.clumnTBoxMap{width:760px;height:702px;overflow:hidden;background:url(../images/map/bg.png) no-repeat left top;margin-top:20px;margin-left:10px;position:relative;}
+.clumnTBoxMap2{width:760px;height:702px;overflow:hidden;background:url(../images/map/bg2.png) no-repeat left top;margin-top:20px;margin-left:10px;position:relative;}
+.clumnTBoxMap3{width:760px;height:702px;overflow:hidden;background:url(../images/map/bg3.png) no-repeat left top;margin-top:20px;margin-left:10px;position:relative;}
+.clumnTBoxMap4{width:760px;height:702px;overflow:hidden;background:url(../images/map/bg4.png) no-repeat left top;margin-top:20px;margin-left:10px;position:relative;}
+.cityImg{position:absolute;top:0px;left:0px;opacity:0; filter:alpha(opacity:0)}
+.cityBack{position:absolute;background:url(../images/yuq_30.gif) no-repeat left top;width:72px;height:0px;overflow:hidden;cursor:pointer;}
+.cityBackAct{position:absolute;background:url(../images/yuq_78.gif) no-repeat left top;width:72px;height:0px;overflow:hidden;cursor:pointer;}
+.cityBack p{height:33px;line-height:33px;width:65px;margin:0px auto;text-align:center;font-size:14px;color:#4c4c4c;font-weight:bold;}
+.cityBack p.sum{line-height:20px;color:#d15353;font-size:20px;font-family:Verdana;font-weight:bold;}
+.chCity1{top:120px;left:240px;}
+.hdCity1{top:170px;left:90px;}
+.byCity1{top:250px;left:120px;}
+.lgCity1{top:280px;left:205px;}
+.zcCity1{top:250px;left:305px;}
+.pyCity1{top:420px;left:165px;}
+.nsCity1{top:520px;left:245px;}
+.lwCity1{top:150px;left:515px;}
+.yxCity1{top:80px;left:580px;}
+.thCity1{top:80px;left:685px;}
+.hpCity1{top:120px;left:775px;}
+.hzCity1{top:160px;left:625px;}
+
+.chCity{top:150px;left:260px;}
+.hdCity{top:200px;left:90px;}
+.byCity{top:290px;left:140px;}
+.lgCity{top:310px;left:235px;}
+.zcCity{top:270px;left:345px;}
+.pyCity{top:470px;left:175px;}
+.nsCity{top:560px;left:255px;}
+.lwCity{top:500px;left:365px;}
+.yxCity{top:420px;left:415px;}
+.thCity{top:410px;left:515px;}
+.hpCity{top:470px;left:635px;}
+.hzCity{top:500px;left:495px;}
+
+
+/*-- 媒体 map css -------------------------------
+-----------------------------------------------------------*/
+.clomeMap{width:100%;height:735px;overflow:hidden;position:relative;background:url(../images/yuq_86.jpg) no-repeat left top;}
+.clomeMapyj{width:100%;height:735px;overflow:hidden;position:relative;background:url(../images/yuq_87.jpg) no-repeat left top;}
+.point{position:absolute;left:0px;top:0px;width:22px;height:0px;background:url(../images/yuq_31.gif) no-repeat left top;overflow:hidden;}
+.chPoint{left:280px;top:180px;}
+.hdPoint{left:150px;top:230px;}
+.byPoint{left:185px;top:305px;}
+.lgPoint{left:285px;top:335px;}
+.thPoint{left:205px;top:382px;}
+.yxPoint{left:150px;top:402px;}
+.lwPoint{left:125px;top:420px;}
+.hzPoint{left:175px;top:425px;}
+.hpPoint{left:247px;top:412px;}
+.pyPoint{left:212px;top:490px;}
+.nsPoint{left:282px;top:575px;}
+.zcPoint{left:362px;top:305px;}
+.mapContent{width:326px;overflow:hidden;opacity:0;position:absolute;left:450px;top:100px;padding-bottom:5px;border:1px solid #cccccc;background:url(../images/yuq_85.jpg) no-repeat left top #fff;}
+.mapContentDiv{width:310px;overflow:hidden;margin-left:5px;border-left:7px solid #ed6941;margin-top:5px;}
+.mapTitle{width:300px;height:30px;overflow:hidden;color:#ec6941;margin:10px 0px 0px 10px;font-size:18px;font-family:simhei;}
+.mapTitleP{width:300px;height:20px;overflow:hidden;color:#ec6941;margin:5px 0px 0px 10px;font-size:14px;font-weight:bold;}
+.mapTitleP a:link,.mapTitleP a:visited,.mapTitleP a:hover,.mapTitleP a:active{color:#4c4c4c;}
+.mapDocket{width:290px;height:90px;overflow:hidden;color:#4c4c4c;margin:5px 0px 0px 10px;font-size:12px;}
+.mapCon{display:none;}
+.block{height:29px;overflow:hidden;}
+
+/*-- 监控屏 css -------------------------------
+-----------------------------------------------------------*/
+.bodyCon{width:1024px;overflow:hidden;margin:0px auto;background:url(../images/yuq_88.jpg) repeat-y center top;}
+.fullScreenLeft{float:left;display:inline;width:213px;overflow:hidden;position:relative;}
+.ScreenLeftTitle{width:213px;overflow:hidden;height:170px;background:url(../images/yuq_90.jpg) no-repeat left top;}
+.ScreenLeftTitle p{width:213px;overflow:hidden;height:30px;line-height:30px;text-align:center;font-family:simhei;font-size:16px;color:#cbd6e9;letter-spacing:1px;margin-top:135px;}
+.ScreenLeftDocket{width:213px;height:101px;overflow:hidden;background:url(../images/yuq_89.jpg) no-repeat left top;}
+.ScreenLeftDocket p{text-align:center;font-size:20px;font-family:simhei;line-height:30px;color:#fff;letter-spacing:1px;}
+.ScreenSpanBox{width:213px;overflow:hidden;clear:both;margin-top:10px;}
+.ScreenSpanLeft{width:70px;overflow:hidden;text-align:right;float:left;display:inline;color:#fff;}
+.ScreenSpanLeft span{height:30px;width:100%;overflow:hidden;line-height:25px;display:block;margin-top:5px;}
+.ScreenSpanRight{width:120px;overflow:hidden;float:left;display:inline;}
+.inputDiv3{width:90px;height:25px;color:#4c4c4c;}
+.ScreenSpanRight span{color:#fff;height:30px;}
+.inputDiv3 select{width:90px;height:23px;line-height:23px;border:1px solid #CCCCCC;color:#4c4c4c;padding:3px 0px;}
+.ScreenSpanRight span{clear:both;display:block;margin-top:5px;}
+.fullScreenRight{width:801px;position:relative;float:left;display:inline;margin-top:10px;}
+.ScreenBak1{width:801px;background:url(../images/yuq_32.gif) no-repeat left top;height:32px;}
+.ScreenBak2{width:801px;background:url(../images/yuq_33.gif) repeat-y left top;}
+.ScreenBak3{width:801px;background:url(../images/yuq_34.gif) no-repeat left top;height:32px;position:relative;top:-10px;}
+.mainstreamMin{width:770px;overflow:hidden;clear:both;margin:0px auto 0;position:relative;top:-10px;}
+.sourceColor1{color:#65b102;}
+.fullScreenBnt{position:relative;top:-40px;left:-100px;height:16px;overflow:hidden;width:80px;}
+.fullScreenBnt a{float:left;display:inline;width:16px;height:16px;overflow:hidden;margin-left:10px;}
+.sourceColor2{color:#1486cd;}
+.PeopleDocket3{color:#437400;font-size:12px;font-weight:bold;height:40px;line-height:20px;width:100%;font-size:14px;}
+.sumTime .space3{margin-left:0px;}
+.clubCk{width:100%;clear:both;height:30px;line-height:30px;overflow:hidden;}
+.clubCk span{margin-left:10px;color:#4C4C4C;width:60px;float:left;display:inline;}
+.clubCk span.spanW{margin-left:10px;color:#4C4C4C;width:200px;float:left;display:inline;}
+.clubCk span tt{font-size:14px;font-weight:bold;color:#EC6941;}
+.centerImg{}
+.centerImg img{display:block;padding-top:50px;padding-bottom:50px;margin:0px auto;width:57px;height:57px;}
+img.nonum{display:block;padding-top:50px;padding-bottom:0px;margin:0px auto;width:318px;height:108px;}
+.roleBox{margin-top:0px;}
+.roleDiv{width:75px;overflow:hidden;height:180px;float:left;display:inline;position:relative;}
+.roleDiv p{text-align:center;color: #335F86;font-weight:bold;font-size:14px;}
+.roleDiv .circle_div{width:40px;height:40px;overflow:hidden;position:absolute;top:55px;left:18px;background:url(../images/yuq_73.gif) no-repeat left top;color:#335F86;text-align:center;line-height:40px;}
+.tableListHei{height:78px;}
+.popupBoxCove{width:100%;position:absolute;top:0px;left:0px;background:#000;display:none;z-index:9999;}
+.centerImgH{height:450px;}
+.centerImgH img{position:relative;top:150px;}
+.tableListBoxHH{height:570px;overflow:hidden;}
+.tableListBoxHHH{height:510px;overflow:hidden;}
+.tableListBoxHHHH{height:495px;overflow:hidden;}
+.tableListBoxHHHHH{height:500px;overflow:hidden;}
+.tableListBoxHHHHHH{height:550px;overflow:hidden;}
+.tableListBoxHHHHHHH{height:480px;overflow:hidden;}
+.tableListBoxHHHHHHHH{height:630px;overflow:hidden;}
+
+/*-- new监控屏 css -------------------------------
+-----------------------------------------------------------*/
+.monitorCon{width:1023px;height:767px;overflow:hidden;background:url(../images/yuq_96.jpg) no-repeat center bottom;margin:0px auto;position:relative;}
+.monitorTopBox{width:100%;height:75px;background:url(../images/yuq_95.jpg) no-repeat left top;}
+.monitorTitle{width:415px;overflow:hidden;float:left;display:inline;height:50px;height:50px;margin:10px 0px 0px 90px;}
+.monitorTitle .aTitle{font-size:22px;font-family:simhei;color:#2f6ea7;line-height:50px;font-weight:bold;}
+.monitorTitle .bTitle{font-size:28px;font-family:simhei;color:#2a84d0;line-height:50px;margin-left:10px;font-weight:bold;}
+.monitorInput{float:right;display:inline;width:225px;height:30px;margin-top:20px;}
+.monitorInput span{float:left;display:inline;overflow:hidden;}
+.monitorInput span.wh1{width:40px;margin-top:3px;color:#4c4c4c;}
+.monitorInput span.wh2{width:126px;margin-top:3px;}
+.monitorInput span.wh2 select{width:120px;overflow:hidden;height:20px;border:1px solid #cccccc;}
+.monitorInput span.wh3{width:26px;height:26px;overflow:hidden;position:relative;left:8px;}
+.monitorInput span.wh31{width:26px;height:26px;overflow:hidden;position:relative;left:315px;top:-25px;}
+.monitorInput span.wh3 a{width:26px;height:26px;background:url(../images/yuq_94.jpg) no-repeat left top;display:block;}
+.monitorInput span.wh3 a:hover,.monitorInput span.wh3 a:active{background:url(../images/yuq.jpg) no-repeat left top;}
+.monitorDiv{width:100%;clear:both;overflow:hidden;margin-top:5px;position:relative;}
+.monitorDivLeft{width:605px;overflow:hidden;height:650px;float:left;display:inline;position:relative;}
+.monitorDivLeft .circle_div{top:168px;left:150px;}
+.pieTitle{width:246px;height:110px;overflow:hidden;position:absolute;top:260px;left:180px;text-align:center;}
+.pieTitle span{font-size:28px;color:#2a84d0;font-family:simhei;font-weight:bold;line-height:30px;}
+.monitorDivRight{width:402px;overflow:hidden;float:right;display:inline;margin-right:10px;}
+.columnBox{width:400px;overflow:hidden;border:1px solid #cccccc;height:292px;background:url(../images/yuq_96.jpg) no-repeat bottom left;}
+.columnBoxH{width:400px;overflow:hidden;border:1px solid #cccccc;height:330px;background:url(../images/yuq_96.jpg) no-repeat bottom left;}
+.columnBoxHTitle{width:98%;height:25px;line-height:25px;font-size:14px;font-family:simsun;color:#2a84d0;font-weight:bold;margin:5px auto 0px;text-align:center;}
+.columnBoxHTitle a:link,.columnBoxHTitle a:visited,.columnBoxHTitle a:hover,.columnBoxHTitle a:active{color:#2a84d0;}
+.tableListQ{padding-bottom:5px;margin:0px 0px 0px 15px;}
+.columnPage{width:145px;height:30px;overflow:hidden;margin:15px auto 0px;}
+.columnPage a{float:left;display:inline;width:18px;height:18px;margin:0px 0px 0px 8px;border:1px solid #ccc;background:#fbfbfb;color:#808080;text-align:center;line-height:18px;font-size:10px;font-weight:bold;}
+.columnPage a:link,.columnPage a:visited,.columnPage a:hover,.columnPage a:active{color:#808080;text-decoration:none;}
+.columnPage a.act{background:#2a84d0;border:1px solid #2a84d0;color:#fff;}
+.columnPage a.act:link,.columnPage a.act:visited,.columnPage a.act:hover,.columnPage a.act:active{color:#fff;text-decoration:none;}
+
+.columnPageCenter{width:145px;height:30px;overflow:hidden;margin:15px auto 0px;text-align:center;}
+.columnPageCenter a{width:18px;margin:0px 0px 0px 8px;border:1px solid #ccc;background:#fbfbfb;color:#808080;text-align:center;line-height:18px;font-size:10px;font-weight:bold;padding:3px 5px;}
+.columnPageCenter a:link,.columnPageCenter a:visited,.columnPageCenter a:hover,.columnPageCenter a:active{color:#808080;text-decoration:none;}
+.columnPageCenter a.act{background:#2a84d0;border:1px solid #2a84d0;color:#fff;}
+.columnPageCenter a.act:link,.columnPageCenter a.act:visited,.columnPageCenter a.act:hover,.columnPageCenter a.act:active{color:#fff;text-decoration:none;}
+
+
+.widthRT{width:400px;}
+.widthRT span{color:#4d4d4d;margin-left:2px;margin-top:3px;}
+.moTdH{width:228px;overflow:hidden;}
+.moTdC{border-left:1px solid #ccc;}
+.moTdHBox{width:180px;overflow:hidden;margin:0px auto;}
+.moTdHDiv{width:180px;height:70px;overflow:hidden;background:url(../images/yuq_75.gif) no-repeat left top;margin-top:15px;}
+.moTdHDiv span{display:block;height:25px;overflow:hidden;line-height:25px;text-align:center;width:170px;overflow:hidden;margin:0px auto;}
+.moTdHDiv .title{font-size:12px;color:#4c4c4c;margin-top:8px;}
+.moTdHDiv .sum{font-size:28px;font-family:Verdana;color:#1486cd;margin-top:8px;}
+.moTdCbox{width:760px;overflow:hidden;margin-left:20px;}
+.tableListLeft{width:357px;overflow:hidden;float:left;display:inline;}
+.tableListQ1{padding-bottom:5px;margin:5px 0px 0px 0px;}
+.tableListLeft .title{color:#1486cd;font-size:14px;font-weight:bold;text-align:left;}
+.tableListLeft div.title{text-align:left;}
+.tableListright{width:357px;overflow:hidden;float:right;display:inline;}
+.tableListright .title{color:#64b101;font-size:14px;font-weight:bold;text-align:left;}
+.tableListright div.title{text-align:left;}
+
+.PeopleDocketb{color:#437501;font-size:12px;font-weight:bold;height:20px;line-height:20px;}
+.PeopleDocketb a:link,.PeopleDocketb a:visited,.PeopleDocketb a:hover,.PeopleDocketb a:active{color:#437501;}
+.sumTime .PeopleTimeb{margin-left:0px;}
+.sumTime .PeopleTimeb tt{color:#437501;}
+.ppBox{width:636px;overflow:hidden;float:left;display:inline;height:650px;}
+.TcBox{width:800px;overflow:hidden;height:461px;background:url(../images/yuq_97.jpg) repeat-x left top #fff;display:none;position:absolute;top:0px;left:0px;z-index:99999;}
+.TcBox .tableListDivTable{margin:20px auto 0px;}
+.TcBox .TcBoxtop{height:31px;clear:both;overflow:hidden;line-height:31px;}
+.TcBoxtop .title{width:70%;height:31px;overflow:hidden;color:#ffffff;font-size:14px;font-weight:bold;text-indent:15px;float:left;display:inline;}
+.TcBoxtop .close{width:50px;height:24px;overflow:hidden;float:right;display:inline;margin:2px 15px 0px 0px;}
+.TcBoxtop .close a{display:block;width:50px;height:24px;background:url(../images/yuq_99.jpg) no-repeat left top;}
+.TcBoxtop .close a:hover,.TcBoxtop .close a:active{background:url(../images/yuq_98.jpg) no-repeat left top;}
+.tableMore{width:100%;clear:both;overflow:hidden;height:60px;}
+.tableMoreLeft{width:180px;overflow:hidden;height:30px;float:left;display:inline;margin:10px 0px 0px 290px;}
+.tableMoreLeft span{float:left;display:inline;width:8px;height:8px;overflow:hidden;margin:0px 5px;position:relative;top:7px;}
+.tableMoreLeft span a{width:8px;height:8px;overflow:hidden;background:#999999;display:block;}
+.tableMoreLeft span a.act{background:#1486cd;}
+.tableMoreLeft span.up{width:22px;height:22px;overflow:hidden;margin-right:15px;position:relative;top:0px;}
+.tableMoreLeft span.up a{width:22px;height:22px;overflow:hidden;display:block;background:url(../images/yuq_100.jpg) no-repeat left top;}
+.tableMoreLeft span.up a:hover,.tableMoreLeft span.up a:active{background:url(../images/yuq_104.jpg) no-repeat left top;}
+.tableMoreLeft span.next{width:22px;height:22px;overflow:hidden;margin-left:15px;position:relative;top:0px;}
+.tableMoreLeft span.next a{width:22px;height:22px;overflow:hidden;display:block;background:url(../images/yuq_105.jpg) no-repeat left top;}
+.tableMoreLeft span.next a:hover,.tableMoreLeft span.next a:active{background:url(../images/yuq_101.jpg) no-repeat left top;}
+.tableMoreRight{width:90px;height:24px;overflow:hidden;float:right;display:inline;margin:10px 2px 0px 0px;}
+.tableMoreRight a{display:block;width:90px;height:24px;overflow:hidden;background:url(../images/yuq_102.jpg) no-repeat left top;}
+.tableMoreRight a:hover,.tableMoreRight a:active{background:url(../images/yuq_103.jpg) no-repeat left top;}
+.PeopleBorderCM{border-left:5px solid #437501;}
+.PeopleDocketM{font-size:14px;color:#437501;font-weight:bold;height:20px;line-height:20px;}
+.PeopleDocketM a:link,.PeopleDocketM a:visited,.PeopleDocketM a:hover,.PeopleDocketM a:active{color:#437501;}
+.sumTime .PeopleTimeM{margin-left:0px;width:120px;overflow:hidden;float:left;display:inline;background-position:0px 5px;color:#4d4d4d;}
+.sumTime .PeopleTimeM tt{color:#65b102;}
+.sumTime .soucreM{color:#4d4d4d;}
+.sumTime .qxsoucreM{margin-left:5px;background:url(../images/yuq_42.gif) no-repeat 0px -1px;padding-left:20px;color:#4d4d4d;}
+.sumTime .qxsoucreM tt{font-size:12px;color:#4d4d4d;font-weight:normal;}
+.sumTime .qxsoucreMT{background:url(../images/yuq_42.gif) no-repeat 0px -1px;padding-left:20px;color:#4d4d4d;}
+.sumTime .qxsoucreMT tt{font-size:12px;color:#4d4d4d;font-weight:normal;}
+.docketM{width:100%;line-height:20px;height:40px;overflow:hidden;color:#4c4c4c;margin:5px 0px;}
+.tableListQ2{padding-bottom:5px;margin:5px 0px 5px 0px;}
+.ppBoxM{width:636px;height:650px;position:absolute;background:transparent;}
+.mtbLeft{width:640px;overflow:hidden;height:631px;float:left;display:inline;}
+.mtbRight{width:365px;overflow:hidden;float:right;display:inline;margin:0px 10px 0px 0px;}
+.PeopleBorder2M{color:#325f86;font-size:12px;font-weight:bold;height:20px;line-height:20px;width:100%;}
+.PeopleBorder2M a.aTitle:linnk,.PeopleBorder2M a.aTitle:visited,.PeopleDocket2 a.aTitle:hover,.PeopleDocket2 a.aTitle:active{color:#325f86;}
+.PeopleBorder2M a.aTitle{float:left;display:inline;width:302px;overflow:hidden;height:20px;}
+.PeopleBorder2M a.aImg{float:right;display:inline;width:26px;height:20px;overflow:hidden;background:url(../images/yuq_83.jpg) no-repeat left top;}
+.PeopleBorder2M a.aImg:active,.PeopleBorder2M a.aImg:hover{background:url(../images/yuq_84.jpg) no-repeat left top;}
+.PeopleBorder2M a.aImgOpen{float:right;display:inline;width:26px;height:20px;overflow:hidden;background:url(../images/yuq_81.jpg) no-repeat left top;}
+.PeopleBorder2M a.aImgOpen:active,.PeopleBorder2M a.aImgOpen:hover{background:url(../images/yuq_82.jpg) no-repeat left top;}
+.sumTime .PeopleTimeMT{margin-left:0px;width:120px;overflow:hidden;float:left;display:inline;background-position:0px 5px;color:#4d4d4d;}
+.sumTime .PeopleTimeMT tt{color:#1587cd;}
+.sumTime .detailsoucreMT{margin-left:0px;background:url(../images/yuq_26.gif) no-repeat left -1px;padding-left:20px;color:#335f86;}
+.sumTime .detailsoucreMT tt{font-size:12px;color:#1587cd;}
+.sumTime .PeopleTimeMT1{margin-left:0px;width:120px;overflow:hidden;float:left;display:inline;background-position:0px 5px;color:#4d4d4d;}
+.sumTime .PeopleTimeMT1 tt{color:#4d4d4d;}
+.tableListMB{width:475px;overflow:hidden;border:none;margin-left:22px;margin-top:15px;}
+.tableListMB .newsCount{width:30px;}
+.PeopleDocket2Mb{height:45px;line-height:22px;font-size:14px;font-weight:bold;color:#345f89;}
+.PeopleDocket2Mb a:link,.PeopleDocket2Mb a:visited,.PeopleDocket2Mb a:hover,.PeopleDocket2Mb a:active{color:#345f89;}
+.sumTime .PeopleTimeMbn{margin-left:0px;width:120px;overflow:hidden;float:left;display:inline;background-position:0px 5px;color:#4d4d4d;}
+.sumTime .PeopleTimeMbn tt{color:#1585cd;}
+.monitorInput span.wh21{position:relative;top:3px;}
+.monitorInput span.wh21 select{width:100px;overflow:hidden;height:20px;border:1px solid #cccccc;position:relative;top:0px;}
+.widthRT1{width:480px;}
+.PeopleDocket2Mb img{display:inline;width:16px;height:16px;margin:0px 5px 0px 0px;position:relative;top:3px;}
+.sumTime .PeopleTimeMbnm{margin-left:0px;width:120px;overflow:hidden;float:left;display:inline;background-position:0px 5px;color:#4d4d4d;}
+.sumTime .PeopleTimeMbnm tt{color:#1486cd;}
+.PeopleTimeMbnm{color:#335f86;height:20px;line-height:20px;}
+.tableListright .titleA{color:#1486CD;}
+.tableListLeft .titleA{color:#64B101;}
+.pointCh{width:50px;height:70px;overflow:hidden;position:absolute;top:150px;left:300px;cursor:pointer;}
+.ppBoxM .img{height:45px;overflow:hidden;width:32px;}
+.ppBoxM img{display:none;}
+.ppBoxM div{filter:Alpha(opacity=0);opacity:0;}
+.ppBoxM span{font-size:14px;font-weight:bold;color:#335f86;}
+.ppBoxM span.act{color:#dc4403;}
+.pointHd{width:50px;height:70px;overflow:hidden;position:absolute;top:180px;left:170px;cursor:pointer;}
+.pointBy{width:50px;height:70px;overflow:hidden;position:absolute;top:250px;left:200px;cursor:pointer;}
+.pointLg{width:32px;height:150px;overflow:hidden;position:absolute;top:250px;left:295px;cursor:pointer;text-align:center;}
+.pointZc{width:50px;height:70px;overflow:hidden;position:absolute;top:250px;left:380px;cursor:pointer;}
+.pointYx{width:50px;height:70px;overflow:hidden;position:absolute;top:334px;left:185px;cursor:pointer;}
+.pointLw{width:50px;height:70px;overflow:hidden;position:absolute;top:354px;left:165px;cursor:pointer;}
+.pointTh{width:50px;height:70px;overflow:hidden;position:absolute;top:314px;left:225px;cursor:pointer;}
+.pointHz{width:50px;height:70px;overflow:hidden;position:absolute;top:354px;left:205px;cursor:pointer;}
+.pointHp{width:50px;height:70px;overflow:hidden;position:absolute;top:340px;left:275px;cursor:pointer;}
+.pointPy{width:50px;height:70px;overflow:hidden;position:absolute;top:440px;left:235px;cursor:pointer;}
+.pointNs{width:50px;height:70px;overflow:hidden;position:absolute;top:520px;left:305px;cursor:pointer;}
+.sumTime .PeopleTimeMbnAdd{margin-left:0px;width:135px;overflow:hidden;float:left;display:inline;background-position:0px 5px;color:#4d4d4d;}
+.sumTime .PeopleTimeMbnAdd tt{color:#1585cd;}
+
+.sumTime .PeopleTimeMbnLaiy{margin-left:0px;width:135px;overflow:hidden;float:left;display:inline;background-position:0px 5px;color:#4d4d4d;}
+.sumTime .PeopleTimeMbnLaiy tt{color:#4d4d4d;}
+/*
+.ppBox10{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_1.jpg) no-repeat 60px 0px;filter:Alpha(opacity=0);opacity:0;}
+.ppBox0{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_10.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBox1{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_9.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBox2{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_8.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBox3{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_6.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBox4{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_4.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBox5{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_7.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBox6{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_5.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBox7{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_11.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBox8{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_3.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBox9{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_12.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBox11{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map2/ditu_2.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.ppBoxLoding{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/loadingBig.gif) no-repeat center center;position:relative;}
+
+
+.pppBox10{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_1.jpg) no-repeat 60px 0px;filter:Alpha(opacity=0);opacity:0;}
+.pppBox0{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_10.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.pppBox1{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_9.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.pppBox2{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_8.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.pppBox3{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_6.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.pppBox4{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_4.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.pppBox5{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_7.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.pppBox6{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_5.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.pppBox7{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_11.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.pppBox8{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_3.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.pppBox9{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_12.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.pppBox11{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/map1/ditu_2.jpg) no-repeat 60px 0px;filter:alpha(opacity=0);opacity:0;}
+.mbBox{width:460px;height:262px;overflow:hidden;position:absolute;bottom:20px;right:20px;border:1px solid #cccccc;height:292px;background:url(../images/yuq_96.jpg) no-repeat bottom left;}
+*/
+.pppBoxLoding{width:636px;overflow:hidden;float:left;display:inline;height:650px;background:url(../images/loadingBig.gif) no-repeat center center;position:relative;}
+.fullScreenWidth{width:1024px;height:646px;overflow:hidden;margin:0px auto 0px;}
+.clumnTBoxNB{width:100%;margin:0px auto;}
+.clumnTBoxMapNB{width:1024px;height:646px;overflow:hidden;background:url(../images/map3/bg.png) no-repeat left top;margin-top:0px;margin-left:10px;position:relative;}
+
+.mbBox{width:460px;height:262px;overflow:hidden;position:absolute;bottom:20px;right:20px;border:1px solid #cccccc;height:292px;}
+.monitorDivRQ{width:60px;overflow:hidden;height:580px;position:absolute;left:0px; top:20px;}
+.monitorDivRQ a:hover,.monitorDivRQ a:active{color:#2A84D0;text-decoration:none;font-weight:bold;}
+/*.monitorDivRQ .one{display:block;width:60px;height:20px;overflow:hidden;position:relative;top:99px;font-size:14px;color:#4d4d4d;letter-spacing:2px;}
+.monitorDivRQ .two{top:152px;}
+.monitorDivRQ .three{top:207px;}
+.monitorDivRQ .four{top:262px;}
+.monitorDivRQ .five{top:307px;}
+.monitorDivRQ .six{top:362px;}
+.monitorDivRQ .seven{top:417px;}
+*/
+
+.monitorDivRQ .one{display:block;width:60px;height:20px;overflow:hidden;position:relative;top:50px;font-size:14px;color:#4d4d4d;letter-spacing:2px;}
+.monitorDivRQ .two{top:103px;}
+.monitorDivRQ .three{top:158px;}
+.monitorDivRQ .four{top:213px;}
+.monitorDivRQ .five{top:258px;}
+.monitorDivRQ .six{top:313px;}
+.monitorDivRQ .seven{top:368px;}
+
+
+.monitorDivQX{width:100%;height:30px;overflow:hidden;position:absolute;bottom:20px; left:0px;}
+.monitorDivQX .one{width:50px;height:20px;overflow:hidden;position:relative;left:110px;font-size:14px;color:#4d4d4d;letter-spacing:2px;float:left;display:inline;}
+.monitorDivQX .two{left:135px;}
+.monitorDivQX .three{left:155px;}
+.monitorDivQX .four{left:180px;}
+.monitorDivQX .five{left:205px;}
+.monitorDivQX .six{left:230px;}
+.monitorDivQX .seven{left:250px;}
+.monitorDivQX .enght{left:275px;}
+.monitorDivQX .nian{left:300px;}
+.monitorDivQX .ten{left:320px;}
+.monitorDivQX .tena{left:345px;}
+.monitorDivQX .tenab{left:365px;}
+.sumTime .PeopleTimeMKL{margin-left:0px;width:140px;overflow:hidden;float:left;display:inline;background-position:0px 5px;}
+.sumTime .PeopleTimeMKLH{margin-left:0px;width:120px;overflow:hidden;float:left;display:inline;background-position:0px 5px;}
+.roleDiv1 .circle_div1{font-weight:bold;}
+.roleDiv1{width:100px;overflow:hidden;height:180px;float:left;display:inline;position:relative;margin-left:1px;}
+.roleDiv1 p{text-align:center;color: #335F86;font-weight:bold;font-size:14px;margin-top:5px;}
+.roleDiv1 .circle_div{width:40px;height:40px;overflow:hidden;position:absolute;top:65px;left:24px;background:url(../images/yuq_73.gif) no-repeat left top;color:#335F86;text-align:center;line-height:40px;}
+.ppBakBox{width:636px;overflow:hidden;float:left;display:inline;height:650px;position:relative;}
+.ppBakDiv{position:absolute;top:0px;left:60px;}
+.sumTime .PeopleTimeMCO tt{color:#4d4d4d;}
+.clumnTBoxMapNB2{width:1024px;height:646px;overflow:hidden;background:url(../images/map3/bg2.png) no-repeat left top;margin-top:0px;margin-left:10px;position:relative;}
+.clumnTBoxMapNB3{width:1024px;height:646px;overflow:hidden;background:url(../images/map3/bg3.png) no-repeat left top;margin-top:0px;margin-left:10px;position:relative;}
+.clumnTBoxMapNB4{width:1024px;height:646px;overflow:hidden;background:url(../images/map3/bg4.png) no-repeat left top;margin-top:0px;margin-left:10px;position:relative;}
+text{stroke-width:0;stroke:transparent;}
+.tableList table{padding-top:10px;}
+.fontbold{font-weight:bold;}
+
+/*-- 舆情搜索 css -------------------------------
+-----------------------------------------------------------*/
+.tableContentSX{width:100%;float:left;display:inline;margin:10px auto 0px;background:#fff;padding-bottom:20px;}
+.currentPositionSX{width:990px;height:30px;line-height:30px;background:url(../images/yuq_5.jpg) repeat-x left top;color:#808080;padding-left:10px;}
+.currentPositionSX span{color:#808080;margin:0px 3px;}
+.currentPositionSX span a:link,.currentPositionSX span a:visited,.currentPositionSX span a:hover,.currentPositionSX span a:active{color:#808080;}
+.searchText{width:978px;border:1px solid #cccccc;height:101px;background:#e6e6e6;margin:10px auto 0px;}
+.searchSpan{float:left;display:inline;width:180px;height:25px;margin:15px 0px 0px 95px;}
+.searchSpan select{border:1px solid #cccccc;padding:1px 0px;height:20px;line-height:20px;font-size:12px;width:100px;}
+.searchSpanTitle{font-size:12px;color:#4c4c4c;font-weight:bold;}
+.searchSpan1{margin:15px 0px 0px 45px;width:150px;}
+.searchSpan2{margin-top:20px;}
+.searchSpan3{margin:20px 0px 0px 0px;width:125px;}
+.searchSpan input{border:1px solid #cccccc;padding:1px 0px;height:20px;line-height:20px;font-size:12px;width:165px;}
+.searchSpan4{margin:20px 0px 0px 10px;width:169px;}
+.searchSpan5{margin:20px 0px 0px 10px;width:60px;height:28px;overflow:hidden;background:url(../images/yuq_111.jpg) no-repeat left top;position:relative;top:-3px;cursor:pointer;}
+.searchCon{width:978px;overflow:hidden;border:1px solid #cccccc;margin:5px auto 0px;clear:both;}
+.searchConaDD{height:759px;}
+.searchConL{width:402px;overflow:hidden;float:left;display:inline;border-right:1px solid #cccccc;}
+.searchConLTop{width:100%;border-bottom:1px dashed #cccccc;height:37px;background:url(../images/yuq_112.jpg) repeat-x left top;line-height:37px;}
+.searchConLTopTxt{float:left;display:inline;margin-left:10px;color:#4c4c4c;width:250px;}
+.searchConLTopTxt tt{font-size:12px;font-family:Verdana;color:#1486cd;font-weight:bold;}
+.timePx{float:left;display:inline;width:60px;height:28px;background:url(../images/yuq_113.jpg) no-repeat left top;margin:5px 0px 0px 5px;cursor:pointer;}
+.timeXgPx{float:left;display:inline;width:60px;height:28px;background:url(../images/yuq_162.jpg) no-repeat left top;margin:5px 0px 0px 5px;cursor:pointer;}
+.timeRDPx{float:left;display:inline;width:60px;height:28px;background:url(../images/yuq_162_1.jpg) no-repeat left top;margin:5px 0px 0px 5px;cursor:pointer;}
+.conList{width:398px;clear:both;height:630px;overflow:hidden;border-right:4px solid #335f86;}
+.conListDiv{width:100%;height:94px;overflow:hidden;border-bottom:1px dashed #cccccc;clear:both;padding-top:10px;}
+.conListDiv .titleBox{width:100%;height:20px;overflow:hidden;clear:both;}
+.conListDiv .titleBox .tiezi{width:40px;height:20px;float:left;display:inline;text-align:center;line-height:20px;font-size:12px;font-weight:bold;background:#1486cd;color:#fff;}
+.conListDiv .titleBox strong{width:340px;overflow:hidden;font-size:12px;font-weight:bold;float:left;display:inline;margin:0px 0px 0px 10px;line-height:20px;}
+.conListDiv .titleBox strong a:link,.conListDiv .titleBox strong a:visited,.conListDiv .titleBox strong a:hover,.conListDiv .titleBox strong a:active{color:#335f86;}
+.conListDiv .lognBox{width:100%;height:60px;overflow:hidden;clear:both;margin-top:5px;}
+
+/*.conListDiv .lognBox span{float:left;display:inline;width:115px;overflow:hidden;height:28px;line-height:28px;margin-left:10px;color:#4c4c4c;}
+.conListDiv .lognBox .shux{background:url(../images/yuq_79.gif) no-repeat 0px 8px;text-indent:15px;width:78px;}
+.conListDiv .lognBox .mgan{background:url(../images/yuq_80.gif) no-repeat 0px 6px;text-indent:20px;width:160px;}
+.conListDiv .lognBox .laiy{background:url(../images/yuq_25.gif) no-repeat 0px 6px;text-indent:20px;width:120px;}
+.conListDiv .lognBox .huif{background:url(../images/yuq_29.gif) no-repeat 0px 8px;text-indent:20px;width:98px;}
+.conListDiv .lognBox .chak{background:url(../images/yuq_28.gif) no-repeat 0px 6px;text-indent:20px;width:110px;}
+.conListDiv .lognBox .shij{background:url(../images/yuq_72.gif) no-repeat 0px 6px;text-indent:20px;width:120px;}
+.conListDiv .lognBox .zhangh{background:url(../images/yuq_82.gif) no-repeat 0px 6px;text-indent:20px;width:120px;}
+.conListDiv .lognBox .pingl{background:url(../images/yuq_27.gif) no-repeat 0px 6px;text-indent:20px;width:98px;}
+.conListDiv .lognBox .zhuanf{background:url(../images/yuq_26.gif) no-repeat 0px 6px;text-indent:20px;width:110px;}
+.conListDiv .lognBox .zhuanzl{background:url(../images/yuq_71.gif) no-repeat 0px 6px;text-indent:20px;width:98px;}*/
+
+
+.conListDiv .lognBox span{width:120px;float:left;display:inline;overflow:hidden;height:28px;line-height:28px;margin-left:10px;color:#4c4c4c;}
+.conListDiv .lognBox .shux{background:url(../images/yuq_79.gif) no-repeat 0px 8px;text-indent:15px;}
+.conListDiv .lognBox .mgan{background:url(../images/yuq_80.gif) no-repeat 0px 6px;text-indent:20px;}
+.conListDiv .lognBox .laiy{background:url(../images/yuq_25.gif) no-repeat 0px 6px;text-indent:20px;}
+.conListDiv .lognBox .huif{background:url(../images/yuq_29.gif) no-repeat 0px 8px;text-indent:20px;}
+.conListDiv .lognBox .chak{background:url(../images/yuq_28.gif) no-repeat 0px 6px;text-indent:20px;}
+.conListDiv .lognBox .shij{background:url(../images/yuq_72.gif) no-repeat 0px 6px;text-indent:20px;}
+.conListDiv .lognBox .zhangh{background:url(../images/yuq_82.gif) no-repeat 0px 6px;text-indent:20px;}
+.conListDiv .lognBox .pingl{background:url(../images/yuq_27.gif) no-repeat 0px 6px;text-indent:20px;}
+.conListDiv .lognBox .zhuanf{background:url(../images/yuq_26.gif) no-repeat 0px 6px;text-indent:20px;}
+.conListDiv .lognBox .zhuanzl{background:url(../images/yuq_71.gif) no-repeat 0px 6px;text-indent:20px;}
+.conListDiv .lognBox .szdi{background:url(../images/yuq_42.gif) no-repeat 0px 5px;text-indent:15px;}
+.conListDiv .lognBox .szdi tt{font-size:12px;}
+
+.conListDiv .lognBox tt{font-size:14px;font-weight:bold;font-family:Verdana;color:#1486cd;}
+.conListDiv .titleBox img{display:inline;margin-right:5px;}
+.conListDiv .titleBox .weibo{background:#ae5da1;}
+.conListDiv .titleBox .xinwen{background:#13b5b1;}
+.conListDiv .titleBox .plun{background:#99c833;}
+.conListDiv .titleBox .boke{background:#f55;}
+
+.conListDivAct{background:url(../images/yuq_81.gif) no-repeat right center #dee9ef;}
+.listPage{width:402px;height:90px;border-top:1px solid #cccccc;background:#e5e5e5;}
+.pageBoxLst{width:310px;height:28px;overflow:hidden;clear:both;margin:20px auto 0px;}
+.pageBoxLst span{float:left;display:inline;margin:0px 3px;width:26px;height:22px;overflow:hidden;}
+.pageBoxLst span.normal{position:relative;top:3px;}
+.pageBoxLst span.normal a{border:1px solid #cccccc;padding:2px 5px;text-decoration:none;background:url(../images/yuq_21.jpg) repeat-x left top;}
+.pageBoxLst span.normal a:hover,.pageBoxLst span.normal a:active{border:1px solid #e5e5e5;padding:2px 5px;text-decoration:none;background:none;color:#1486cd;font-weight:bold;}
+.pageBoxLst span.act a{border:1px solid #e5e5e5;padding:2px 5px;text-decoration:none;background:none;color:#1486cd;font-weight:bold;}
+.pageBoxLst span.next{width:60px;height:28px;}
+.pageBoxLst span.next a{display:block;width:100%;height:100%;background:url(../images/yuq_17.jpg) no-repeat left top;}
+.pageBoxLst span.next a:hover,.pageBoxLst span.next a:active{background:url(../images/yuq_15.jpg) no-repeat left top;}
+.pageBoxLst span.up{width:60px;height:28px;}
+.pageBoxLst span.up a{display:block;width:100%;height:100%;background:url(../images/yuq_14.jpg) no-repeat left top;}
+.pageBoxLst span.up a:hover,.pageBoxLst span.up a:active{background:url(../images/yuq_16.jpg) no-repeat left top;}
+.pageBoxInt{width:155px;overflow:hidden;height:25px;margin:10px 0px 0px 220px;}
+.pageBoxInt span{float:left;display:inline;font-size:14px;line-height:25px;}
+.pageBoxInt span .txt{width:42px;height:21px;border:1px solid #cccccc;margin:0px 5px;}
+.pageBoxInt span.pageTo{position:relative;left:8px;top:2px;}
+.pageBoxInt span.pageTo a{width:22px;height:22px;background:url(../images/yuq_18.jpg) no-repeat left top;display:block;}
+.pageBoxInt span.pageTo a:hover,.pageBoxInt span.pageTo a:active{background:url(../images/yuq_19.jpg) no-repeat left top;}
+.searchConR{float:left;display:inline;width:575px;overflow:hidden;position:relative;}
+.searchConRHK{height:759px;}
+.searchConRTitle{clear:both;width:100%;border-bottom:1px solid #cccccc;line-height:37px;color:#335f86;font-size:18px;text-align:center;font-family:simhei;}
+.searchConRTitle strong{float:left;display:inline;width:480px;overflow:hidden;margin:10px 0px 6px 10px;color:#335f86;height:22px;font-size:16px;text-align:left;font-weight:normal;line-height:22px;font-family:simhei;}
+.searchConRTitle strong.act{height:122px;}
+.searchConRTitle a{float:left;display:inline;width:15px;height:17px;overflow:hidden;position:relative;top:11px;}
+.searchConRTitle a.down{background:url(../images/yuq_120.jpg) no-repeat left top;}
+.searchConRTitle a.down:hover,.searchConRTitle strong a.down:active{background:url(../images/yuq_119.jpg) no-repeat left top;}
+
+.searchConRTitle a.up{background:url(../images/yuq_117.jpg) no-repeat left top;}
+.searchConRTitle a.up:hover,.searchConRTitle strong a.up:active{background:url(../images/yuq_118.jpg) no-repeat left top;}
+
+.searchConRTitle .tiezi{width:40px;height:20px;float:left;display:inline;text-align:center;line-height:20px;font-size:12px;font-weight:bold;background:#1486cd;color:#fff;;margin:10px 0px 0px 10px;}
+.searchConRTitle img{display:inline;margin-right:5px;}
+.searchConRTitle .weibo{background:#ae5da1;margin:10px 0px 0px 10px;}
+.searchConRTitle .xinwen{background:#13b5b1;margin:10px 0px 0px 10px;}
+.searchConRTitle .plun{background:#99c833;margin:10px 0px 0px 10px;}
+.searchConRTitle .boke{background:#f55;margin:10px 0px 0px 10px;}
+.searchConRTwoAdd{width:100%;height:140px;overflow:hidden;}
+.searchConBiao{width:100%;height:120px;overflow:hidden;background:#E5E5E5;border-bottom:1px solid #ccc;}
+.searchConBiaoS{width:550px;overflow:hidden;border-bottom:1px solid #ccc;height:60px;margin:5px auto 0px;clear:both;}
+.searchConBiaoS span{float:left;display:inline;height:30px;line-height:30px;overflow:hidden;width:140px;margin-left:20px;color:#4c4c4c;}
+.searchConBiaoS span.time{width:200px;}
+.searchConBiaoT{width:550px;height:25px;line-height:25px;overflow:hidden;clear:both;margin:0 auto;}
+.searchConBiaoT span{float:left;display:inline;width:120px;overflow:hidden;line-height:35px;text-indent:20px;color:#4c4c4c;margin-left:13px;}
+.searchConBiaoT span tt{font-weight:bold;color:#1486CD;}
+.searchConBiaoT span.zf{background:url(../images/yuq_26.gif) no-repeat left 8px;}
+.searchConBiaoT span.pl{background:url(../images/yuq_27.gif) no-repeat left 8px;}
+.searchConBiaoT span.rd{background:url(../images/yuq_83.gif) no-repeat left 8px;}
+.searchConBiaoT span.mg{background:url(../images/yuq_80.gif) no-repeat left 8px;}
+.searchConBiaoT span.zz{background:url(../images/yuq_71.gif) no-repeat left 8px;}
+.searchConBiaoTAdd{width:430px;height:44px;overflow:hidden;}
+.searchConBiaoTAdd .zzlist{width:89px;height:24px;overflow:hidden;position:relative;top:8px;}
+.searchConBiaoTAdd .zzlist a{background:url(../images/yuq_163.jpg) no-repeat left top;width:89px;height:24px;display:block;}
+.searchConBiaoTAdd .zzlist a:hover,.searchConBiaoTAdd .zzlist a:active{background:url(../images/yuq_164.jpg) no-repeat left top;}
+
+.searchConRSpan{float:left;display:inline;width:180px;overflow:hidden;height:25px;margin:15px 0px 0px 415px;}
+.searchConRSpan select{border:1px solid #cccccc;padding:1px 0px;height:20px;line-height:20px;font-size:12px;width:100px;color:#4c4c4c;}
+.searchConRSpan .searchConRSpanT{font-size:12px;color:#4c4c4c;font-weight:normal;}
+.searchConRH{width:100%;height:425px;overflow:hidden;}
+.searchConRW{width:0px;height:0px;overflow:hidden;border:5px solid #ccc;position:absolute;top:0px;left:0px;z-index:9999;background:#fff;display:none;}
+.searchConRW .searchtableListDiv{clear:both;margin:10px auto 0;overflow:hidden;width:545px;}
+.searchConRW .tableListDivTable{width:545px;overflow:hidden;}
+.searchConRW .tableListDivTable table{width:545px;overflow:hidden;}
+.searchConClose{clear:both;width:100%;border-bottom:1px dashed #cccccc;line-height:37px;color:#335f86;font-size:18px;text-align:center;font-family:simhei;}
+.searchConClose strong{color:#335F86;font-size:12px;font-family:simsun;text-align:left;float:left;display:inline;width:200px;height:33px;text-indent:15px;}
+.searchConClose a{float:right;display:inline;width:50px;height:24px;position:relative;top:6px;right:10px;overflow:hidden;background:url(../images/yuq_122.jpg) no-repeat left top;}
+.searchConClose a:hover,.searchConClose a:active{float:right;display:inline;width:50px;height:24px;overflow:hidden;background:url(../images/yuq_121.jpg) no-repeat left top;}
+
+
+.searchConRSpan2{float:left;display:inline;width:180px;overflow:hidden;height:25px;margin:20px 0px 0px 15px;}
+.searchConRSpan2 select{border:1px solid #cccccc;padding:1px 0px;height:20px;line-height:20px;font-size:12px;width:120px;color:#4c4c4c;}
+.searchConRSpan2 .searchConRSpanT{font-size:12px;color:#4c4c4c;font-weight:normal;}
+.searchConRSpan3{float:left;display:inline;width:180px;overflow:hidden;height:25px;margin:20px 0px 0px 5px;}
+.searchConRSpan3 select{border:1px solid #cccccc;padding:1px 0px;height:20px;line-height:20px;font-size:12px;width:120px;color:#4c4c4c;}
+.searchConRSpan3 .searchConRSpanT{font-size:12px;color:#4c4c4c;font-weight:normal;}
+
+.searchConRSpan4{float:left;display:inline;width:554px;overflow:hidden;height:65px;margin:10px 0px 0px 15px;}
+.searchConRSpan4 textarea{border:1px solid #cccccc;padding:1px 0px;height:20px;line-height:20px;font-size:12px;width:490px;height:45px;color:#4c4c4c;resize:none;}
+.searchConRSpan4 .searchConRSpanT{font-size:12px;color:#4c4c4c;font-weight:normal;width:36px;overflow:hidden;float:left;display:inline;height:60px;}
+.columnBoxHAdd{width:400px;overflow:hidden;height:340px;border:1px solid #cccccc;background:url(../images/yuq_96.jpg) no-repeat bottom left;}
+.newsDocketH{height:25px;}
+.allWed{width:68px;height:24px;position:relative;z-index:1000;margin:2px 15px 0px 2px;overflow:hidden;float:left;display:inline;text-align:center;line-height:24px;background:url(../images/yuq_116.jpg) no-repeat left top;}
+.allWed a:link,.allWed a:visited{font-weight:normal;color:#4d4d4d;text-decoration:none;}
+.allWed a:active,.allWed a:hover{font-weight:bold;color:#2a84d0;text-decoration:none;}
+.sumTime .commentaryTopReprint tt{color:#65b102;}
+.addSubmit{width:34px;overflow:hidden;height:20px;margin:0px auto 0px;padding-bottom:10px;}
+.addSubmit a{display:block;width:34px;height:20px;overflow:hidden;background:url(../images/yuq_10.jpg) no-repeat left top;}
+.addSubmit a:hover,.addSubmit a:active{background:url(../images/yuq_12.jpg) no-repeat left top;}
+.mbImg{display:inline;margin-right:5px;}
+
+
+.rightNavBox{width:100px;overflow:hidden;position:absolute;top:0px;right:-101px;display:none;background:#1a466c;}
+.rightNavBox span{width:100%;overflow:hidden;height:35px;line-height:35px;text-align:center;font-size:12px;color:#62a0d5;display:block;border-bottom:1px dashed #1161a5;}
+.rightNavBox span a:link,.rightNavBox span a:visited{display:block;width:100%;height:100%;color:#62a0d5;text-decoration:none;}
+.rightNavBox span a:hover,.rightNavBox span a:active{background:#10304c;color:#fff;display:block;width:100%;height:100%;text-decoration:none;}
+.rightNavBox span a.act:link,.rightNavBox span a.act:visited,.rightNavBox span a.act:hover,.rightNavBox span a.act:active{background:#10304c;color:#fff;display:block;width:100%;height:100%;text-decoration:none;}
+.hoverTop{width:100%;height:35px;overflow:hidden;border:none;text-align:center;}
+.hoverTop a{display:block;width:100%;height:100%;background:url(../images/yuq_84.gif) no-repeat center 10px;}
+.hoverTop a:hover,.hoverTop a:active{display:block;width:100%;height:100%;background:url(../images/yuq_85.gif) no-repeat center 10px;}
+.inputDiv4{width:120px;}
+
+.tableListDivTable table td.threeSty{color:#a60101;font-weight:bold;}
+.tableListDivTable table td.twoSty{color:#e27600;font-weight:bold;}
+.tableListDivTable table td.oneSty{color:#63a114;font-weight:bold;}
+
+.tableListDivTableBntSty{width:75%;margin:0px auto;}
+.tableListDivTableBntSty span.bntLeft{float:left;display:inline;width:44px;height:20px;}
+.tableListDivTableBntSty span.bntLeft a{background:url(../images/yuq_125.jpg) no-repeat left top;display:block;width:44px;height:20px;}
+.tableListDivTableBntSty span.bntLeft a:hover,.tableListDivTableBntSty span.bntLeft a:active{background:url(../images/yuq_127.jpg) no-repeat left top;}
+.tableListDivTableBntSty span.bntRight{float:right;display:inline;width:34px;height:20px;}
+.tableListDivTableBntSty span.bntRight a{background:url(../images/yuq_126.jpg) no-repeat left top;display:block;width:34px;height:20px;}
+.tableListDivTableBntSty span.bntRight a:hover,.tableListDivTableBntSty span.bntRight a:active{background:url(../images/yuq_128.jpg) no-repeat left top;}
+
+.tableListDivTableBntSty span.bntRightAct a{background:url(../images/yuq_129.jpg) no-repeat left top;display:block;width:34px;height:20px;}
+.tableListDivTableBntSty span.bntRightAct a:hover,.tableListDivTableBntStyAct span.bntRight a:active{background:url(../images/yuq_129.jpg) no-repeat left top;}
+
+.tableListDivAddSty{float:right;display:inline;width:60px;height:28px;overflow:hidden;position:relative;right:3px;}
+.tableListDivAddSty a{display:block;width:60px;height:28px;background:url(../images/yuq_123.jpg) no-repeat left top;}
+.tableListDivAddSty a:active,.tableListDivAddSty a:hover{background:url(../images/yuq_124.jpg) no-repeat left top;}
+
+.TcBoxCJ{width:790px;overflow:hidden;height:351px;background:url(../images/yuq_130.jpg) repeat-x left top #fff;display:none;position:absolute;top:0px;left:0px;z-index:99999;}
+.TcBoxCJ .TcBoxtopCJ{height:31px;clear:both;overflow:hidden;line-height:31px;text-indent:5px;color:#10304c;font-weight:bold;font-size:14px;}
+.CJChome{width:769px;height:238px;overflow:hidden;margin:0px auto 0px;display:block;}
+.CJclose{width:60px;height:28px;overflow:hidden;margin:0px auto 0px;display:block;position:relative;top:20px;}
+.CJclose a{width:60px;height:28px;overflow:hidden;display:block;background:url(../images/yuq_66.jpg) no-repeat left top;zoom:1;}
+.CJclose a:hover,.CJclose a:active{background:url(../images/yuq_67.jpg) no-repeat left top;}
+.tableListDivTableCJ{width:100%;padding-bottom:20px;}
+.loading{width:100%;height:100%;overflow:hidden;text-align:center;}
+.loading img{width:57px;height:57px;overflow:hidden;display:inline;position:relative;top:40px;}
+.loading .overTime{text-align:center;position:relative;top:55px;font-size:14px;}
+.loading a{font-weight:bold;}
+.loading a:link,.loading a:visited,.loading a:hover,.loading a:active{color:#335F86;text-decoration:underline;}
+.clCjBox{padding:5px 5px 15px 5px;width:294px;overflow:hidden;background:url(../images/yuq_130.jpg) repeat-x left top #fff;display:block;position:absolute;top:0px;left:0px;z-index:99999;}
+.clCjBoxTle{height:21px;clear:both;overflow:hidden;line-height:21px;text-indent:5px;color:#10304c;font-weight:bold;font-size:14px;}
+.clCjDivBox{width:95%;margin:10px auto 0px;clear:both;}
+.clCjDiv{width:100%;height:35px;overflow:hidden;clear:both;}
+.clCjDiv span{float:left;display:inline;height:35px;}
+.clCjDiv span.title{font-weight:bold;text-align:right;width:115px;line-height:35px;}
+.clCjDiv span.titleA{font-weight:normal;text-align:left;width:140px;line-height:35px;color:#1486CD;}
+.clCjDiv span.titleA a:link,.clCjDiv span.titleA a:visited,.clCjDiv span.titleA a:hover,.clCjDiv span.titleA a:active{color:#1486CD;text-decoration:underline;}
+.clCjDiv .clCjInput{float:left;display:inline;width:135px;position:relative;top:5px;height:25px;}
+.clCjDiv .clCjInput select.select{width:130px;height:20px;line-height:20px;border:1px solid #CCCCCC;}
+.clCjDiv .clCjArea{float:left;display:inline;width:137px;position:relative;top:5px;}
+.clCjDiv .clCjArea textarea{width:135px;height:60px;border:1px solid #CCCCCC;padding:5px;resize:none;}
+.clCjDivArea{height:80px;}
+.clCjSubmit{width:52%;height:28px;clear:both;overflow:hidden;margin:15px auto 0px;}
+
+.clCjSubmit .sumBnt{width:70px;height:28px;overflow:hidden;float:left;display:inline;background:url(../images/yuq_107.jpg) no-repeat left top;}
+.clCjSubmit .sumBnt:hover,.clCjSubmit .sumBnt:active{background:url(../images/yuq_108.jpg) no-repeat left top;}
+
+.clCjSubmit .closeBnt{width:60px;height:28px;overflow:hidden;float:left;display:inline;background:url(../images/yuq_109.jpg) no-repeat left top;margin-left:15px;}
+.clCjSubmit .closeBnt:hover,.clCjSubmit .closeBnt:active{background:url(../images/yuq_110.jpg) no-repeat left top;}
+
+.clCjDivBox .sunbmitEnd{width:95%;overflow:hidden;margin:20px auto 0px;}
+.clCjDivBox .sunbmitEnd span{display:block;width:100%;overflow:hidden;text-align:center;height:30px;line-height:30px;color:#4d4d4d;font-size:12px;}
+.clCjDivBox .sunbmitEnd span.line{text-decoration:underline;font-size:14px;}
+.clCjSubmitEnd{width:52%;height:28px;clear:both;overflow:hidden;margin:15px auto 0px;}
+
+.clCjSubmitEnd .sumBnt{width:70px;height:28px;overflow:hidden;float:left;display:inline;background:url(../images/yuq_60.jpg) no-repeat left top;}
+.clCjSubmitEnd .sumBnt:hover,.clCjSubmitEnd .sumBnt:active{background:url(../images/yuq_61.jpg) no-repeat left top;}
+
+.clCjSubmitEnd .closeBnt{width:60px;height:28px;overflow:hidden;float:left;display:inline;background:url(../images/yuq_62.jpg) no-repeat left top;margin-left:15px;}
+.clCjSubmitEnd .closeBnt:hover,.clCjSubmitEnd .closeBnt:active{background:url(../images/yuq_63.jpg) no-repeat left top;}
+
+.clCjDivB{height:60px;}
+.clCjDiv span.titleB{font-weight:normal;text-align:left;width:140px;line-height:22px;color:#4d4d4d;margin-top:6px;}
+.clCjSubmit .closeBntB{margin-left:40px;}
+
+/*-- 系统管理_舆情工具箱_采集工具  css -------------------------------
+-----------------------------------------------------------*/
+.submitTextBox{width:106px;height:30px;margin:0px auto;}
+.textBnt{width:106px;height:30px;margin:0px auto;}
+.textBnt a{display:block;width:106px;height:30px;background:url(../images/yuq_147.jpg) no-repeat left 0px;}
+.textBnt a:hover,.textBnt a:active{background:url(../images/yuq_148.jpg) no-repeat left 1px;}
+.textareaBox{width:587px;overflow:hidden;clear:both;margin:20px auto 0px;}
+.textareaBoxTitle{width:100%;clear:both;height:30px;line-height:30px;overflow:hidden;}
+.textareaBoxTitle .title{float:left;display:inline;width:300px;overflow:hidden;font-weight:bold;color:#4d4d4d;}
+.textareaBoxTitle .titleNum{float:right;display:inline;width:200px;overflow:hidden;text-align:right;color:#4d4d4d;}
+.textareaBoxTitle .titleNum tt{color:#1486cd;font-weight:bold;}
+.textareaText{width:100%;height:345px;overflow:hidden;}
+.textareaText textarea{width:575px;height:330px;border:1px solid #cccccc;padding:5px;resize:none;}
+.textBntBox{width:500px;height:28px;overflow:hidden;clear:both;margin:20px auto 0px;}
+.textBntBox span{float:left;display:inline;width:106px;height:28px;overflow:hidden;margin-left:15px;}
+.textBntBox span.areaRK a{display:block;width:100%;height:100%;background:url(../images/yuq_139.jpg) no-repeat left top;}
+.textBntBox span.areaRK a:hover,.textBntBox span.areaRK a:active{background:url(../images/yuq_140.jpg) no-repeat left top;}
+.textBntBox span.areaWB a{display:block;width:100%;height:100%;background:url(../images/yuq_141.jpg) no-repeat left top;}
+.textBntBox span.areaWB a:hover,.textBntBox span.areaWB a:active{background:url(../images/yuq_142.jpg) no-repeat left top;}
+.textBntBox span.areaCJ a{display:block;width:100%;height:100%;background:url(../images/yuq_143.jpg) no-repeat left top;}
+.textBntBox span.areaCJ a:hover,.textBntBox span.areaCJ a:active{background:url(../images/yuq_144.jpg) no-repeat left top;}
+.textBntBox span.areaGZ a{display:block;width:100%;height:100%;background:url(../images/yuq_145.jpg) no-repeat left top;}
+.textBntBox span.areaGZ a:hover,.textBntBox span.areaGZ a:active{background:url(../images/yuq_146.jpg) no-repeat left top;}
+.addPointInputBox .inputBnt{float:left;display:inline;width:70px;height:28px;overflow:hidden;margin-left:15px;}
+.addPointInputBox .inputBnt a{width:70px;height:28px;display:block;background:url(../images/yuq_135.jpg) no-repeat left top;}
+.addPointInputBox .inputBnt a:hover,.addPointInputBox .inputBnt a:active{background:url(../images/yuq_136.jpg) no-repeat left top;}
+.textCJGZ{width:100%;clear:both;overflow:hidden;}
+.textCJGZ .textCJGZTitle{height:35px;overflow:hidden;}
+.textCJGZTitle .inputTitleAdd{width:18px;height:18px;overflow:hidden;float:left;display:inline;margin-left:440px;margin-top:5px;}
+.textCJGZTitle .inputTitleAdd a{width:100%;height:100%;background:url(../images/yuq_131.jpg) no-repeat left top;display:block;}
+.textCJGZTitle .inputTitleAdd a:hover,.textCJGZTitle .inputTitleAdd a:active{background:url(../images/yuq_132.jpg) no-repeat left top;}
+.textAddBox{width:100%;overflow:hidden;clear:both;}
+.textAddBox .textAddDiv{width:615px;overflow:hidden;margin:10px auto 0px;height:35px;}
+.textAddBox .textAddDiv span{float:left;display:inline;overflow:hidden;}
+.textAddBox .textAddDiv .textAddset{width:104px;height:25px;}
+.textAddBox .textAddDiv .select{width:100px;border:1px solid #cccccc;height:23px;line-height:23px;padding:2px 0px;color:#808080;}
+.textAddBox .textAddDiv .textIptTle{width:52px;height:25px;color:#808080;font-weight:bold;margin-left:10px;}
+.textAddBox .textAddDiv .textIpt{width:160px;height:25px;}
+.textAddBox .textAddDiv .textIpt input{width:158px;height:20px;line-height:20px;padding:0px;color:#808080;border:1px solid #cccccc;}
+.textAddBox .textAddDiv .textIptTle2{width:55px;}
+.textAddBox .textAddDiv .textDEl{width:18px;height:18px;overflow:hidden;margin:3px 0px 0px 8px;}
+.textAddBox .textAddDiv .textDEl a{width:100%;height:100%;display:block;background:url(../images/yuq_133.jpg) no-repeat left top;}
+.textAddBox .textAddDiv .textDEl a:hover,.textAddBox .textAddDiv .textDEl a:active{background:url(../images/yuq_134.jpg) no-repeat left top;}
+.basic .textCon{width:100%;overflow:hidden;margin-top:30px;}
+.textCon .textConTitle{width:100%;height:25px;overflow:hidden;text-indent:10px;color:#808080;font-weight:bold;border-bottom:1px solid #cccccc;}
+.textConBnt{width:114px;height:30px;margin:0px auto;}
+.textConBnt a{display:block;width:114px;height:30px;background:url(../images/yuq_137.jpg) no-repeat left 0px;}
+.textConBnt a:hover,.textConBnt a:active{background:url(../images/yuq_138.jpg) no-repeat left 1px;}
+.bnt5{width:180px;height:70px;overflow:hidden;float:left;display:inline;margin:30px 0px 0px 20px;}
+.bnt5 a{width:180px;height:70px;display:block;background:url(../images/yuq_86.gif) no-repeat left top;}
+.bnt5 a:active,.bnt5 a:hover{background:url(../images/yuq_87.gif) no-repeat left top;}
+.textConPz{width:750px;margin:40px auto 0px;}
+.textConPz .textConTitle{width:100%;height:25px;overflow:hidden;text-indent:10px;color:#808080;font-weight:bold;border-bottom:1px solid #cccccc;}
+.textAddW{width:250px;}
+.inputPrompt{float:left;display:inline;height:30px;line-height:35px;background:url(../images/yuq_15.gif) no-repeat left 8px;margin-left:10px;text-indent:22px;color:#e27600;}
+.inputPrompt a:link,.inputPrompt a:visited,.inputPrompt a:active,.inputPrompt a:hover{color:#e27600;text-decoration:underline;}
+
+.inputPromptAct{float:left;display:inline;height:30px;width:18px;line-height:35px;background:url(../images/yuq_88.gif) no-repeat left 8px;margin-left:10px;text-indent:-80px;color:#e27600;overflow:hidden;}
+.inputPromptAct a:link,.inputPromptAct a:visited,.inputPromptAct a:active,.inputPromptAct a:hover{color:#e27600;text-decoration:underline;text-indent:-1000px;}
+.styleTitle{width:500px;overflow:hidden;height:20px;line-height:20px;margin:20px 0px 0px 110px;color:#4d4d4d;}
+.styleTitle a:link,.styleTitle a:visited,.styleTitle a:hover,.styleTitle a:active{color:#335f86;font-weight:bold;text-decoration:underline;}
+.mainstream .basicQT{width:750px;margin:0px auto 0px;}
+.styleSave{width:70px;height:30px;overflow:hidden;margin:40px auto 0px;}
+.styleSave a{width:70px;height:28px;display:block;background:url(../images/yuq_149.jpg) no-repeat left top;}
+.styleSave a:hover,.styleSave a:active{background:url(../images/yuq_150.jpg) no-repeat left top;}
+
+.addPointConBnt .styleBntDiv{width:70px;height:35px;overflow:hidden;color:#808080;font-weight:bold;text-align:center;line-height:33px;cursor:pointer;float:left;display:inline;margin-left:15px;}
+.addPointConBnt .styleBntDivAct{background:url(../images/yuq_89.gif) no-repeat center top;color:#335f86;}
+.addPointConBnt .styleBntDivAct span{height:30px;overflow:hidden;display:block;border-left:1px solid #cccccc;border-right:1px solid #cccccc;}
+.radioStyDiv{float:left;display:inline; position:relative;top:3px;left:5px;line-height:20px;color:#4d4d4d;}
+.radioStyDiv input{margin-right:3px;}
+.addPointInputBox .radioStyBnt{float:left;display:inline;width:106px;height:28px;overflow:hidden;margin-left:35px;}
+.addPointInputBox .radioStyBnt a{width:106px;height:28px;display:block;background:url(../images/yuq_151.jpg) no-repeat left top;}
+.addPointInputBox .radioStyBnt a:hover,.addPointInputBox .radioStyBnt a:active{background:url(../images/yuq_152.jpg) no-repeat left top;}
+.addName{float:left;display:inline;line-height:32px;color:#4d4d4d;padding-left:5px;}
+.inputModifyDivW{width:52px;height:25px;float:left;display:inline;color:#4c4c4c;}
+.inputModifyDivW input{border:1px solid #cccccc;width:50px;height:23px;line-height:23px;color:#808080;}
+
+.submitSHBox{width:185px;overflow:hidden;height:30px;margin:30px auto 0px;}
+.submitSHBnt{width:70px;height:30px;float:left;display:inline;}
+.submitSHBnt a{display:block;width:70px;height:30px;background:url(../images/yuq_153.jpg) no-repeat left 1px;}
+.submitSHBnt a:hover,.submitSHBnt a:active{background:url(../images/yuq_154.jpg) no-repeat left 1px;}
+
+.returnSHBnt{width:70px;height:30px;float:right;display:inline;}
+.returnSHBnt a{display:block;width:70px;height:30px;background:url(../images/yuq_155.jpg) no-repeat left top;}
+.returnSHBnt a:hover,.returnSHBnt a:active{background:url(../images/yuq_156.jpg) no-repeat left top;}
+.lconBox1{width:550px;clear:both;height:70px;overflow:hidden;margin:20px auto 0px;}
+.informationDivWidth2{width:126px;margin-left:7px;}
+.informationDivWidth2 .lconTitle{width:114px;font-weight:bold;}
+.informationDivWidth2 .lconNumber{width:114px;line-height:40px;}
+.informationDivWidth2 .lconNumber tt{font-size:20px;top:0px;font-family:Verdana;}
+.informationDivWidth2 .lconNumber img{position:relative;top:13px;display:inline;}
+.inputModifyDivW2{width:102px;height:25px;float:left;display:inline;color:#4c4c4c;}
+.inputModifyDivW2 input{border:1px solid #cccccc;width:100px;height:23px;line-height:23px;color:#808080;}
+.inputModifyDivW2 .select{width:103px;overflow:hidden;height:23px;line-height:23px;border:1px solid #cccccc;padding:2px 0px;}
+.lconBox2{width:320px;clear:both;height:70px;overflow:hidden;margin:20px auto 0px;}
+
+.textSHBnt{width:70px;height:30px;float:left;display:inline;}
+.textSHBnt a{display:block;width:70px;height:30px;background:url(../images/yuq_160.jpg) no-repeat left 1px;}
+.textSHBnt a:hover,.textSHBnt a:active{background:url(../images/yuq_161.jpg) no-repeat left 1px;}
+.csConBox{width:566px;overflow:hidden;clear:both;margin:0px auto 0px;}
+.csConBox .title{width:100%;height:30px;line-height:30px;text-align:center;font-weight:bold;color:#4d4d4d;}
+.csConBox textarea{width:558px;height:101px;border:1px solid #ccc;resize:none;padding:3px;color:#4d4d4d;}
+.csConBox .csConDoc{text-align:center;font-size:14px;color:#4d4d4d;margin-top:5px;}
+.mgrdBox{width:100%;;clear:both;overflow:hidden;}
+.mgrdDiv{width:230px;height:50px;overflow:hidden;float:left;display:inline;position:relative;}
+.textAddWW{width:95px;}
+.inputModifyDivWW{width:102px;height:25px;float:left;display:inline;color:#4c4c4c;}
+.inputModifyDivWW input{border:1px solid #cccccc;width:100px;height:23px;line-height:23px;color:#808080;}
+
+.inputPromptADd{float:left;display:inline;height:30px;width:18px;line-height:35px;background:url(../images/yuq_15.gif) no-repeat left 8px;margin-left:10px;text-indent:-80px;color:#e27600;overflow:hidden;}
+.inputPromptADd a:link,.inputPromptAct a:visited,.inputPromptAct a:active,.inputPromptAct a:hover{color:#e27600;text-decoration:underline;text-indent:-1000px;}
+
+.searchSpan5{margin:20px 0px 0px 10px;width:60px;height:28px;overflow:hidden;position:relative;top:-3px;cursor:pointer;}
+.searchSpan5 a{width:60px;height:28px;display:block;background:url(../images/yuq_111.jpg) no-repeat left top;}
+.searchSpan5 a:hover,.searchSpan5 a:active{background:url(../images/yuq_7.jpg) no-repeat left top;}
+.nextDiv{width:150px;overflow:hidden;border:1px solid #ccc;position:absolute;left:170px;top:216px;z-index:9999;background:#fff;display:none;}
+.nextDiv span{cursor:pointer;display:block;width:100%;height:25px;line-height:25px;text-align:left;}
+.nextDiv span a{display:block;width:100%;height:25px;}
+.nextDiv span a:hover,.nextDiv span a:active{background:#ccc;text-decoration:none;}
+.searchTextAdd span{float:left;display:inline;}
+
+.removeFoot{width:100%;height:30px;overflow:hidden;background:url(../images/yuq_165.jpg) repeat-x left top;position:absolute;top:0px;}
+.removeFootDiv{width:1000px;overflow:hidden;margin:0px auto;position:relative;z-index:9999;}
+.removeFootDiv ul{line-height:30px;position:relative;width:1500px;}
+.removeFootDiv ul li{width:330px;overflow:hidden;float:left;display:inline;color:#4d4d4d;margin-left:15px;}
+.removeFootDiv ul li .tit{color:#4d4d4d;font-weight:bold;}
+.removeFootDiv ul li span{float:left;display:inline;color:#4d4d4d;}
+.removeFootDiv ul li .jb3{color:#a60101;}
+.removeFootDiv ul li .jb2{color:#e27600;}
+.removeFootDiv ul li .jb1{color:#63a114;}
+.removeFootDiv ul li a{margin:0px 5px;float:left;display:inline;width:128px;overflow:hidden;}
+.removeFootDiv ul li a.jb3:link,.removeFootDiv ul li a.jb3:visited,.removeFootDiv ul li a.jb3:hover,.removeFootDiv ul li a.jb3:active{color:#a60101;}
+.removeFootDiv ul li .time{color:#808080;margin-right:30px;}
+.mgrdDiv .tis{line-height:20px;color:#e27600;margin-left:95px;}
+.mgrdTitle{font-size:12px;font-weight:bold;color:#335f86;text-indent:18px;}
+
+
+/*舆情列表中，来源所需的标签  from 小罗*/
+.forumLabel{width:40px;height:20px;float:left;display:inline;text-align:center;line-height:20px;font-size:12px;font-weight:bold;background:#1486cd;color:#fff;margin-right:4px;}
+.weiboLabel{background:#ae5da1;}
+.newsLabel{background:#13b5b1;}
+.commentLabel{background:#99c833;}
+.bokeLabel{background:#f55;}
+
+.marginLeft .chbox{margin-left:9px;float:left;display:inline;width:58px;}
+
+
+/*-- 2013 02 22  css -------------------------------
+-----------------------------------------------------------*/
+.mapBox{position:absolute;width:75px;height:212px;overflow:hidden;right:-15px;top:10px;color:#808080;font-size:10px;text-align:left;}
+.mapBox span{clear:both;width:100%;height:16px;line-height:16px;display:block;margin-top:1px;}
+.mapBox span.mapBox1{text-indent:15px;}
+.mapBox span.mapBox2{height:18px;line-height:20px;text-indent:6px;}
+.mapBox span.mapBox3{height:18px;line-height:18px;text-indent:6px;}
+.mapBox span.mapBox4{height:18px;line-height:18px;text-indent:6px;}
+.mapBox span.mapBox5{height:16px;line-height:14px;text-indent:6px;}
+.mapBox span.mapBox6{height:16px;line-height:14px;text-indent:6px;}
+.mapBox span.mapBox7{height:16px;line-height:14px;text-indent:6px;}
+.mapBox span.mapBox8{height:16px;line-height:14px;text-indent:6px;}
+.mapBox span.mapBox9{height:17px;line-height:16px;text-indent:6px;}
+.mapBox span.mapBox10{height:17px;line-height:16px;text-indent:6px;}
+.mapBox span.mapBox11{height:17px;line-height:16px;text-indent:6px;}
+.mapBox span.mapBox12{height:18px;line-height:18px;text-indent:15px;}
+.mapBoxQP{position:absolute;width:65px;height:212px;overflow:hidden;left:10px;bottom:25px;color:#808080;font-size:10px;text-align:left;}
+.mapBoxQP span{clear:both;width:100%;height:16px;line-height:16px;display:block;margin-top:1px;}
+.mapBoxQP span.mapBox1{text-indent:15px;}
+.mapBoxQP span.mapBox2{height:18px;line-height:20px;text-indent:6px;}
+.mapBoxQP span.mapBox3{height:18px;line-height:18px;text-indent:6px;}
+.mapBoxQP span.mapBox4{height:18px;line-height:18px;text-indent:6px;}
+.mapBoxQP span.mapBox5{height:16px;line-height:14px;text-indent:6px;}
+.mapBoxQP span.mapBox6{height:16px;line-height:14px;text-indent:6px;}
+.mapBoxQP span.mapBox7{height:16px;line-height:14px;text-indent:6px;}
+.mapBoxQP span.mapBox8{height:16px;line-height:14px;text-indent:6px;}
+.mapBoxQP span.mapBox9{height:17px;line-height:16px;text-indent:6px;}
+.mapBoxQP span.mapBox10{height:17px;line-height:16px;text-indent:6px;}
+.mapBoxQP span.mapBox11{height:17px;line-height:16px;text-indent:6px;}
+.mapBoxQP span.mapBox12{height:18px;line-height:18px;text-indent:15px;}
+
+/*-- 舆情协助弹出框 css ---------------------------
+-----------------------------------------------------------*/
+.navDivXz{width:108px;height:32px;overflow:hidden;float:right;display:inline;margin:10px auto 0px;position:relative;right:-8px;}
+.navDivXz a{width:100%;height:100%;line-height:33px;display:block;background:url(../images/xz15.gif) no-repeat left top;text-decoration:none;text-indent:78px;font-weight:bold;color:#437502;}
+.navDivXz a:hover,.navDivXz a:active{background:url(../images/xz16.gif) no-repeat left top;}
+.xzBoxTitle{width:100%;height:29px;line-height:29px;color:#fff;overflow:hidden;background:#0f7db2;letter-spacing:1px;text-indent:5px;font-size:12px;font-weight:bold;}
+.xzBoxCon{width:100%;height:25px;line-height:25px;color:#666666;text-align:center;overflow:hidden;margin-top:35px;}
+.xzBoxConTitle{width:100%;height:50px;line-height:25px;overflow:hidden;text-align:center;font-weight:bold;color:#666;}
+.ppTableBox{width:580px;overflow:hidden;position:absolute;top:0px;left:0px;border:1px solid #cccccc;z-index:9999;display:none;}
+.sxNews{width:100%;overflow:hidden;height:40px;}
+.sxNews .title{width:400px;line-height:42px;overflow:hidden;float:left;display:inline;color:#0f7db2;font-size:12px;text-indent:22px;font-family:simsun;font-weight:bold;}
+.sxNews .open{width:35px;overflow:hidden;height:40px;float:left;display:inline;margin-left:333px;}
+.sxNews .open a{width:35px;overflow:hidden;height:40px;display:block;background:url(../images/xz41.jpg) no-repeat left top;}
+.sxNews .open a:hover,.sxNews .open a:active{background:url(../images/xz42.jpg) no-repeat left top;}
+.sxNews .close{width:35px;overflow:hidden;height:40px;float:left;display:inline;margin-left:333px;}
+.sxNews .close a{width:35px;overflow:hidden;height:40px;display:block;background:url(../images/xz43.jpg) no-repeat left top;}
+.sxNews .close a:hover,.sxNews .close a:active{background:url(../images/xz44.jpg) no-repeat left top;}
+.sxNewsBox{width:100%;background:#fff;clear:both;overflow:hidden;}
+.sxNewsDiv{clear:both;width:100%;overflow:hidden;margin-top:28px;}
+.sxNewsDiv .sxLeft{float:left;display:inline;width:86px;text-align:right;font-weight:bold;color:#666666;line-height:32px;}
+.sxNewsDiv .sxRight{float:left;display:inline;margin-left:5px;color:#666666;line-height:32px;}
+.sxNewsDiv .sxRight .txt{width:260px;height:18px;padding:3px 3px;border:1px solid #cccccc;color:#666666;}
+.sxNewsDiv .sxRight .check{position:relative;top:2px;margin:0px 3px 0px 0px;}
+.sxNewsDiv .sxRight textarea{width:433px;height:120px;overflow:hidden;overflow-y:scroll;border:1px solid #cccccc;resize:none;padding:3px;}
+.xgyqAdd{width:100%;height:24px;overflow:hidden;clear:both;margin-top:28px;}
+.xgyqAdd .xgyqAddLeft{width:200px;overflow:hidden;height:100%;line-height:24px;text-indent:20px;font-weight:bold;color:#666666;float:left;display:inline;}
+.xgyqAdd .xgyqAddRight{width:70px;height:24px;overflow:hidden;float:right;display:inline;margin-right:10px;}
+.xgyqAdd .xgyqAddRight a{display:block;width:70px;height:24px;overflow:hidden;background:url(../images/xz24.jpg) no-repeat left top;}
+.xgyqAdd .xgyqAddRight a:hover,.xgyqAdd .xgyqAddRight a:active{background:url(../images/xz25.jpg) no-repeat left top;}
+.sxNewsBox table{border:1px solid #cccccc;width:580px;border-right:none;border-left:none;border-bottom:none;margin-top:5px;}
+.sxNewsBox table th{border:1px solid #ccc;border-right:none;border-top:none;text-align:center;height:28px;line-height:28px;color:#666666;background:#dfe8ed;}
+.sxNewsBox table td{border:1px solid #ccc;border-right:none;border-top:none;text-align:center;height:32px;line-height:32px;color:#666666;}
+.sxNewsBox table td.sum{color:#0f7db2;font-weight:bold;}
+.sxNewsBox table td .delete{display:block;width:34px;height:20px;overflow:hidden;margin:2px auto 0px;background:url(../images/xz26.jpg) no-repeat left top;}
+.sxNewsBox table td .delete:hover,.sxNewsBox table td .delete:active{background:url(../images/xz27.jpg) no-repeat left top;}
+.sxNewsBox table td a:link,.sxNewsBox table td a:visited,.sxNewsBox table td a:hover,.sxNewsBox table td a:active{color:#666;}
+.sxRight .selt{width:260px;border:1px solid #cccccc;height:25px;line-height:25px;padding:2px 0px;}
+.xztkBnt{width:140px;margin:30px auto 0;height:28px;padding-bottom:30px;}
+.xztkBnt span.bntLeft{float:left;display:inline;width:70px;height:28px;}
+.xztkBnt span.bntLeft a{background:url(../images/xz58.jpg) no-repeat left top;display:block;width:70px;height:28px;}
+.xztkBnt span.bntLeft a:hover,.xztkBnt span.bntLeft a:active{background:url(../images/xz59.jpg) no-repeat left top;}
+.xztkBnt span.bntRight{float:right;display:inline;width:60px;height:28px;}
+.xztkBnt span.bntRight a{background:url(../images/xz56.jpg) no-repeat left top;display:block;width:60px;height:28px;}
+.xztkBnt span.bntRight a:hover,.xztkBnt span.bntRight a:active{background:url(../images/xz57.jpg) no-repeat left top;}
+
+/*-- diy css --------------------------------
+-------------------------------------------------------------*/
+.Diybox{width:780px;height:0px;overflow:hidden;background:#2f6ea7;float:right;display:inline;margin-right:10px;position:relative;top:-7px;}
+.widthRTDiy{width:450px;}
+.widthRTDiyTo{width:505px;}
+.widthRTDiy .diy{width:50px;height:28px;margin-left:10px;}
+.widthRTDiy .diy a{width:50px;height:28px;display:block;background:url(../images/yuqadd_167.jpg) no-repeat left top;}
+.widthRTDiy .diy a:hover,.widthRTDiy .diy a:active{background:url(../images/yuqadd_166.jpg) no-repeat left top;}
+.widthRTDiy .xgBnt{width:50px;height:28px;margin-left:10px;display:none;}
+.widthRTDiy .xgBnt a{width:50px;height:28px;display:block;background:url(../images/yuqadd_171.jpg) no-repeat left top;}
+.widthRTDiy .xgBnt a:hover,.widthRTDiy .xgBnt a:active{background:url(../images/yuqadd_169.jpg) no-repeat left top;}
+.widthRTDiy .scBnt{width:50px;height:28px;margin-left:10px;display:none;}
+.widthRTDiy .scBnt a{width:50px;height:28px;display:block;background:url(../images/yuqadd_172.jpg) no-repeat left top;}
+.widthRTDiy .scBnt a:hover,.widthRTDiy .scBnt a:active{background:url(../images/yuqadd_170.jpg) no-repeat left top;}
+.DiyboxDiv{width:100%;height:28px;margin-top:6px;}
+.DiyboxDiv span{float:left;display:inline;line-height:28px;color:#fff;height:28px;}
+.DiyboxDiv .time{margin-left:15px;}
+.DiyboxDiv .txt{width:160px;border:1px solid #fff;height:20px;padding:2px;}
+.DiyboxDiv .check{height:18px;overflow:hidden;position:relative;top:4px;}
+.DiyboxDiv .yyBnt{width:50px;height:25px;margin-left:10px;}
+.DiyboxDiv .yyBnt a{width:50px;height:25px;display:block;background:url(../images/yuqadd_173.jpg) no-repeat left top;}
+.DiyboxDiv .yyBnt a:hover,.DiyboxDiv .yyBnt a:active{background:url(../images/yuqadd_168.jpg) no-repeat left top;}
+.DiyboxDiv .qxBnt{width:50px;overflow:hidden;color:#fff;margin-left:20px;}
+.DiyboxDiv .qxBnt a{color:#fff;}
+.DiyboxDiv .qxBnt a:hover,.DiyboxDiv .qxBnt a:active{color:#fff;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-- css -------------------------------
+-----------------------------------------------------------*/
+.space1{margin-left:20px;}
+.space2{margin-left:10px;}
+.space0{margin-left:5px;}
+.space3{margin-left:0px;}
+.marginTop{margin-top:0px;}
+.marginTop1{margin-top:10px;}
+.marginTop2{margin-top:20px;}
+.marginTop3{margin-top:30px;}
+.marginTop4{margin-top:40px;}
+.marginTop5{margin-top:50px;}
+.inputWidth1{width:50px;}
+.textLeft{text-align:left;text-indent:20px;}
+.textLeft span{background:none;}
+.noborder{border:none;}

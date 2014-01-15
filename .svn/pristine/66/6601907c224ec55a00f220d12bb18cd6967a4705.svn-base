@@ -1,0 +1,381 @@
+package com.gzgb.epo.controller.account;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.gzgb.epo.entity.User;
+import com.gzgb.epo.service.user.UserService;
+import com.gzgb.epo.util.Encrypt;
+import com.gzgb.epo.util.RandomUtil;
+
+/**
+ * 用户管理控制器
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2013-12-18
+ */
+@Controller
+@RequestMapping(value = "/user")
+public class UserController {
+
+	@Autowired
+	private UserService userService;
+
+	/**
+	 * 进入用户管理菜单
+	 * 
+	 * @return
+	 */
+
+	@RequestMapping(value = "index")
+	public String index(Model model) {
+		return "account/index";
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 进入增加用户页面
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "toAdd")
+	public String toAdd(HttpServletRequest request) {
+
+		return "systemManage/systemManageToAddUser";
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 检查登录名是否存在
+	 * </pre>
+	 * 
+	 * @param loginName
+	 * @return
+	 */
+	@RequestMapping(value = "checkLoginNameIsExits")
+	public @ResponseBody
+	Map<String, Object> checkLoginNameIsExits(String loginName) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<String, Object>();
+		try {
+			boolean isExits = userService.checkLoginNameIsExits(loginName);
+			if (isExits) {
+				data.put("name", loginName);
+				map.put("data", data);
+			} else {
+				data.put("name", null);
+				map.put("data", data);
+			}
+			return map;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return map;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 增加用户
+	 * </pre>
+	 * 
+	 * @param request
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "addUser")
+	public @ResponseBody
+	Map<String, Object> addUser(HttpServletRequest request, User user) {
+		user.setLastLoginIP(request.getRemoteAddr());
+		Long time = new Date().getTime();
+		time = time / 1000; // java中的毫秒转换成数据库中的秒数
+		user.setPassword(Encrypt.MD5(user.getPassword())); // MD5加密
+		user.setLastLoginTime(time.intValue());
+		user.setUmiRandomcode("");
+		user.setCreateDate(time.intValue());
+		user.setLoginCount(1);
+		user.setStatus(1);
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			userService.save(user);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			map.put("errors", true);
+		}
+		map.put("errors", false);
+		return map;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 删除用户
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "delete")
+	public @ResponseBody
+	Map<String, Object> delete(HttpServletRequest request, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			if (id != null) {
+				userService.deleteUser(Long.parseLong(id));
+				map.put("data", true);
+			} else {
+				map.put("data", false);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return map;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 修改密码
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "changePassword")
+	public @ResponseBody
+	Map<String, Object> changePassword(HttpServletRequest request,
+			String old_password, String new_password) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Long id = (Long) request.getSession().getAttribute("userId");
+		if (id != null) {
+			User user = userService.findById(id, User.class);
+			if (user != null && old_password != null) {
+				if (Encrypt.MD5(old_password).equals(user.getPassword())) {
+					map.put("old", true);
+					if (new_password != null) {
+						user.setPassword(Encrypt.MD5(new_password));
+						userService.save(user);
+						map.put("errors", false);
+					} else {
+						map.put("errors", true);
+					}
+				} else {
+					map.put("old", false);
+				}
+			}
+		}
+		return map;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 修改信息
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "editUser")
+	public @ResponseBody
+	Map<String, Object> editUser(HttpServletRequest request, User u) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Long id = (Long) request.getSession().getAttribute("userId");
+		try {
+			User user = null;
+			if (id != null) {
+				user = userService.findById(id, User.class);
+				user.setEmail(u.getEmail());
+				user.setUsername(u.getUsername());
+			}
+			if (user != null) {
+				userService.save(user);
+				map.put("errors", false);
+				return map;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		map.put("errors", true);
+		return map;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 重置密码
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "resetPassword")
+	public @ResponseBody
+	Map<String, Object> resetPassword(HttpServletRequest request, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			if (id != null) {
+				User user = userService
+						.findById(Long.parseLong(id), User.class);
+				// 生成8位随机码
+				RandomUtil random = RandomUtil.getInstance();
+				String randCode = random.randNumberAndAlpha(8);
+				user.setPassword(Encrypt.MD5(randCode));
+				userService.save(user);
+				map.put("Success", randCode);
+				map.put("data", true);
+			} else {
+				map.put("data", false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 通过参数搜索用户
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "search")
+	public @ResponseBody
+	Map<String, Object> search(HttpServletRequest request, Byte userType,
+			String username, String loginName, Integer page) {
+		Map<String, String> mapString = new HashMap<String, String>();
+		mapString.put("username", username);
+		mapString.put("loginName", loginName);
+		Map<String, Byte> mapByte = new HashMap<String, Byte>();
+		mapByte.put("userType", userType);
+
+		Map<String, Object> myMap = userService.getAll(User.class, mapString,
+				mapByte, null, null, page, null, null, null);
+
+		if (page == null || page == 0) {
+			page = 1;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
+		if (myMap != null && !"".equals(myMap.get("rows").toString())) {
+			List<User> list = (List<User>) myMap.get("rows");
+			for (int i = 0; i < list.size(); i++) {
+				User user = list.get(i);
+				Map<String, Object> map1 = new HashMap<String, Object>();
+				map1.put("id", user.getId());
+				map1.put("name", user.getLoginName());
+				map1.put("nickname", user.getUsername());
+				map1.put("type", userService.getUserType(user.getUserType()));
+				Long time = Long.parseLong(user.getLastLoginTime().toString()) * 1000;
+				SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 格式化日期
+				map1.put("lastTime", f.format(new Date(time)));
+				map1.put("lastIp", user.getLastLoginIP());
+				map1.put("updateUrl", "/user/toUpdate/" + user.getId() + "/"
+						+ page);
+				map1.put("resetUrl", "/user/resetPassword?id=" + user.getId());
+				map1.put("deleteUrl", "/user/delete?id=" + user.getId());
+
+				dataList.add(map1);
+			}
+		}
+		Map<String, Object> pageList = new HashMap<String, Object>();
+		int total = (myMap == null) ? 0 : Integer.parseInt(myMap.get("total")
+				.toString());
+		pageList.put("size", 10); // 默认为10
+		int size = 1;
+		if (total > 10) {
+			if (total % 10 != 0) {
+				size = total / 10 + 1;
+			} else {
+				size = total / 10;
+			}
+		}
+		pageList.put("count", size);
+		pageList.put("current", page);
+		pageList.put("total", total);
+
+		map.put("data", dataList);
+		map.put("page", pageList);
+		return map;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 进入更新用户页面
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "toUpdate/{id}/{page}")
+	public ModelAndView toUpdate(HttpServletRequest request,
+			@PathVariable String id, @PathVariable Integer page) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("systemManage/systemManageToUpdateUser");
+		if (page == null) {
+			page = 1;
+		}
+		User user = userService.findById(Long.parseLong(id), User.class);
+		mv.addObject("page", page);
+		mv.addObject("user", user);
+		return mv;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 更新用户
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "update")
+	public @ResponseBody
+	Map<String, Object> update(HttpServletRequest request, User u) {
+		User user = userService.findById(u.getId(), User.class);
+		user.setEmail(u.getEmail());
+		user.setUsername(u.getUsername());
+		user.setUserType(u.getUserType());
+		user.setUmiLoginIp(u.getUmiLoginIp());
+		user.setPassword(Encrypt.MD5(user.getPassword())); // MD5加密
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			userService.save(user);
+			map.put("errors", false);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		map.put("errors", true);
+		return map;
+
+	}
+
+}

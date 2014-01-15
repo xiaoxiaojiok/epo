@@ -1,0 +1,143 @@
+*{margin:0;padding:0;font-family:Microsoft Yahei,Tahoma ;outline:0;}
+html>/**/body .clearfix{overflow:hidden;}
+.clearfix{zoom:1;}
+.clear{clear:both}
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.line10{line-height:0; height:10px; font-size:0}
+
+body {margin: 0px;background: url(../images/index_bg1.jpg) repeat-x; font-size:12px;}
+.bg_index{width:1200px; margin:0 auto;background: url(../images/index_bg2.jpg) no-repeat top center;}
+.mains{width:980px; margin:0 auto; position:relative; top:0; left:0;}
+.top{height:107px; margin:0 auto;}
+.middle{height:461px; margin:0;}
+.bottom{height:82px; margin:0 auto;}
+
+/*页头页尾*/
+.logo_yun{width:119px ;height:67px; margin:20px; display:inline; float:left;}
+.splitline{width:1px ;height:67px; margin:20px 0; border-left:1px solid #8BAF20; float:left;}
+.logo_ecs{width:250px ;height:67px; margin:20px 0 20px 20px; float:left;}
+.logo_ecs .cname{width:300px ;height:42px; font-size:30px; color:#444; line-height:42px;}
+.logo_ecs .ename{width:187px ;height:25px; font-size:14px; color:#aaa; line-height:25px;}
+.info{width:200px ;height:67px; padding:22px 0 0 0; float:left; text-align:right; line-height:22px;}
+.name{padding:0 20px; }
+.off{color:#F60; text-decoration:none;}
+a.off:hover{color: #060;}
+.hotline{width:220px; height:85px; text-align:left; line-height:21px; color:#666; float:left; padding:22px 0 0 100px;}
+
+.copyright{padding: 10px; text-align:center; line-height:21px; color:#666;}
+.copyright img{vertical-align:middle; margin-right:10px; margin-bottom:2px;}
+
+/*按钮样式*/
+.button_box{ width:560px; height:361px; margin: 0 320px 50px 100px;}
+.buttons{ width:560px; height:120px; margin:0;}
+.buttons a{width:90px; height:22px; padding:76px 0 0 0; margin:0 22px 22px 0; float:left; text-decoration:none; color:#FFF; text-align:center;}
+
+.button01 a{background:url(../images/ico_01_1.png) no-repeat;}
+.button01 a:hover{background:url(../images/ico_01_2.png) no-repeat; }
+.button01 a.noclick{background:url(../images/ico_01_3.png) no-repeat; }
+
+.button02 a{background:url(../images/ico_02_1.png) no-repeat;}
+.button02 a:hover{background:url(../images/ico_02_2.png) no-repeat; }
+.button02 a.noclick{background:url(../images/ico_02_3.png) no-repeat; }
+
+.button03 a{background:url(../images/ico_03_1.png) no-repeat;}
+.button03 a:hover{background:url(../images/ico_03_2.png) no-repeat; }
+.button03 a.noclick{background:url(../images/ico_03_3.png) no-repeat; }
+
+.button04 a{background:url(../images/ico_04_1.png) no-repeat; }
+.button04 a:hover{background:url(../images/ico_04_2.png) no-repeat; }
+.button04 a.noclick{background:url(../images/ico_04_3.png) no-repeat; }
+
+.button05 a{background:url(../images/ico_05_1.png) no-repeat; }
+.button05 a:hover{background:url(../images/ico_05_2.png) no-repeat; }
+.button05 a.noclick{background:url(../images/ico_05_3.png) no-repeat; }
+
+.button06 a{background:url(../images/ico_06_1.png) no-repeat;}
+.button06 a:hover{background:url(../images/ico_06_2.png) no-repeat; }
+.button06 a.noclick{background:url(../images/ico_06_3.png) no-repeat; }
+
+.button07 a{background:url(../images/ico_07_1.png) no-repeat; }
+.button07 a:hover{background:url(../images/ico_07_2.png) no-repeat; }
+.button07 a.noclick{background:url(../images/ico_07_3.png) no-repeat; }
+
+.button08 a{background:url(../images/ico_08_1.png) no-repeat;}
+.button08 a:hover{background:url(../images/ico_08_2.png) no-repeat; }
+.button08 a.noclick{background:url(../images/ico_08_3.png) no-repeat; }
+
+.button09 a{background:url(../images/ico_09_1.png) no-repeat;}
+.button09 a:hover{background:url(../images/ico_09_2.png) no-repeat; }
+.button09 a.noclick{background:url(../images/ico_09_3.png) no-repeat; }
+
+.button10 a{background:url(../images/ico_10_1.png) no-repeat;}
+.button10 a:hover{background:url(../images/ico_10_2.png) no-repeat; }
+.button10 a.noclick{background:url(../images/ico_10_3.png) no-repeat; }
+
+.button11 a{background:url(../images/ico_11_1.png) no-repeat; }
+.button11 a:hover{background:url(../images/ico_11_2.png) no-repeat; }
+.button11 a.noclick{background:url(../images/ico_11_3.png) no-repeat; }
+
+.button12 a{background:url(../images/ico_12_1.png) no-repeat; }
+.button12 a:hover{background:url(../images/ico_12_2.png) no-repeat; }
+.button12 a.noclick{background:url(../images/ico_12_3.png) no-repeat; }
+
+.button13 a{background:url(../images/ico_13_1.png) no-repeat;}
+.button13 a:hover{background:url(../images/ico_13_2.png) no-repeat; }
+.button13 a.noclick{background:url(../images/ico_13_3.png) no-repeat; }
+
+.button14 a{background:url(../images/ico_14_1.png) no-repeat; }
+.button14 a:hover{background:url(../images/ico_14_2.png) no-repeat; }
+.button14 a.noclick{background:url(../images/ico_14_3.png) no-repeat; }
+
+.button15 a{background:url(../images/ico_15_1.png) no-repeat;}
+.button15 a:hover{background:url(../images/ico_15_2.png) no-repeat; }
+.button15 a.noclick{background:url(../images/ico_15_3.png) no-repeat; }
+
+.button16 a{background:url(../images/ico_16_1.png) no-repeat; }
+.button16 a:hover{background:url(../images/ico_16_2.png) no-repeat; }
+.button16 a.noclick{background:url(../images/ico_16_3.png) no-repeat; }
+
+.button17 a{background:url(../images/ico_17_1.png) no-repeat; }
+.button17 a:hover{background:url(../images/ico_17_2.png) no-repeat; }
+.button17 a.noclick{background:url(../images/ico_17_3.png) no-repeat; }
+
+.button18 a{background:url(../images/ico_18_1.png) no-repeat; }
+.button18 a:hover{background:url(../images/ico_18_2.png) no-repeat; }
+.button18 a.noclick{background:url(../images/ico_18_3.png) no-repeat; }
+
+/*登录页面*/
+.logo_qt{width:82px ;height:82px; margin:20px 0 0 110px;float:left;display:inline;}
+.bg_login{width:1200px; margin:0 auto;background: url(../images/index_bg3.jpg) no-repeat top center;}
+.login_form{width:329px; height:284px; margin-top:60px; margin-right:25px; background: url(../images/login_bg.png) no-repeat; float:right; color:#999;display:inline;}
+.user{width:230px; height:20px; margin:73px 0 0 45px; border:0; background:none; color:#666;}
+.pass{width:230px; height:20px; margin:22px 0 0 45px; border:0; background:none; color:#666;}
+.login{width:102px; height:35px; margin:8px 0 0 45px;0;background: url(../images/login.png) no-repeat; border:0; float:left;}
+.register{width:102px; height:35px; margin:8px 0 0 30px;border:0; float:left;}
+.remember{width:230px; height:25px; border:0; float:left; margin:20px 0 0 45px;}
+.check{width:20px; height:15px; border:0; float:left;}
+.get{color:#555; float:left;}
+.forget{color:#555; float:left; text-decoration:underline; margin-left:20px;}
+.wrong_tips{color:#fd4806; font-size:12px; font-family:"宋体"}
+.wrong_tips img{vertical-align:middle; padding-right:5px}
+
+/*公告弹窗*/
+#notice{width:348px ;height:auto; position:absolute; top:168px; left:50px;}
+.notice_1{width:328px ;height:25px; background:url(../images/notice_1.png); padding:8px 20px 0 0;}
+.notice_1 a{width:25px ;height:25px; background:url(../images/close_out.png); display:block; float:right;}
+.notice_1 a:hover{ background:url(../images/close_over.png);}
+.notice_2{width:276px; background:url(../images/notice_2.png) repeat-y; padding:0 42px 0 30px; font-size:14px; color:#333;}
+.notice_sign{font-size:16px; font-weight:bold; text-align:center;}
+.notice_title{text-align:center; padding:5px 0;}
+.notice_time{text-align:right; padding:5px 0 0 0;}
+.notice_3{width:348px ;height:45px; background:url(../images/notice_3.png);}
+
+/*个人信息修改弹窗*/
+#modify{width:600px ;height:auto; position:absolute; top:135px; left:50px;}
+.modify_1{width:580px ;height:25px; background:url(../images/modify_1.png); padding:8px 20px 0 0;}
+.modify_1 a{width:25px ;height:25px; background:url(../images/close_out.png); display:block; float:right;}
+.modify_1 a:hover{ background:url(../images/close_over.png);}
+.modify_2{width:528px; background:url(../images/modify_2.png) repeat-y; padding:0 42px 0 30px; font-size:14px; color:#333; line-height:30px;}
+.modify_sign{font-size:16px; font-weight:bold; text-align:center;}
+.modify_text input{width:308px; padding:0 5px;}
+.modify_btn{text-align:center; padding:5px 0;}
+.modify_3{width:600px ;height:45px; background:url(../images/modify_3.png);}
+

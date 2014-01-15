@@ -1,0 +1,204 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="../top.jsp"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>广州广报</title>
+
+<script type="text/javascript" src="${ctx}/static/js/site.js"></script>
+<script type="text/javascript">
+//格式化HTML
+function dataToHtml(response)
+{
+	var tableHeader = '<tr><th align="center" width="7%">ID</th><th align="center" width="15%">站点名称</th><th align="center">网络地址</th><th align="center" width="10%">站点类别</th><th align="center" width="10%">所属地区</th><th align="center" width="8%">状态</th><th align="center" width="25%">操作</th></tr>';
+
+	var tableContent = '';
+	if (response.data.length > 0){
+		for(var i=0; i<response.data.length; i++) {
+			tableContent += '<tr><td class="number" align="center" width="7%">'+response.data[i].id+'</td>';
+			tableContent += '<td align="center" width="15%">'+response.data[i].name+'</td>';
+			tableContent += '<td align="center">'+response.data[i].url+'</td>';
+			tableContent += '<td align="center" width="10%">'+response.data[i].type+'</td>';
+			tableContent += '<td align="center" width="10%">'+response.data[i].region+'</td>';
+			tableContent += response.data[i].status==1 ? '<td class="normal" align="center" width="8%">正常</td>' : '<td class="close" align="center" width="8%">关闭</td>';
+			tableContent += '<td align="center" width="25%"><div class="tableListDivTableBnt WebManagement">';
+			tableContent += '<span class="bntLeft"><a href="'+response.data[i].updateUrl+'"></a></span>';
+			tableContent += '<span class="bntMidden"><a href="'+response.data[i].manageUrl+'"></a></span>';
+			tableContent += '<span class="bntRight"><a onclick="return itemToDelete('+response.page.current+',\''+response.data[i].deleteUrl+'\')" href="###"></a></span>';
+			tableContent += '</div></td></tr>';
+		}
+	}
+
+	pageToHtml(response.page);
+	$('#tableContainer').html(tableHeader+tableContent);
+
+}
+
+//初始化请求
+$(function(){
+	var initPageInfo = window.location.toString().match(/page(=|\/)([0-9]+)/);
+	getItemList(initPageInfo ? initPageInfo[2] : 0);
+});
+</script>
+</head>
+<body>
+<div class="con">
+<!-- topNav start -->
+	<div class="topNav">
+		<div class="navDiv"><a href="/mainMedia/index" >主流媒体舆情</a></div>
+		<div class="navDiv"><a href="/warning/index" >舆情预警</a></div> 
+		<div class="navDiv"><a href="/cityRecognize/index" >城市形象与认知度</a></div>
+		<div class="navDiv"><a href="/leaderRecognition/index" >舆论领袖识别</a></div>
+		<div class="navDiv"><a href="/knowledgeDictLibManage/index" >知识库管理</a></div>
+		<div class="navDiv act"><a href="/systemManage/index" >系统管理</a></div>
+	</div>
+<!-- topNav end -->
+
+<!-- table content start -->
+	<div class="tableContent">
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td valign="top">
+				<div class="tableContentLeft">
+					<div class="navTitle"><a href="/systemManage/index" >系统管理</a></div>
+					<div class="navSubTitle"><a class="act" href="/systemManage/toSiteManage" >站点管理</a></div>
+					<div class="navSupTitle"><a href="/systemManage/toAddSite" ><span>添加站点</span></a></div>
+					<div class="navSupTitle"><a href="/systemManage/statistics" ><span>信息统计</span></a></div>
+					
+					<div class="navSubTitle"><a href="/systemManage/toGatherManage" >采集点管理</a></div>
+					<div class="navSupTitle"><a href="/systemManage/toAddGather" ><span>添加采集点</span></a></div>
+					
+					<div class="navSubTitle"><a href="/systemManage/personalCenter" >个人中心</a></div>
+					<div class="navSupTitle"><a href="/systemManage/toChangePass" ><span>更改密码</span></a></div>
+					<div class="navSupTitle"><a href="/systemManage/toEditUser" ><span>修改信息</span></a></div>
+					
+					<div class="navSubTitle"><a href="/systemManage/toUserManage" >用户管理</a></div>
+					<div class="navSupTitle"><a class="" href="/systemManage/toAddUser" ><span>添加用户</span></a></div>
+				</div>
+			</td>
+			<td class="tdBak" valign="top">
+				<div class="tableContentRight">
+					<div class="currentPosition">
+					&nbsp;&nbsp;&nbsp;&nbsp;当前位置：&nbsp;&nbsp;<a href="/systemManage/index" >系统管理</a>&nbsp;>&nbsp;<a href="/systemManage/toSiteManage" >站点管理</a>&nbsp;>&nbsp;站点列表
+					</div>
+				
+				<!-- 页面内容 start -->
+<form action="/webSiteMain/search" method="post" id="form" name="form" >
+				<div class="systemSearch" style="width:770px;">
+				<span>站点性质：</span>
+				<span class="systemSearchLeft">
+					<select id="wsmProperty" class="select" name="wsmProperty" style="width:90px;">
+							<option value="">--</option>
+							<option value="1">中央媒体网站</option>
+							<option value="2">地方媒体网站</option>
+							<option value="3">商业网站</option>
+							<option value="4">其他网站</option>
+					</select>
+				</span>
+				<span>&nbsp;&nbsp;&nbsp;境内外：</span>
+				<span class="systemSearchLeft">
+					<select id="wsmIsAbroad" class="select" name="wsmIsAbroad" style="width:60px;">
+						<option value="">--</option>
+						<option value="0">境内</option>
+						<option value="1">境外</option>
+						</select>
+				</span>
+				<span>&nbsp;&nbsp;&nbsp;站点类别：</span>
+				<span class="systemSearchLeft">
+				<select id="wsmClass" class="select" name="wsmClass" style="width:80px;">
+					<option value="">--</option>
+					<option value="1">综合门户</option>
+					<option value="2">新闻门户</option>
+					<option value="3">地方新闻</option>
+					<option value="4">消费资讯</option>
+					<option value="5">微博</option>
+					<option value="6">社区论坛</option>
+					<option value="7">博客</option>
+					<option value="8">其他</option>
+					</select>
+				</span>
+				<span>&nbsp;&nbsp;&nbsp;所属地区：</span>
+				<span class="systemSearchRight">
+				<select id="wsmRegion" class="select" name="wsmRegion" style="width:80px;">
+						<option value="">--</option>
+						<option value="1">北京</option>
+						<option value="2">上海</option>
+						<option value="3">天津</option>
+						<option value="4">重庆</option>
+						<option value="5">河北</option>
+						<option value="6">山西</option>
+						<option value="7">辽宁</option>
+						<option value="8">吉林</option>
+						<option value="9">黑龙江</option>
+						<option value="10">江苏</option>
+						<option value="11">浙江</option>
+						<option value="12">安徽</option>
+						<option value="13">福建</option>
+						<option value="14">江西</option>
+						<option value="15">山东</option>
+						<option value="16">河南</option>
+						<option value="17">湖北</option>
+						<option value="18">湖南</option>
+						<option value="19">广东</option>
+						<option value="20">海南</option>
+						<option value="21">四川</option>
+						<option value="22">贵州</option>
+						<option value="23">云南</option>
+						<option value="24">陕西</option>
+						<option value="25">甘肃</option>
+						<option value="26">青海</option>
+						<option value="27">台湾</option>
+						<option value="28">内蒙古</option>
+						<option value="29">西藏</option>
+						<option value="30">广西</option>
+						<option value="31">宁夏</option>
+						<option value="32">新疆</option>
+						<option value="33">香港</option>
+						<option value="34">澳门</option>
+						<option value="35">境外</option>
+						</select>
+				</span>
+				<span class="input">
+				<input id="wsmName" type="text" value="" maxlength="255" name="wsmName" style="width:100px;" />
+				</span>
+				<span class="img"><a href="###" onclick="return getItemList(0)">&nbsp;</a></span>
+			</div>
+			
+			<div class="clear"></div>
+			
+			<div class="tableListDiv">
+				<div class="tableListDivNav">
+					<!-- 分页统计 start -->
+					<div id="pageInfo" class="tableListDivNavLeft"></div>
+					<!-- 分页统计 end -->
+					<div class="tableListDivAddSite">
+							<a href="/systemManage/toAddSite"></a>
+					</div>
+				</div>
+				<div class="tableListDivTable">
+					<table id="tableContainer" cellpadding="0" cellspacing="0"></table>
+			
+					<!-- 分页 start -->
+					<div id="pageContainer" class="tablePage"></div>
+					<!-- 分页 end -->
+				</div>
+			</div>
+
+</form>
+
+				<!-- 页面内容  end -->
+				</div>
+			</td>
+		</tr>
+	</table>
+	</div>
+<!-- table content end -->
+</div>
+
+<%@include file="../bottom.jsp"%>
+</body>
+</html>

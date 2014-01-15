@@ -1,0 +1,66 @@
+package com.gzgb.epo.dao.knowledgeDictLib;
+
+import java.util.Collection;
+import java.util.List;
+
+import com.gzgb.epo.dao.base.BaseDao;
+import com.gzgb.epo.entity.KnowledgeDictLib;
+
+/**
+ * 
+ * <pre>
+ * 词库管理DAO
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-01-01
+ */
+public interface KnowledgeDictLibDao extends BaseDao<KnowledgeDictLib>{
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据parentId查找子词库
+	 * </pre>
+	 * 
+	 * @param parentId
+	 * @return
+	 */
+	public Collection<KnowledgeDictLib> findAllChildrenLibByPid(Long parentId);
+	
+	/**
+	 * 
+	 * <pre>
+	 * 找出一级词库的数量
+	 * </pre>
+	 * 
+	 * @param 
+	 * @return
+	 */
+	public int getCountOfLib();
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据级别找出词库List
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public List<KnowledgeDictLib> getLibByLevel(int level);
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据词库的名字查找词库
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public KnowledgeDictLib findByName(String kdlName);
+	
+	
+
+}

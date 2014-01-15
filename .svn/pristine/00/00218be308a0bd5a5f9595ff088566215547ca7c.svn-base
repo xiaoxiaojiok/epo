@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- 自动扫描且只扫描@Controller -->
+	<context:component-scan base-package="com.gzgb.epo" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<mvc:annotation-driven />
+	
+	<!-- 静态资源访问 -->
+	<mvc:resources location="/static/" mapping="/static/**"/>
+		
+	<mvc:default-servlet-handler/>
+	<!-- 定义JSP --> 
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	 <!-- Configure the multipart resolver -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <property name="maxUploadSize" value="104857600"/>
+    </bean>
+	
+	<!-- 支持 Shiro对Controller的AOP安全控制 begin-->
+	<!-- 
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    	<property name="securityManager" ref="securityManager"/>
+	</bean>
+		 -->
+	<!-- bind your messages.properties -->
+	<bean class="org.springframework.context.support.ResourceBundleMessageSource"
+		id="messageSource">
+		<property name="basename" value="messages" />
+	</bean>
+    <!-- 异常处理 -->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+			<property name="defaultErrorView">
+				<value>error/500</value>
+			</property>
+			<property name="exceptionMappings">
+			<props>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>  
+				<prop key="java.sql.SQLException">error/500</prop>
+				<prop key="java.lang.RuntimeException">error/500</prop>
+				<prop key="com.jason.exception.SystemException">error/500</prop>   
+        	 	<prop key="com.jason.exception.BusinessException">error/500</prop>  
+        	 	<prop key="java.lang.exception">error/500</prop>  
+			</props>
+			</property>
+			 <!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 --> 
+			<property name="warnLogCategory" value="WARN"></property>
+			 <!-- 默认HTTP状态码 -->    
+       		<property name="defaultStatusCode" value="500"></property>    
+	</bean>  
+	<!-- end -->
+	
+</beans>

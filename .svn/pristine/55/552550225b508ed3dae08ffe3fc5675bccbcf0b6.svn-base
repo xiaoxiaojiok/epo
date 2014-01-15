@@ -1,0 +1,387 @@
+package com.gzgb.epo.controller.systemManage;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.gzgb.epo.entity.WebGatherNode;
+import com.gzgb.epo.entity.WebSiteMain;
+import com.gzgb.epo.service.user.UserService;
+import com.gzgb.epo.service.webgathernode.WebGatherNodeService;
+import com.gzgb.epo.service.websitemain.WebSiteMainService;
+
+/**
+ * 
+ * <pre>
+ * 采集点管理控制器
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2013-12-18
+ */
+@Controller
+@RequestMapping(value = "/webGatherNode")
+public class WebGatherNodeController {
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private WebGatherNodeService webGatherNodeService;
+	
+	@Autowired
+	private WebSiteMainService webSiteMainService;
+	
+	Logger logger = LoggerFactory.getLogger(SystemManageController.class);
+	
+	/**
+	 * 
+	 * <pre>
+	 * 通过参数搜索采集点信息
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "search")
+	public @ResponseBody
+	Map<String, Object> search(HttpServletRequest request, Long webSiteID,
+			Byte wgnType, String wgnName, Integer page) {
+		Map<String, String> mapString = new HashMap<String, String>();
+		mapString.put("wgnName", wgnName);
+		Map<String, Byte> mapByte= new HashMap<String, Byte>();
+		mapByte.put("wgnType", wgnType);
+		Map<String, Long> mapLong= new HashMap<String, Long>();
+		mapLong.put("wsmId.id", webSiteID);
+
+		Map<String, Object> myMap = webGatherNodeService.getAll(WebGatherNode.class, mapString,
+				mapByte, null, mapLong, page, null, null, null);
+
+		if (page == null || page == 0) {
+			page = 1;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
+		if (myMap != null && !"".equals(myMap.get("rows").toString())) {
+			List<WebGatherNode> list = (List<WebGatherNode>) myMap.get("rows");
+			for (int i = 0; i < list.size(); i++) {
+				WebGatherNode webGatherNode = list.get(i);
+				Map<String, Object> map1 = new HashMap<String, Object>();
+				map1.put("id", webGatherNode.getId());
+				map1.put("name", webGatherNode.getWgnName());
+				map1.put("type", webGatherNodeService.getWgnType(webGatherNode.getWgnType()));
+				map1.put("site", webGatherNode.getWsmId().getWsmName());
+				map1.put("weight", webGatherNode.getWgnWeight());
+				map1.put("status", webGatherNode.getWgnSpiderEnable());
+				SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 格式化日期
+				map1.put("time", f.format(webGatherNode.getWgnUpdateTime()));
+				
+				map1.put("updateUrl", "/webGatherNode/toUpdate/" + webGatherNode.getId() + "/"
+						+ page);
+				map1.put("deleteUrl", "/webGatherNode/delete?id=" + webGatherNode.getId());
+
+				dataList.add(map1);
+			}
+		}
+		Map<String, Object> pageList = new HashMap<String, Object>();
+		int total = (myMap == null) ? 0 : Integer.parseInt(myMap.get("total")
+				.toString());
+		pageList.put("size", 10); // 默认为10
+		int size = 1;
+		if (total > 10) {
+			if (total % 10 != 0) {
+				size = total / 10 + 1;
+			} else {
+				size = total / 10;
+			}
+		}
+		pageList.put("count", size);
+		pageList.put("current", page);
+		pageList.put("total", total);
+
+		map.put("data", dataList);
+		map.put("page", pageList);
+		return map;
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 进入更新采集点页面
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "toUpdate/{id}/{page}")
+	public ModelAndView toUpdate(HttpServletRequest request,
+			@PathVariable String id, @PathVariable Integer page) {
+		List<WebSiteMain> list= webSiteMainService.getAll(WebSiteMain.class, null);
+		List<Map<Object,Object>> webSiteNameList = new ArrayList<Map<Object,Object>>();
+		if(list!=null && list.size()>0){
+			for(int i=0;i<list.size();i++){
+				WebSiteMain webSiteMain =list.get(i);
+				Map<Object,Object> map = new HashMap<Object,Object>();
+				map.put("key",webSiteMain.getId());
+				map.put("value",webSiteMain.getWsmName());
+				webSiteNameList.add(map);
+			}
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("systemManage/systemManageToUpdateGather");
+		if (page == null) {
+			page = 1;
+		}
+		WebGatherNode webGatherNode = webGatherNodeService.findById(Long.parseLong(id), WebGatherNode.class);
+		mv.addObject("page", page);
+		webGatherNode.setWebSiteID(webGatherNode.getWsmId().getId());
+		mv.addObject("webGatherNode", webGatherNode);
+		String configItem = webGatherNode.getWgnConfigItem();
+		
+		JSONObject jSONObject = JSONObject.fromString(configItem);
+		JSONArray jtitle = jSONObject.getJSONArray("title");
+		JSONArray jname = jSONObject.getJSONArray("name");
+		JSONArray jtype = jSONObject.getJSONArray("type");
+		JSONArray jvariable = jSONObject.getJSONArray("variable");
+		JSONArray jregex = jSONObject.getJSONArray("regex");
+		JSONArray junit = jSONObject.getJSONArray("unit");
+		JSONArray jrequired = jSONObject.getJSONArray("required");
+		
+		List<Map<Object,Object>> configItemList = new ArrayList<Map<Object,Object>>();
+		if(jtitle!=null){
+			for(int i=0;i<jtitle.length();i++){
+				Map<Object,Object> map = new HashMap<Object,Object>();
+				map.put("title",jtitle.get(i));
+				map.put("name",jname.get(i));
+				map.put("type",jtype.get(i));
+				map.put("variable",jvariable.get(i));
+				map.put("regex",jregex.get(i));
+				map.put("unit",junit.get(i));
+				map.put("required",jrequired.get(i));
+				configItemList.add(map);
+			}
+		}
+
+//		System.out.println(configItemList);
+		
+		mv.addObject("webSiteNameList", webSiteNameList);
+		mv.addObject("configItemList", configItemList);
+		return mv;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 更新采集点
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "update")
+	public @ResponseBody
+	Map<String, Object> update(HttpServletRequest request, WebGatherNode webGatherNode, String old_wgnName, String old_wgnUniqueId) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean flag = false;
+		if(webGatherNode.getWgnName()!=null && !webGatherNode.getWgnName().equals(old_wgnName)){
+			flag = webGatherNodeService.checkWgnNameIsExits(webGatherNode.getWgnName());
+		}
+		if(flag){
+			WebGatherNode wgn = webGatherNodeService.findWebGatherNodeByWgnName(webGatherNode.getWgnName());
+			map.put("wgnName", "已存在，<a href=\"/webGatherNode/toUpdate/"+wgn.getId()+"/1\">点击更新</a>");
+			return map;
+		}
+		if(webGatherNode.getWgnUniqueId()!=null && !webGatherNode.getWgnUniqueId().equals(old_wgnUniqueId)){
+			flag = webGatherNodeService.checkWgnUniqueIdIsExits(webGatherNode.getWgnUniqueId());
+		}
+		if(flag){
+			WebGatherNode wgn = webGatherNodeService.findWebGatherNodeByWgnUniqueId(webGatherNode.getWgnUniqueId());
+			map.put("wgnUniqueId", "已存在，<a href=\"/webGatherNode/toUpdate/"+wgn.getId()+"/1\">点击更新</a>");
+			return map;
+		}
+
+		try {
+			WebGatherNode wgn = null;
+			if(webGatherNode.getId()!=null){
+				wgn = webGatherNodeService.findById(webGatherNode.getId(), WebGatherNode.class);
+			}
+			if(wgn!=null){
+				webGatherNodeService.fillGatherNode(wgn,webGatherNode,request);
+//				System.out.println(wgn);
+				webGatherNodeService.save(wgn);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			map.put("success", false);
+		}
+		map.put("success", true);
+		return map;
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 删除采集点
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "delete")
+	public @ResponseBody
+	Map<String, Object> delete(HttpServletRequest request, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			if (id != null) {
+				webGatherNodeService.deleteWebGatherNode(Long.parseLong(id));
+				map.put("data", true);
+			} else {
+				map.put("data", false);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return map;
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 增加采集点
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "addGatherNode")
+	public @ResponseBody
+	Map<String, Object> addGatherNode(HttpServletRequest request, WebGatherNode webGatherNode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean flag = false;
+		if(webGatherNode.getWgnName()!=null){
+			flag = webGatherNodeService.checkWgnNameIsExits(webGatherNode.getWgnName());
+		}
+		if(flag){
+			WebGatherNode wgn = webGatherNodeService.findWebGatherNodeByWgnName(webGatherNode.getWgnName());
+			map.put("wgnName", "已存在，<a href=\"/webGatherNode/toUpdate/"+wgn.getId()+"/1\">点击更新</a>");
+			return map;
+		}
+		if(webGatherNode.getWgnUniqueId()!=null){
+			flag = webGatherNodeService.checkWgnUniqueIdIsExits(webGatherNode.getWgnUniqueId());
+		}
+		if(flag){
+			WebGatherNode wgn = webGatherNodeService.findWebGatherNodeByWgnUniqueId(webGatherNode.getWgnUniqueId());
+			map.put("wgnUniqueId", "已存在，<a href=\"/webGatherNode/toUpdate/"+wgn.getId()+"/1\">点击更新</a>");
+			return map;
+		}
+		
+		try {
+			WebSiteMain webSiteMain = webSiteMainService.findById(webGatherNode.getWebSiteID(), WebSiteMain.class);
+			webGatherNode.setWsmId(webSiteMain);
+			webGatherNode.setWgnCreateTime(new Date());
+			webGatherNode.setWgnUpdateTime(new Date());
+			webGatherNode.setWgnDelete((byte)0);
+			
+			String configItem = webGatherNodeService.getConfigItem(request);
+			webGatherNode.setWgnConfigItem(configItem);
+//			System.out.println(webGatherNode);
+			webGatherNodeService.save(webGatherNode);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			map.put("success", false);
+		}
+		map.put("success", true);
+		return map;
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 通过采集名称检查唯一性
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "ajaxUnique")
+	public @ResponseBody
+	Map<String, Object> ajaxUnique(HttpServletRequest request, WebGatherNode webGatherNode, String old_wgnName) {
+	
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			boolean flag = false;
+			if(webGatherNode.getWgnName()!=null && !webGatherNode.getWgnName().equals(old_wgnName)){
+				flag = webGatherNodeService.checkWgnNameIsExits(webGatherNode.getWgnName());
+			}
+			if(flag){
+				WebGatherNode wgn = webGatherNodeService.findWebGatherNodeByWgnName(webGatherNode.getWgnName());
+				map.put("id", wgn.getId());
+				map.put("name", wgn.getWgnName());
+				map.put("url", "/webGatherNode/toUpdate/"+wgn.getId()+"/1");
+				return map;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 通过采集标记检查唯一性
+	 * </pre>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "ajaxUnique_1")
+	public @ResponseBody
+	Map<String, Object> ajaxUnique_1(HttpServletRequest request, WebGatherNode webGatherNode, String old_wgnUniqueId) {
+	
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			boolean flag = false;
+			if(webGatherNode.getWgnUniqueId()!=null && !webGatherNode.getWgnUniqueId().equals(old_wgnUniqueId)){
+				flag = webGatherNodeService.checkWgnUniqueIdIsExits(webGatherNode.getWgnUniqueId());
+			}
+			if(flag){
+				WebGatherNode wgn = webGatherNodeService.findWebGatherNodeByWgnUniqueId(webGatherNode.getWgnUniqueId());
+				map.put("id", wgn.getId());
+				map.put("name", wgn.getWgnUniqueId());
+				map.put("url", "/webGatherNode/toUpdate/"+wgn.getId()+"/1");
+				return map;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return null;
+	}
+
+}
