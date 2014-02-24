@@ -1,0 +1,370 @@
+package com.gzgb.epo.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.gzgb.epo.publics.Constants;
+
+/**
+ * <pre>
+ * 涉穂贴子实体
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2013-2-24
+ */
+@Entity
+@Table(name = "epo_warningforumlist", schema = Constants.GZGB_SCH)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SequenceGenerator(name = "gzgb_warningforumlist", sequenceName = "gzgb_warningforumlist_seq", allocationSize = 1)
+public class ForumList extends BaseEntity  {
+
+	private static final long serialVersionUID = 995235545418631654L;
+
+	/**
+	 * 自增ID
+	 */
+	private Long id;
+	
+	/**
+	 * 论坛帖子标题
+	 */
+	private String wflTitle;
+	
+	/**
+	 * 帖子内容
+	 */
+	private String wflContent;
+	
+	/**
+	 * 关键词
+	 */
+	private String wflKeywords;
+	
+	/**
+	 * 源URL
+	 */
+	private String wflUrl;
+	
+	/**
+	 * 发帖人
+	 */
+	private String wflAuthor;
+	
+	/**
+	 * 发布时间
+	 */
+	private Date wflDate;
+	
+	/**
+	 * 发布时间戳
+	 */
+	private Integer wflTimestamp;
+	
+	/**
+	 * 回复数
+	 */
+	private Integer wflReply;
+	
+	/**
+	 * 查看数
+	 */
+	private Integer wflView;
+	
+	/**
+	 * 热度
+	 */
+	private Integer wflHots;
+	
+	/**
+	 * 敏感度
+	 */
+	private Double wflSensitivity;
+	
+	/**
+	 * 来源网站
+	 */
+	@JsonBackReference
+	private WebSiteMain wsmId;
+	
+	/**
+	 * 临时站点名称
+	 */
+	private String weBSiteName;
+	
+	/**
+	 * 是否为部门微博
+	 */
+	private Byte wflIsDepartment;
+	
+	/**
+	 * 涉及部门ID
+	 */
+	private DepartmentBaseInfo dbiId;
+	
+	/**
+	 * 是否为区县微博
+	 */
+	private Byte wflIsRegion;
+	
+	/**
+	 * 涉及区县ID
+	 */
+	private RegionBaseInfo rbiId;
+	
+	/**
+	 * 是否隐藏
+	 */
+	private Byte wflHide;
+	
+	/**
+	 * 是否更新
+	 */
+	private Byte wflUpdate;
+	
+	/**
+	 * UUID对照
+	 */
+	private String wflUniqueId;
+	
+	/**
+	 * 更新时间
+	 */
+	private Integer wflUpdateTime;
+	
+	/**
+	 * 创建时间
+	 */
+	private Integer wflCreateTime;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "gzgb_warningforumlist")
+	@Column(name = "wflUUID")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Column(name = "wflTitle", nullable = false)
+	public String getWflTitle() {
+		return wflTitle;
+	}
+
+	public void setWflTitle(String wflTitle) {
+		this.wflTitle = wflTitle;
+	}
+
+	@Column(name = "wflContent", nullable = true, length = 1024)
+	public String getWflContent() {
+		return wflContent;
+	}
+
+	public void setWflContent(String wflContent) {
+		this.wflContent = wflContent;
+	}
+
+	@Column(name = "wflKeywords", nullable = false)
+	public String getWflKeywords() {
+		return wflKeywords;
+	}
+
+	public void setWflKeywords(String wflKeywords) {
+		this.wflKeywords = wflKeywords;
+	}
+
+	@Column(name = "wflUrl", nullable = false)
+	public String getWflUrl() {
+		return wflUrl;
+	}
+
+	public void setWflUrl(String wflUrl) {
+		this.wflUrl = wflUrl;
+	}
+
+	@Column(name = "wflAuthor", nullable = false)
+	public String getWflAuthor() {
+		return wflAuthor;
+	}
+
+	public void setWflAuthor(String wflAuthor) {
+		this.wflAuthor = wflAuthor;
+	}
+
+	@Column(name = "wflDate", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getWflDate() {
+		return wflDate;
+	}
+
+	public void setWflDate(Date wflDate) {
+		this.wflDate = wflDate;
+	}
+
+	@Column(name = "wflTimestamp", nullable = false)
+	public Integer getWflTimestamp() {
+		return wflTimestamp;
+	}
+
+	public void setWflTimestamp(Integer wflTimestamp) {
+		this.wflTimestamp = wflTimestamp;
+	}
+
+	@Column(name = "wflReply", nullable = false)
+	public Integer getWflReply() {
+		return wflReply;
+	}
+
+	public void setWflReply(Integer wflReply) {
+		this.wflReply = wflReply;
+	}
+
+	@Column(name = "wflView", nullable = false)
+	public Integer getWflView() {
+		return wflView;
+	}
+
+	public void setWflView(Integer wflView) {
+		this.wflView = wflView;
+	}
+
+	@Column(name = "wflHots", nullable = false)
+	public Integer getWflHots() {
+		return wflHots;
+	}
+
+	public void setWflHots(Integer wflHots) {
+		this.wflHots = wflHots;
+	}
+
+	@Column(name = "wflSensitivity", nullable = false)
+	public Double getWflSensitivity() {
+		return wflSensitivity;
+	}
+
+	public void setWflSensitivity(Double wflSensitivity) {
+		this.wflSensitivity = wflSensitivity;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "wsmId", nullable = false, columnDefinition = "INTEGER default 0")
+	public WebSiteMain getWsmId() {
+		return wsmId;
+	}
+
+	public void setWsmId(WebSiteMain wsmId) {
+		this.wsmId = wsmId;
+	}
+
+	@Column(name = "wflIsDepartment", nullable = false)
+	public Byte getWflIsDepartment() {
+		return wflIsDepartment;
+	}
+
+	public void setWflIsDepartment(Byte wflIsDepartment) {
+		this.wflIsDepartment = wflIsDepartment;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "dbiId", nullable = true, columnDefinition = "INTEGER default 0")
+	public DepartmentBaseInfo getDbiId() {
+		return dbiId;
+	}
+
+	public void setDbiId(DepartmentBaseInfo dbiId) {
+		this.dbiId = dbiId;
+	}
+
+	@Column(name = "wflIsRegion", nullable = false)
+	public Byte getWflIsRegion() {
+		return wflIsRegion;
+	}
+
+	public void setWflIsRegion(Byte wflIsRegion) {
+		this.wflIsRegion = wflIsRegion;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "rbiId", nullable = true, columnDefinition = "INTEGER default 0")
+	public RegionBaseInfo getRbiId() {
+		return rbiId;
+	}
+
+	public void setRbiId(RegionBaseInfo rbiId) {
+		this.rbiId = rbiId;
+	}
+
+	@Column(name = "wflHide", nullable = false)
+	public Byte getWflHide() {
+		return wflHide;
+	}
+
+	public void setWflHide(Byte wflHide) {
+		this.wflHide = wflHide;
+	}
+
+	@Column(name = "wflUpdate", nullable = false)
+	public Byte getWflUpdate() {
+		return wflUpdate;
+	}
+
+	public void setWflUpdate(Byte wflUpdate) {
+		this.wflUpdate = wflUpdate;
+	}
+
+	@Column(name = "wflUniqueId", nullable = false)
+	public String getWflUniqueId() {
+		return wflUniqueId;
+	}
+
+	public void setWflUniqueId(String wflUniqueId) {
+		this.wflUniqueId = wflUniqueId;
+	}
+
+	@Column(name = "wflUpdateTime", nullable = false)
+	public Integer getWflUpdateTime() {
+		return wflUpdateTime;
+	}
+
+	public void setWflUpdateTime(Integer wflUpdateTime) {
+		this.wflUpdateTime = wflUpdateTime;
+	}
+
+	@Column(name = "wflCreateTime", nullable = false)
+	public Integer getWflCreateTime() {
+		return wflCreateTime;
+	}
+
+	public void setWflCreateTime(Integer wflCreateTime) {
+		this.wflCreateTime = wflCreateTime;
+	}
+	
+	@Transient
+	public String getWeBSiteName() {
+		return weBSiteName;
+	}
+
+	public void setWeBSiteName(String weBSiteName) {
+		this.weBSiteName = weBSiteName;
+	}
+	
+}
