@@ -1,0 +1,50 @@
+body {font:12px arial,simsun,sans-serif; text-align:left; line-height:22px; margin:0; padding:0;background:#335f86;}
+form,p,ol,ul,p,h1,h2,h3,h4,h5 {margin:0;padding:0; font-size:12px;}
+ul {list-style:none;}
+img,fieldset {border:none; display:block;}
+a:link,a:visited {text-decoration:none;color:#000;}
+a:hover {text-decoration:underline;color:#000;}
+a:active {text-decoration:none;color:#000;}
+em {font-style:normal;}
+.clear {clear:both; width:100%; overflow:hidden; line-height:0; font-size:0;}
+.left{float:left;display:inline;}
+.right{float:right;display:inline;}
+.hidden{display:none;}
+/*.lognBak1{width:1000px;margin:0px auto;background:url(../images/logn_01.jpg) no-repeat center 0px;height:675px;overflow:hidden;}
+.lognBak2{background:url(../images/logn_02.jpg) no-repeat center 101px;height:675px;overflow:hidden;}
+.lognBak3{background:url(../images/logn_03.jpg) no-repeat center 202px;height:675px;overflow:hidden;}
+.lognBak4{background:url(../images/logn_04.jpg) no-repeat center 302px;height:675px;overflow:hidden;}
+.lognBak5{background:url(../images/logn_05.jpg) no-repeat center 403px;height:675px;overflow:hidden;}
+.lognBak6{background:url(../images/logn_06.jpg) no-repeat center 504px;height:675px;overflow:hidden;}*/
+
+
+.lognBak1{width:1000px;margin:0px auto;background:url(../images/logn_01.jpg) no-repeat center 0px;height:698px;overflow:hidden;}
+.lognBak2{background:url(../images/logn_02.jpg) no-repeat center 120px;height:698px;overflow:hidden;}
+.lognBak3{background:url(../images/logn_03.jpg) no-repeat center 240px;height:698px;overflow:hidden;}
+.lognBak4{background:url(../images/logn_04.jpg) no-repeat center 361px;height:698px;overflow:hidden;}
+.lognBak5{background:url(../images/logn_05.jpg) no-repeat center 481px;height:698px;overflow:hidden;}
+.lognBak6{background:url(../images/logn_06.jpg) no-repeat center 601px;height:698px;overflow:hidden;}
+
+
+
+.lognBox{width:375px;overflow:hidden;height:150px;position:relative;top:323px;left:320px;}
+.lognName{width:175px;overflow:hidden;float:left;display:inline;}
+.lognName span{float:left;display:inline;margin-top:9px;}
+.lognName span.bak1{width:33px;height:33px;overflow:hidden;background:url(../images/yuq_38.gif) no-repeat left top;margin-left:2px;}
+.lognName span.bak2{width:33px;height:33px;overflow:hidden;background:url(../images/yuq_36.gif) no-repeat left top;margin-left:2px;}
+.lognName span.input{width:130px;overflow:hidden;margin:12px 0px 0px 5px;}
+.lognName span.input .txt{width:130px;border:1px solid #fff;line-height:23px;height:23px;font-size:14px;color:#808080;}
+.lognPassword{width:175px;overflow:hidden;float:left;display:inline;margin-left:21px;}
+.lognPassword span{float:left;display:inline;margin-top:9px;}
+.lognPassword span.bak1{width:33px;height:33px;overflow:hidden;background:url(../images/yuq_35.gif) no-repeat left top;margin-left:2px;}
+.lognPassword span.bak2{width:33px;height:33px;overflow:hidden;background:url(../images/yuq_37.gif) no-repeat left top;margin-left:2px;}
+.lognPassword span.input{width:130px;overflow:hidden;margin:12px 0px 0px 5px;}
+.lognPassword span.input .txt{width:130px;border:1px solid #fff;line-height:22px;height:23px;font-size:14px;color:#808080;}
+.lognPrompt{width:100%;height:25px;line-height:25px;overflow:hidden;text-align:center;margin-top:20px;}
+.lognPrompt img{display:inline;position:relative;top:3px;}
+.lognPrompt span{line-height:30px;margin-left:5px;color:#e27600;}
+.lognsubmit{width:90px;height:41px;overflow:hidden;margin:15px auto 0px;}
+.lognsubmit a{width:90px;height:41px;overflow:hidden;background:url(../images/yuq_40.gif) no-repeat left top;display:block;}
+.lognsubmit a:hover,.lognsubmit a:active{background:url(../images/yuq_39.gif) no-repeat left top;}
+.footer{width:1000px;overflow:hidden;height:48px;line-height:48px;text-align:center;color:#cccccc;margin:0px auto;background:#000;}
+

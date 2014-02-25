@@ -1,0 +1,39 @@
+package com.gzgb.epo.controller.warning;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.gzgb.epo.service.warning.WeiBoListService;
+
+/**
+ * 
+ * <pre>
+ * 微博控制器
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2013-2-25
+ */
+@Controller
+@RequestMapping(value = "/weibo")
+public class WeiBoController {
+	
+	@Autowired
+	private WeiBoListService weiBoListService;
+	Logger logger = LoggerFactory.getLogger(WeiBoController.class);
+	
+	@RequestMapping(value = "weiboTop20")
+	public @ResponseBody String weiboTop20(Model model,HttpServletRequest request){
+		
+		
+			return "";
+	}
+
+}

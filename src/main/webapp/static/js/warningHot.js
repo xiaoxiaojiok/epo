@@ -1,0 +1,151 @@
+/********************************** 列表页 ******************************************/
+//获取数据列表
+
+/***J修改start**/
+var params='';
+var objParams = {};
+var re = new RegExp("[0-9\-]+","g");
+function getItemVal(pageGo)
+{
+	//获取表单
+	var objForm = $('#warningForm');
+	//通过获取日期
+	rangDate = $('#widgetField span').html().match(re);
+	//准备参数：搜索条件
+	objParams = {};
+	objParams[$('#sortOrder').attr('name')] = $('#sortOrder').val();
+	objParams['JudgedSensitiveList[dateStart]'] = rangDate[0];
+	objParams['JudgedSensitiveList[dateEnd]'] = rangDate[1];
+
+	params = $(objForm).find(':text,input:checked,select');
+	for(var i=0; i<params.length; i++) {
+		if ($(params[i]).val() != '') {
+			objParams[$(params[i]).attr('name')] = $(params[i]).val();
+		}
+	}
+	getItemList(pageGo);
+	return false;
+}
+
+function getItemList(pageGo)
+{
+	$("#tableListDivTable").html("<div class=\"centerImg\" style=\"padding-top:50px;height:335px;\"><img src=\""+URL+"/images/loadingBig.gif\" /></div>");
+	//获取表单
+	var objForm = $('#warningForm');
+	
+	//准备参数：搜索条件
+	objParams[$('#sortOrder').attr('name')] = $('#sortOrder').val();
+
+	var requestUrl = $(objForm).attr('action').toString();
+	//设置分页地址
+	if(pageGo > parseInt($("#maxPage").html())){
+		pageGo=parseInt($("#maxPage").html());
+	}
+	
+	if(pageGo<1){
+		pageGo=1;
+	}
+
+	requestUrl = requestUrl.indexOf('?') == -1 ? requestUrl+'?page='+pageGo : requestUrl+'&page='+pageGo;
+	
+	//异步请求数据
+	getRequestData(requestUrl, objParams, 'post', dataToHtml);
+}
+/***J修改end**/
+
+//异步请求数据
+function getRequestData(url, params, method, handle)
+{
+	$.ajax({
+		type : method,
+		url : url,
+		data : params,
+		dataType : 'json',
+		success : function(data) {handle(data)}
+	});
+}
+
+//格式化分页信息
+function pageToHtml(page)
+{
+	var pageContent = '<div class="tablePageRight">';
+
+	if (page.total > 0){
+		pageContent += '<span>第</span><span><input id="pageGo" type="text" /></span><span>页</span>';
+		pageContent += '<span onclick="getItemList($(\'#pageGo\').val())"><a href="###"></a></span></div>';
+
+		pageContent += '<div class="tablePageNum">';
+		if(page.current>1){
+			pageContent += '<span onclick="getItemList('+(page.current-1)+')" class="up"><a href="###"></a></span>';
+		}else{
+			pageContent += '<span class="upend"><a href="###"></a></span>';
+		}
+
+		var pageLength = 5;
+		for(var i=1; i<=page.count; i++) {
+			if (page.current>Math.floor(pageLength/2) && page.current<page.count-Math.floor(pageLength/2) && (i<page.current-Math.floor(pageLength/2) || i>page.current+Math.floor(pageLength/2))){
+				continue;
+			} 
+			if (page.current<Math.ceil(pageLength/2) && i>pageLength){
+				continue;
+			}
+			if (page.current>page.count-Math.ceil(pageLength/2) && i<=page.count-pageLength){
+				continue;
+			}
+			if (page.current == i){
+				pageContent += '<span class="normal act"><a href="###">'+i+'</a></span>';
+			} else {
+				pageContent += '<span onclick="getItemList('+i+')" class="normal"><a href="###">'+i+'</a></span>';
+			}
+		}
+
+		if(page.current<page.count){
+			pageContent += '<span onclick="getItemList('+(page.current+1)+')" class="next"><a href="###"></a></span>';
+		}else{
+			pageContent += '<span class="nextend"><a href="###"></a></span>';
+		}
+	}
+
+	pageContent += '</div>';
+
+	$('#pageInfo').html('<span>共有<tt>'+page.total+'</tt>条记录</span> <span>共有<tt id="maxPage">'+page.count+'</tt>页</span>');
+	$('#pageContainer').html(pageContent);
+}
+
+//格式化新闻或评论列表
+function dataToHtml(response)
+{
+	var pageHtml='';//分页层（图表与分页信息）
+	pageHtml+='<table id="tableContainer" cellpadding="0" cellspacing="0"></table>';
+	pageHtml+='<div class="tablePage" id="pageContainer">';	
+	pageHtml+='</div>';
+
+	$("#tableListDivTable").html(pageHtml);
+
+	var tableHeader = '<tr><th align="center" width="35%">标题</th><th align="center" width="9%">敏感指数</th><th align="center" width="18%">最近更新</th><th align="center" width="9%">来源类别</th><th align="center" width="18%">发布时间</th><th align="center" width="9%">操作</th></tr>';
+
+	var tableContent = '';
+
+	if (response.data && response.data.length > 0){
+		for(var i=0; i<response.data.length; i++) {
+
+			tableContent += '<tr>';
+			tableContent += '<td align="left" class="title" width="35%"><p class="pTitle"><a title="'+response.data[i].title+'" href="'+response.data[i].url+'" target="_blank">'+response.data[i].title+'</a></p></td>';
+			tableContent += '<td align="center" width="9%">'+response.data[i].sensitivity+'</td>';
+			tableContent += '<td align="center" width="18%">'+response.data[i].updatetime+'</td>';
+			tableContent += '<td align="center" width="9%">'+response.data[i].sourceType+'</td>';
+			tableContent += '<td align="center" width="18%">'+response.data[i].date+'</td>';
+			tableContent += '<td align="center" width="9%">';
+			tableContent += '<div class="mainstreamTableBnt">';
+			tableContent += '<span class="bntLeft"><a onclick="return coveDiv(this)" href="'+response.data[i].updateUrl+'"></a></span>';
+			tableContent += '</div>';
+			tableContent += '</td>';
+			tableContent += '</tr>';
+		}
+	}
+
+	pageToHtml(response.page);
+	$('#tableContainer').html(tableHeader+tableContent);
+}
+
+

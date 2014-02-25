@@ -1,0 +1,356 @@
+package com.gzgb.epo.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.gzgb.epo.publics.Constants;
+
+/**
+ * <pre>
+ * 涉穂微博实体
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2013-2-24
+ */
+@Entity
+@Table(name = "epo_warningweibolist", schema = Constants.GZGB_SCH)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SequenceGenerator(name = "gzgb_warningweibolist", sequenceName = "gzgb_warningweibolist_seq", allocationSize = 1)
+public class WeiBoList extends BaseEntity  {
+
+	private static final long serialVersionUID = 995235545418631654L;
+
+	/**
+	 * 自增ID
+	 */
+	private Long id;
+	
+	/**
+	 * 微博内容
+	 */
+	private String wwlContent;
+	
+	/**
+	 * 关键词
+	 */
+	private String wwlKeywords;
+	
+	/**
+	 * 微博URL
+	 */
+	private String wwlUrl;
+	
+	/**
+	 * 微博作者
+	 */
+	private String wwlAuthor;
+	
+	/**
+	 * 发布时间
+	 */
+	private Date wwlDate;
+	
+	/**
+	 * 发布时间戳
+	 */
+	private Integer wwlTimestamp;
+	
+	/**
+	 * 评论数
+	 */
+	private Integer wwlComment;
+	
+	/**
+	 * 转发数
+	 */
+	private Integer wwlFtorwarding;
+	
+	/**
+	 * 热度
+	 */
+	private Integer wwlHots;
+	
+	/**
+	 * 敏感度
+	 */
+	private Double wwlSensitivity;
+	
+	/**
+	 * 来源网站
+	 */
+	@JsonBackReference
+	private WebSiteMain wsmId;
+	
+	/**
+	 * 临时站点名称
+	 */
+	private String weBSiteName;
+	
+	/**
+	 * 是否为部门微博
+	 */
+	private Byte wwlIsDepartment;
+	
+	/**
+	 * 涉及部门ID
+	 */
+	private DepartmentBaseInfo dbiId;
+	
+	/**
+	 * 是否为区县微博
+	 */
+	private Byte wwlIsRegion;
+	
+	/**
+	 * 涉及区县ID
+	 */
+	private RegionBaseInfo rbiId;
+	
+	/**
+	 * 是否隐藏
+	 */
+	private Byte wwlHide;
+	
+	/**
+	 * 是否更新
+	 */
+	private Byte wwlUpdate;
+	
+	/**
+	 * UUID对照
+	 */
+	private String wwlUniqueId;
+	
+	/**
+	 * 更新时间
+	 */
+	private Integer wwlUpdateTime;
+	
+	/**
+	 * 创建时间
+	 */
+	private Integer wwlCreateTime;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "gzgb_warningweibolist")
+	@Column(name = "wwlUUID")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Column(name = "wwlContent", nullable = false, length = 1024)
+	public String getWwlContent() {
+		return wwlContent;
+	}
+
+	public void setWwlContent(String wwlContent) {
+		this.wwlContent = wwlContent;
+	}
+
+	@Column(name = "wwlKeywords", nullable = false)
+	public String getWwlKeywords() {
+		return wwlKeywords;
+	}
+
+	public void setWwlKeywords(String wwlKeywords) {
+		this.wwlKeywords = wwlKeywords;
+	}
+
+	@Column(name = "wwlUrl", nullable = false)
+	public String getWwlUrl() {
+		return wwlUrl;
+	}
+
+	public void setWwlUrl(String wwlUrl) {
+		this.wwlUrl = wwlUrl;
+	}
+
+	@Column(name = "wwlAuthor", nullable = false)
+	public String getWwlAuthor() {
+		return wwlAuthor;
+	}
+
+	public void setWwlAuthor(String wwlAuthor) {
+		this.wwlAuthor = wwlAuthor;
+	}
+
+	@Column(name = "wwlDate", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getWwlDate() {
+		return wwlDate;
+	}
+
+	public void setWwlDate(Date wwlDate) {
+		this.wwlDate = wwlDate;
+	}
+
+	@Column(name = "wwlTimestamp", nullable = false)
+	public Integer getWwlTimestamp() {
+		return wwlTimestamp;
+	}
+
+	public void setWwlTimestamp(Integer wwlTimestamp) {
+		this.wwlTimestamp = wwlTimestamp;
+	}
+
+	@Column(name = "wwlComment", nullable = false)
+	public Integer getWwlComment() {
+		return wwlComment;
+	}
+
+	public void setWwlComment(Integer wwlComment) {
+		this.wwlComment = wwlComment;
+	}
+
+	@Column(name = "wwlFtorwarding", nullable = false)
+	public Integer getWwlFtorwarding() {
+		return wwlFtorwarding;
+	}
+
+	public void setWwlFtorwarding(Integer wwlFtorwarding) {
+		this.wwlFtorwarding = wwlFtorwarding;
+	}
+
+	@Column(name = "wwlHots", nullable = false)
+	public Integer getWwlHots() {
+		return wwlHots;
+	}
+
+	public void setWwlHots(Integer wwlHots) {
+		this.wwlHots = wwlHots;
+	}
+
+	@Column(name = "wwlSensitivity", nullable = false)
+	public Double getWwlSensitivity() {
+		return wwlSensitivity;
+	}
+
+	public void setWwlSensitivity(Double wwlSensitivity) {
+		this.wwlSensitivity = wwlSensitivity;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "wsmId", nullable = false, columnDefinition = "INTEGER default 0")
+	public WebSiteMain getWsmId() {
+		return wsmId;
+	}
+
+	public void setWsmId(WebSiteMain wsmId) {
+		this.wsmId = wsmId;
+	}
+
+	@Column(name = "wwlIsDepartment", nullable = false)
+	public Byte getWwlIsDepartment() {
+		return wwlIsDepartment;
+	}
+
+	public void setWwlIsDepartment(Byte wwlIsDepartment) {
+		this.wwlIsDepartment = wwlIsDepartment;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "dbiId", nullable = true, columnDefinition = "INTEGER default 0")
+	public DepartmentBaseInfo getDbiId() {
+		return dbiId;
+	}
+
+	public void setDbiId(DepartmentBaseInfo dbiId) {
+		this.dbiId = dbiId;
+	}
+
+	@Column(name = "wwlIsRegion", nullable = false)
+	public Byte getWwlIsRegion() {
+		return wwlIsRegion;
+	}
+
+	public void setWwlIsRegion(Byte wwlIsRegion) {
+		this.wwlIsRegion = wwlIsRegion;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "rbiId", nullable = true, columnDefinition = "INTEGER default 0")
+	public RegionBaseInfo getRbiId() {
+		return rbiId;
+	}
+
+	public void setRbiId(RegionBaseInfo rbiId) {
+		this.rbiId = rbiId;
+	}
+
+	@Column(name = "wwlHide", nullable = false)
+	public Byte getWwlHide() {
+		return wwlHide;
+	}
+
+	public void setWwlHide(Byte wwlHide) {
+		this.wwlHide = wwlHide;
+	}
+
+	@Column(name = "wwlUpdate", nullable = false)
+	public Byte getWwlUpdate() {
+		return wwlUpdate;
+	}
+
+	public void setWwlUpdate(Byte wwlUpdate) {
+		this.wwlUpdate = wwlUpdate;
+	}
+
+	@Column(name = "wwlUniqueId", nullable = false)
+	public String getWwlUniqueId() {
+		return wwlUniqueId;
+	}
+
+	public void setWwlUniqueId(String wwlUniqueId) {
+		this.wwlUniqueId = wwlUniqueId;
+	}
+
+	@Column(name = "wwlUpdateTime", nullable = false)
+	public Integer getWwlUpdateTime() {
+		return wwlUpdateTime;
+	}
+
+	public void setWwlUpdateTime(Integer wwlUpdateTime) {
+		this.wwlUpdateTime = wwlUpdateTime;
+	}
+
+	@Column(name = "wwlCreateTime", nullable = false)
+	public Integer getWwlCreateTime() {
+		return wwlCreateTime;
+	}
+
+	public void setWwlCreateTime(Integer wwlCreateTime) {
+		this.wwlCreateTime = wwlCreateTime;
+	}
+	
+	@Transient
+	public String getWeBSiteName() {
+		return weBSiteName;
+	}
+
+	public void setWeBSiteName(String weBSiteName) {
+		this.weBSiteName = weBSiteName;
+	}
+	
+}

@@ -1,0 +1,32 @@
+package com.gzgb.epo.service.warning;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.gzgb.epo.dao.warning.BlogListDao;
+import com.gzgb.epo.entity.WeiBoList;
+import com.gzgb.epo.service.base.BaseService;
+
+/**
+ * 
+ * <pre>
+ * 博客舆情实现类
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2014-2-25
+ */
+@Service
+@Transactional(readOnly = true)
+public class BlogListService  extends BaseService<WeiBoList> {
+	
+	private static Logger logger = LoggerFactory
+	.getLogger(BlogListService.class);
+	
+	@Autowired
+	private BlogListDao blogListMainDao;
+
+}
