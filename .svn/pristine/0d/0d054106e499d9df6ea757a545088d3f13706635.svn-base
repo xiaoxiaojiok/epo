@@ -1,0 +1,19 @@
+package com.gzgb.epo.service.mediaLeader;
+
+import org.springframework.stereotype.Service;
+
+import com.gzgb.epo.entity.MediaLeader;
+import com.gzgb.epo.service.base.BaseService;
+
+/**
+ * 
+ * <pre>
+ * 舆论领袖Service
+ * </pre>
+ * @author LiuYongbin 
+ * @version 1.0, 2014-2-25
+ */
+@Service
+public class MediaLeaderService extends BaseService<MediaLeader>{
+
+}

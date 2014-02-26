@@ -1,0 +1,122 @@
+package com.gzgb.epo.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.gzgb.epo.publics.Constants;
+
+/**
+ * <pre>
+ * 舆论领袖实体
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-14
+ */
+@Entity
+@Table(name = "epo_medialeader", schema = Constants.GZGB_SCH)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SequenceGenerator(name = "gzgb_medialeader", sequenceName = "gzgb_medialeader_seq", allocationSize = 1)
+public class MediaLeader extends BaseEntity {
+
+	private static final long serialVersionUID = 995235666627631654L;
+
+	/**
+	 * 自增ID
+	 */
+	private Long networkid;
+
+	/**
+	 * 社交账号
+	 */
+	private String socialAccount;
+
+	/**
+	 * 所在地域
+	 */
+	
+	private String region;
+	
+	/**
+	 * 收入阶层
+	 */
+	private String income;
+
+	/**
+	 * 政治倾向
+	 */
+	private String political;
+
+	/**
+	 * 舆论影响力
+	 */
+	private String influence;
+
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "gzgb_medialeader")
+	@Column(name = "networkid")
+	public Long getNetworkid() {
+		return networkid;
+	}
+
+	public void setNetworkid(Long id) {
+		this.networkid = id;
+	}
+
+	@Column(name = "socialaccount")
+	public String getSocialAccount() {
+		return socialAccount;
+	}
+
+	public void setSocialAccount(String socialAccount) {
+		this.socialAccount = socialAccount;
+	}
+
+	@Column(name = "region")
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	
+	@Column(name = "income")
+	public String getIncome() {
+		return income;
+	}
+
+	public void setIncome(String income) {
+		this.income = income;
+	}
+
+	@Column(name = "political")
+	public String getPolitical() {
+		return political;
+	}
+
+	public void setPolitical(String political) {
+		this.political = political;
+	}
+
+	@Column(name = "influence")
+	public String getInfluence() {
+		return influence;
+	}
+
+	public void setInfluence(String influence) {
+		this.influence = influence;
+	}
+
+	
+	
+}

@@ -1,0 +1,166 @@
+package com.gzgb.epo.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.gzgb.epo.publics.Constants;
+
+/**
+ * 
+ * <pre>
+ * 舆论领袖参与历史事件
+ * </pre>
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-25
+ */
+@Entity
+@Table(name = "epo_leaderHistoryRecord", schema = Constants.GZGB_SCH)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SequenceGenerator(name = "gzgb_leaderHistoryRecord", sequenceName = "gzgb_leaderHistoryRecord_seq", allocationSize = 1)
+public class LeaderHistoryRecord extends BaseEntity{
+	private static final long serialVersionUID = 985235545427531610L;
+	
+	/**
+	 * 自增id
+	 */
+	private Long id;
+	
+	/**
+	 * 社会账号
+	 */
+	private String socialAccount;
+	
+	/**
+	 * 参与事件的类型 ：微博 、论坛、评论等
+	 */
+    private String type;
+    
+    /**
+     * 事件的描述
+     */
+    private String description;
+    
+    /**
+     * 扮演的角色
+     */
+    private String role;
+    
+    /**
+     * 所持的观点
+     */
+    private String view;
+
+	/**
+	 * @return id 
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#id
+	 */
+    @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "gzgb_leaderHistoryRecord")
+	@Column(name = "Id")
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id id
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#id
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return socialAccount 
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#socialAccount
+	 */
+	@Column(name="socialaccount")
+	public String getSocialAccount() {
+		return socialAccount;
+	}
+
+	/**
+	 * @param socialAccount socialAccount
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#socialAccount
+	 */
+	public void setSocialAccount(String socialAccount) {
+		this.socialAccount = socialAccount;
+	}
+
+	/**
+	 * @return type 
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#type
+	 */
+	@Column(name = "type")
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type type
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#type
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return description 
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#description
+	 */
+	@Column(name = "description")
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description description
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#description
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @return role 
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#role
+	 */
+	@Column(name = "role")
+	public String getRole() {
+		return role;
+	}
+
+	/**
+	 * @param role role
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#role
+	 */
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	/**
+	 * @return view 
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#view
+	 */
+	@Column(name = "view")
+	public String getView() {
+		return view;
+	}
+
+	/**
+	 * @param view view
+	 * @see com.gzgb.epo.entity.LeaderHistoryRecord#view
+	 */
+	public void setView(String view) {
+		this.view = view;
+	}
+    
+    
+}

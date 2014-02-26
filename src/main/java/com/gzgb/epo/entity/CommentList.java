@@ -1,0 +1,385 @@
+package com.gzgb.epo.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.gzgb.epo.publics.Constants;
+
+/**
+ * 
+ * <pre>
+ * 涉穗评论实体
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2014-2-26
+ */
+@Entity
+@Table(name = "epo_mainmediacomment", schema = Constants.GZGB_SCH)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SequenceGenerator(name = "gzgb_mainmediacomment", sequenceName = "gzgb_mainmediacomment_seq", allocationSize = 1)
+public class CommentList extends BaseEntity  {
+	
+	private static final long serialVersionUID = 995235545418631654L;
+
+	/**
+	 * 自增ID
+	 */
+	private Long id;
+	
+	/**
+	 * 评论标题
+	 */
+	private String mmcTitle;
+	
+	/**
+	 * 评论内容
+	 */
+	private String mmcContent;
+	
+	/**
+	 * 摘要
+	 */
+	private String mmcSummary;
+	
+	/**
+	 * 关键字
+	 */
+	private String mmcKeywords;
+	
+	/**
+	 * URL
+	 */
+	private String mmcUrl;
+	
+	/**
+	 * 发布时间
+	 */
+	private Date mmcDate;
+	
+	/**
+	 * 发布时间戳
+	 */
+	private Integer mmcTimestamp;
+	
+	/**
+	 *是否原创 
+	 */
+	private Byte mmcOriginal;
+	
+	/**
+	 * 从属评论ID
+	 */
+	private CommentList mmcReferTo;
+	
+	/**
+	 * 转载量
+	 */
+	private Integer mmcReserved;
+	
+	/**
+	 * 来源网站
+	 */
+	@JsonBackReference
+	private WebSiteMain wsmId;
+	
+	/**
+	 * 评论类别
+	 */
+	private Integer cbcId;
+	
+	/**
+	 * 是否为区县评论
+	 */
+	private Byte mmcIsRegion;
+	
+	/**
+	 * 涉及区县ID
+	 */
+	private RegionBaseInfo rbiId;
+	
+	/**
+	 * 是否境内外
+	 */
+	private Byte mmcIsAbroad;
+	
+	/**
+	 * 是否隐藏
+	 */
+	private Byte mmcHide;
+	
+	/**
+	 * 是否更新
+	 */
+	private Byte mmcUpdate;
+	
+	/**
+	 * 最近转载时间
+	 */
+	private Integer mmcReservedTime;
+	
+	/**
+	 * 评论分词标题
+	 */
+	private String mmcTitleSeg;
+	
+	/**
+	 * 评论分词内容
+	 */
+	private String mmcContentSeg;
+	
+	/**
+	 * UUID对照
+	 */
+	private String mmcUniqueId;
+	
+	/**
+	 * 更新时间
+	 */
+	private Integer mmcUpdateTime;
+	
+	/**
+	 * 创建时间
+	 */
+	private Integer mmcCreateTime;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "gzgb_mainmediacomment")
+	@Column(name = "mmcUUID")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Column(name = "mmcTitle", nullable = false)
+	public String getMmcTitle() {
+		return mmcTitle;
+	}
+
+	public void setMmcTitle(String mmcTitle) {
+		this.mmcTitle = mmcTitle;
+	}
+
+	@Column(name = "mmcContent", nullable = true, length = 1024)
+	public String getMmcContent() {
+		return mmcContent;
+	}
+
+	public void setMmcContent(String mmcContent) {
+		this.mmcContent = mmcContent;
+	}
+
+	@Column(name = "mmcSummary", nullable = true)
+	public String getMmcSummary() {
+		return mmcSummary;
+	}
+
+	public void setMmcSummary(String mmcSummary) {
+		this.mmcSummary = mmcSummary;
+	}
+
+	@Column(name = "mmcKeywords", nullable = false)
+	public String getMmcKeywords() {
+		return mmcKeywords;
+	}
+
+	public void setMmcKeywords(String mmcKeywords) {
+		this.mmcKeywords = mmcKeywords;
+	}
+
+	@Column(name = "mmcUrl", nullable = false)
+	public String getMmcUrl() {
+		return mmcUrl;
+	}
+
+	public void setMmcUrl(String mmcUrl) {
+		this.mmcUrl = mmcUrl;
+	}
+
+	@Column(name = "mmcDate", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getMmcDate() {
+		return mmcDate;
+	}
+
+	public void setMmcDate(Date mmcDate) {
+		this.mmcDate = mmcDate;
+	}
+
+	@Column(name = "mmcTimestamp", nullable = false)
+	public Integer getMmcTimestamp() {
+		return mmcTimestamp;
+	}
+
+	public void setMmcTimestamp(Integer mmcTimestamp) {
+		this.mmcTimestamp = mmcTimestamp;
+	}
+
+	@Column(name = "mmcOriginal", nullable = false)
+	public Byte getMmcOriginal() {
+		return mmcOriginal;
+	}
+
+	public void setMmcOriginal(Byte mmcOriginal) {
+		this.mmcOriginal = mmcOriginal;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "mmcReferTo")
+	public CommentList getMmcReferTo() {
+		return mmcReferTo;
+	}
+
+	public void setMmcReferTo(CommentList mmcReferTo) {
+		this.mmcReferTo = mmcReferTo;
+	}
+
+	@Column(name = "mmcReserved", nullable = false)
+	public Integer getMmcReserved() {
+		return mmcReserved;
+	}
+
+	public void setMmcReserved(Integer mmcReserved) {
+		this.mmcReserved = mmcReserved;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "wsmId", nullable = false, columnDefinition = "INTEGER default 0")
+	public WebSiteMain getWsmId() {
+		return wsmId;
+	}
+
+	public void setWsmId(WebSiteMain wsmId) {
+		this.wsmId = wsmId;
+	}
+
+	@Column(name = "cbcId", nullable = false)
+	public Integer getCbcId() {
+		return cbcId;
+	}
+
+	public void setCbcId(Integer cbcId) {
+		this.cbcId = cbcId;
+	}
+
+	@Column(name = "mmcIsRegion", nullable = false)
+	public Byte getMmcIsRegion() {
+		return mmcIsRegion;
+	}
+
+	public void setMmcIsRegion(Byte mmcIsRegion) {
+		this.mmcIsRegion = mmcIsRegion;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "rbiId", nullable = false, columnDefinition = "INTEGER default 0")
+	public RegionBaseInfo getRbiId() {
+		return rbiId;
+	}
+
+	public void setRbiId(RegionBaseInfo rbiId) {
+		this.rbiId = rbiId;
+	}
+
+	@Column(name = "mmcIsAbroad", nullable = false)
+	public Byte getMmcIsAbroad() {
+		return mmcIsAbroad;
+	}
+
+	public void setMmcIsAbroad(Byte mmcIsAbroad) {
+		this.mmcIsAbroad = mmcIsAbroad;
+	}
+
+	@Column(name = "mmcHide", nullable = false)
+	public Byte getMmcHide() {
+		return mmcHide;
+	}
+
+	public void setMmcHide(Byte mmcHide) {
+		this.mmcHide = mmcHide;
+	}
+
+	@Column(name = "mmcUpdate", nullable = false)
+	public Byte getMmcUpdate() {
+		return mmcUpdate;
+	}
+
+	public void setMmcUpdate(Byte mmcUpdate) {
+		this.mmcUpdate = mmcUpdate;
+	}
+
+	@Column(name = "mmcReservedTime", nullable = false)
+	public Integer getMmcReservedTime() {
+		return mmcReservedTime;
+	}
+
+	public void setMmcReservedTime(Integer mmcReservedTime) {
+		this.mmcReservedTime = mmcReservedTime;
+	}
+
+	@Column(name = "mmcTitleSeg", nullable = true)
+	public String getMmcTitleSeg() {
+		return mmcTitleSeg;
+	}
+
+	public void setMmcTitleSeg(String mmcTitleSeg) {
+		this.mmcTitleSeg = mmcTitleSeg;
+	}
+
+	@Column(name = "mmcContentSeg", nullable = true)
+	public String getMmcContentSeg() {
+		return mmcContentSeg;
+	}
+
+	public void setMmcContentSeg(String mmcContentSeg) {
+		this.mmcContentSeg = mmcContentSeg;
+	}
+
+	@Column(name = "mmcUniqueId", nullable = false)
+	public String getMmcUniqueId() {
+		return mmcUniqueId;
+	}
+
+	public void setMmcUniqueId(String mmcUniqueId) {
+		this.mmcUniqueId = mmcUniqueId;
+	}
+
+	@Column(name = "mmcUpdateTime", nullable = false)
+	public Integer getMmcUpdateTime() {
+		return mmcUpdateTime;
+	}
+
+	public void setMmcUpdateTime(Integer mmcUpdateTime) {
+		this.mmcUpdateTime = mmcUpdateTime;
+	}
+
+	@Column(name = "mmcCreateTime", nullable = false)
+	public Integer getMmcCreateTime() {
+		return mmcCreateTime;
+	}
+
+	public void setMmcCreateTime(Integer mmcCreateTime) {
+		this.mmcCreateTime = mmcCreateTime;
+	}
+	
+	
+}

@@ -1,0 +1,136 @@
+package com.gzgb.epo.controller.warning;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.gzgb.epo.entity.WeiBoList;
+import com.gzgb.epo.service.warning.WeiBoListService;
+import com.gzgb.epo.util.DateUtil;
+
+/**
+ * 
+ * <pre>
+ * 微博控制器
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2013-2-25
+ */
+@Controller
+@RequestMapping(value = "/weibo")
+public class WeiBoController {
+
+	@Autowired
+	private WeiBoListService weiBoListService;
+	Logger logger = LoggerFactory.getLogger(WeiBoController.class);
+
+	@RequestMapping(value = "monitorWeibo")
+	public @ResponseBody
+	String monitorWeibo(Model model, HttpServletRequest request) {
+
+		return "";
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "weiboSearch")
+	public @ResponseBody
+	Map<String, Object> weiboSearch(HttpServletRequest request, String content,
+			String start, String end, Integer sortOrder, Integer wsmId,
+			Integer page) {
+		if (page == null || page == 0) {
+			page = 1;
+		}
+		Long a = DateUtil.parseSimpleDate(start).getTime() / 1000;
+		Long b = DateUtil.parseSimpleDate(end).getTime() / 1000;
+		int startTime = a.intValue();
+		int endTime = b.intValue();
+
+		Map<String, Object> myMap = null;
+		if (sortOrder == 0) {
+			// 按时间 升序排序
+			myMap = weiBoListService.findWeiBo(startTime, endTime, wsmId,
+					content, page, null, "wwlTimestamp", "asc");
+		} else {
+			// 默认按热度降序排列
+			myMap = weiBoListService.findWeiBo(startTime, endTime, wsmId,
+					content, page, null, null, null);
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
+		if (myMap != null && !"".equals(myMap.get("rows").toString())) {
+			List<WeiBoList> list = (List<WeiBoList>) myMap.get("rows");
+			for (int i = 0; i < list.size(); i++) {
+				WeiBoList weiBoList = list.get(i);
+				Map<String, Object> inMap = new HashMap<String, Object>();
+				inMap.put("url", weiBoList.getWwlUrl());
+				inMap.put("fullContent", weiBoList.getWwlContent());
+				inMap.put("source", weiBoList.getWsmId().getId());
+				inMap.put("content", weiBoList.getWwlContent());
+				inMap.put("hots", weiBoList.getWwlHots());
+				inMap.put("comment", weiBoList.getWwlComment());
+				inMap.put("ftorwarding", weiBoList.getWwlFtorwarding());
+				inMap.put("fullAuthor", weiBoList.getWwlAuthor());
+				inMap.put("author", weiBoList.getWwlAuthor());
+				Long time = Long.parseLong(weiBoList.getWwlTimestamp().toString()) * 1000;
+				SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 格式化日期
+				inMap.put("date", f.format(new Date(time)));
+				inMap.put("updateUrl", weiBoList.getWwlUrl());
+
+				dataList.add(inMap);
+			}
+		}
+		Map<String, Object> pageList = new HashMap<String, Object>();
+		int total = (myMap == null) ? 0 : Integer.parseInt(myMap.get("total")
+				.toString());
+		pageList.put("size", 10); // 默认为10
+		int size = 1;
+		if (total > 10) {
+			if (total % 10 != 0) {
+				size = total / 10 + 1;
+			} else {
+				size = total / 10;
+			}
+		}
+		pageList.put("count", size);
+		pageList.put("current", page);
+		pageList.put("total", total);
+
+		map.put("data", dataList);
+		map.put("page", pageList);
+		return map;
+	}
+
+	@RequestMapping(value = "weiboIndex")
+	public @ResponseBody
+	List<Map<String, Object>> weiboIndex(HttpServletRequest request,
+			Integer day, Integer site) {
+		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (day != null) {
+			Long a = DateUtil.parseSimpleDate("2013-4-8").getTime() / 1000;
+			// Long a = new Date().getTime()/1000;
+			Long b = a - day * 3600 * 24;
+			int startTime = b.intValue();
+			int endTime = a.intValue();
+			dataList = weiBoListService
+					.findWeiBoTop20(startTime, endTime, site);
+		}
+		return dataList;
+	}
+
+}

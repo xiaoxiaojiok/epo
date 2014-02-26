@@ -1,0 +1,413 @@
+package com.gzgb.epo.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.gzgb.epo.publics.Constants;
+
+/**
+ * 
+ * <pre>
+ * 涉穗新闻实体
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2014-2-26
+ */
+@Entity
+@Table(name = "epo_mainmedianews", schema = Constants.GZGB_SCH)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SequenceGenerator(name = "gzgb_mainmedianews", sequenceName = "gzgb_mainmedianews_seq", allocationSize = 1)
+public class NewsList extends BaseEntity  {
+	
+	private static final long serialVersionUID = 995235545418631654L;
+
+	/**
+	 * 自增ID
+	 */
+	private Long id;
+	
+	/**
+	 * 新闻摘要
+	 */
+	private String mmnSummary;
+	
+	/**
+	 * 新闻关键字
+	 */
+	private String mmnKeywords;
+	
+	/**
+	 * 新闻标题
+	 */
+	private String mmnTitle;
+	
+	/**
+	 * 新闻内容
+	 */
+	private String mmnContent;
+	
+	/**
+	 * URL
+	 */
+	private String mmnUrl;
+	
+	/**
+	 * 发布时间
+	 */
+	private Date mmnDate;
+	
+	/**
+	 * 发布时间戳
+	 */
+	private Integer mmnTimestamp;
+	
+	/**
+	 * 新闻编辑
+	 */
+	private String mmnEditor;
+	
+	/**
+	 * 是否原创
+	 */
+	private Byte mmnOriginal;
+	
+	/**
+	 * 从属新闻ID
+	 */
+	private NewsList mmnReferTo;
+	
+	/**
+	 * 转载量
+	 */
+	private Integer mmnReserved;
+	
+	/**
+	 * 是否为9大网站
+	 */
+	private Byte mmnIsTop9;
+	
+	/**
+	 * 来源网站
+	 */
+	@JsonBackReference
+	private WebSiteMain wsmId;
+	
+	/**
+	 * 新闻类别
+	 */
+	private Integer nbcId;
+	
+	/**
+	 * 是否为区县新闻
+	 */
+	private Byte mmnIsRegion;
+	
+	/**
+	 * 涉及区县ID
+	 */
+	private RegionBaseInfo rbiId;
+	
+	/**
+	 * 境内外
+	 */
+	private Byte mmnIsAbroad;
+	
+	/**
+	 * 是否隐藏
+	 */
+	private Byte mmnHide;
+	
+	/**
+	 * 最近转载时间
+	 */
+	private Integer mmnReservedTime;
+	
+	/**
+	 * 是否更新
+	 */
+	private Byte mmnUpdate;
+	
+	/**
+	 * 新闻分词标题
+	 */
+	private String mmnTitleSeg;
+	
+	/**
+	 * 新闻分词内容
+	 */
+	private String mmnContentSeg;
+	
+	/**
+	 * UUID对照
+	 */
+	private String mmnUniqueId;
+	
+	/**
+	 * 更新时间
+	 */
+	private Integer mmnUpdateTime;
+	
+	/**
+	 * 创建时间
+	 */
+	private Integer mmnCreateTime;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "gzgb_mainmedianews")
+	@Column(name = "mmnUUID")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Column(name = "mmnSummary", nullable = true)
+	public String getMmnSummary() {
+		return mmnSummary;
+	}
+
+	public void setMmnSummary(String mmnSummary) {
+		this.mmnSummary = mmnSummary;
+	}
+
+	@Column(name = "mmnKeywords", nullable = false)
+	public String getMmnKeywords() {
+		return mmnKeywords;
+	}
+
+	public void setMmnKeywords(String mmnKeywords) {
+		this.mmnKeywords = mmnKeywords;
+	}
+
+	@Column(name = "mmnTitle", nullable = false)
+	public String getMmnTitle() {
+		return mmnTitle;
+	}
+
+	public void setMmnTitle(String mmnTitle) {
+		this.mmnTitle = mmnTitle;
+	}
+
+	@Column(name = "mmnContent", nullable = true, length = 1024)
+	public String getMmnContent() {
+		return mmnContent;
+	}
+
+	public void setMmnContent(String mmnContent) {
+		this.mmnContent = mmnContent;
+	}
+
+	@Column(name = "mmnUrl", nullable = false)
+	public String getMmnUrl() {
+		return mmnUrl;
+	}
+
+	public void setMmnUrl(String mmnUrl) {
+		this.mmnUrl = mmnUrl;
+	}
+
+	@Column(name = "mmnDate", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getMmnDate() {
+		return mmnDate;
+	}
+
+	public void setMmnDate(Date mmnDate) {
+		this.mmnDate = mmnDate;
+	}
+
+	@Column(name = "mmnTimestamp", nullable = false)
+	public Integer getMmnTimestamp() {
+		return mmnTimestamp;
+	}
+
+	public void setMmnTimestamp(Integer mmnTimestamp) {
+		this.mmnTimestamp = mmnTimestamp;
+	}
+
+	@Column(name = "mmnEditor", nullable = true)
+	public String getMmnEditor() {
+		return mmnEditor;
+	}
+
+	public void setMmnEditor(String mmnEditor) {
+		this.mmnEditor = mmnEditor;
+	}
+
+	@Column(name = "mmnOriginal", nullable = false)
+	public Byte getMmnOriginal() {
+		return mmnOriginal;
+	}
+
+	public void setMmnOriginal(Byte mmnOriginal) {
+		this.mmnOriginal = mmnOriginal;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "mmnReferTo")
+	public NewsList getMmnReferTo() {
+		return mmnReferTo;
+	}
+
+	public void setMmnReferTo(NewsList mmnReferTo) {
+		this.mmnReferTo = mmnReferTo;
+	}
+
+	@Column(name = "mmnReserved", nullable = false)
+	public Integer getMmnReserved() {
+		return mmnReserved;
+	}
+
+	public void setMmnReserved(Integer mmnReserved) {
+		this.mmnReserved = mmnReserved;
+	}
+
+	@Column(name = "mmnIsTop9", nullable = false)
+	public Byte getMmnIsTop9() {
+		return mmnIsTop9;
+	}
+
+	public void setMmnIsTop9(Byte mmnIsTop9) {
+		this.mmnIsTop9 = mmnIsTop9;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "wsmId", nullable = false, columnDefinition = "INTEGER default 0")
+	public WebSiteMain getWsmId() {
+		return wsmId;
+	}
+
+	public void setWsmId(WebSiteMain wsmId) {
+		this.wsmId = wsmId;
+	}
+
+	@Column(name = "nbcId", nullable = false)
+	public Integer getNbcId() {
+		return nbcId;
+	}
+
+	public void setNbcId(Integer nbcId) {
+		this.nbcId = nbcId;
+	}
+
+	@Column(name = "mmnIsRegion", nullable = false)
+	public Byte getMmnIsRegion() {
+		return mmnIsRegion;
+	}
+
+	public void setMmnIsRegion(Byte mmnIsRegion) {
+		this.mmnIsRegion = mmnIsRegion;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "rbiId", nullable = false, columnDefinition = "INTEGER default 0")
+	public RegionBaseInfo getRbiId() {
+		return rbiId;
+	}
+
+	public void setRbiId(RegionBaseInfo rbiId) {
+		this.rbiId = rbiId;
+	}
+
+	@Column(name = "mmnIsAbroad", nullable = false)
+	public Byte getMmnIsAbroad() {
+		return mmnIsAbroad;
+	}
+
+	public void setMmnIsAbroad(Byte mmnIsAbroad) {
+		this.mmnIsAbroad = mmnIsAbroad;
+	}
+
+	@Column(name = "mmnHide", nullable = false)
+	public Byte getMmnHide() {
+		return mmnHide;
+	}
+
+	public void setMmnHide(Byte mmnHide) {
+		this.mmnHide = mmnHide;
+	}
+
+	@Column(name = "mmnReservedTime", nullable = false)
+	public Integer getMmnReservedTime() {
+		return mmnReservedTime;
+	}
+
+	public void setMmnReservedTime(Integer mmnReservedTime) {
+		this.mmnReservedTime = mmnReservedTime;
+	}
+
+	@Column(name = "mmnUpdate", nullable = false)
+	public Byte getMmnUpdate() {
+		return mmnUpdate;
+	}
+
+	public void setMmnUpdate(Byte mmnUpdate) {
+		this.mmnUpdate = mmnUpdate;
+	}
+
+	@Column(name = "mmnTitleSeg", nullable = true)
+	public String getMmnTitleSeg() {
+		return mmnTitleSeg;
+	}
+
+	public void setMmnTitleSeg(String mmnTitleSeg) {
+		this.mmnTitleSeg = mmnTitleSeg;
+	}
+
+	@Column(name = "mmnContentSeg", nullable = true, length = 1024)
+	public String getMmnContentSeg() {
+		return mmnContentSeg;
+	}
+
+	public void setMmnContentSeg(String mmnContentSeg) {
+		this.mmnContentSeg = mmnContentSeg;
+	}
+
+	@Column(name = "mmnUniqueId", nullable = false)
+	public String getMmnUniqueId() {
+		return mmnUniqueId;
+	}
+
+	public void setMmnUniqueId(String mmnUniqueId) {
+		this.mmnUniqueId = mmnUniqueId;
+	}
+
+	@Column(name = "mmnUpdateTime", nullable = false)
+	public Integer getMmnUpdateTime() {
+		return mmnUpdateTime;
+	}
+
+	public void setMmnUpdateTime(Integer mmnUpdateTime) {
+		this.mmnUpdateTime = mmnUpdateTime;
+	}
+
+	@Column(name = "mmnCreateTime", nullable = false)
+	public Integer getMmnCreateTime() {
+		return mmnCreateTime;
+	}
+
+	public void setMmnCreateTime(Integer mmnCreateTime) {
+		this.mmnCreateTime = mmnCreateTime;
+	}
+	
+	
+}

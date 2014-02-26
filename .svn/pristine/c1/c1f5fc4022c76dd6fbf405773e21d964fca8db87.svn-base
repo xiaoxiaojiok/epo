@@ -1,0 +1,141 @@
+package com.gzgb.epo.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.gzgb.epo.publics.Constants;
+
+/**
+ * <pre>
+ * 舆论领袖影响分布
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-14
+ */
+@Entity
+@Table(name = "epo_leaderinfluence", schema = Constants.GZGB_SCH)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SequenceGenerator(name = "gzgb_leaderinfluence", sequenceName = "gzgb_leaderinfluence_seq", allocationSize = 1)
+public class LeaderInfluence extends BaseEntity {
+
+	private static final long serialVersionUID = 995235545427637774L;
+
+	/**
+	 * 自增ID
+	 */
+	private Long id;
+
+	/**
+	 * 社交账号
+	 */
+	private String socialaccount;
+
+	/**
+	 * 类型
+	 */
+	
+	private String type;
+	
+	/**
+	 * 名称
+	 */
+	private String name;
+
+	/**
+	 * 数量
+	 */
+	private Long count;
+
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "gzgb_leaderinfluence")
+	@Column(name = "id")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return socialaccount 
+	 * @see com.gzgb.epo.entity.LeaderInfluence#socialaccount
+	 */
+	@Column(name="socialaccount")
+	public String getSocialaccount() {
+		return socialaccount;
+	}
+
+	/**
+	 * @param socialaccount socialaccount
+	 * @see com.gzgb.epo.entity.LeaderInfluence#socialaccount
+	 */
+	public void setSocialaccount(String socialaccount) {
+		this.socialaccount = socialaccount;
+	}
+
+	/**
+	 * @return type 
+	 * @see com.gzgb.epo.entity.LeaderInfluence#type
+	 */
+	@Column(name="type")
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type type
+	 * @see com.gzgb.epo.entity.LeaderInfluence#type
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return name 
+	 * @see com.gzgb.epo.entity.LeaderInfluence#name
+	 */
+	@Column(name="name")
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name name
+	 * @see com.gzgb.epo.entity.LeaderInfluence#name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return count 
+	 * @see com.gzgb.epo.entity.LeaderInfluence#count
+	 */
+	@Column(name="count")
+	public Long getCount() { 
+		return count;
+	}
+
+	/**
+	 * @param count count
+	 * @see com.gzgb.epo.entity.LeaderInfluence#count
+	 */
+	public void setCount(Long count) {
+		this.count = count;
+	}
+
+
+	
+	
+}

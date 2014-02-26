@@ -1,0 +1,51 @@
+package com.gzgb.epo.service.messageCountChange;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gzgb.epo.dao.leaderInflence.LeaderInfluenceDao;
+import com.gzgb.epo.dao.messageCountChange.MessageCountChangeDao;
+import com.gzgb.epo.entity.LeaderInfluence;
+import com.gzgb.epo.entity.MessageCountChange;
+import com.gzgb.epo.service.base.BaseService;
+import com.gzgb.epo.service.knowledgeDictItem.KnowledgeDictItemService;
+
+/**
+ * 
+ * <pre>
+ * 言论转载或发布数量的变化Service
+ * </pre>
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-25
+ */
+@Service
+public class MessageCountChangeService extends BaseService<MessageCountChange>{
+
+	private static Logger logger = LoggerFactory.getLogger(KnowledgeDictItemService.class);
+	@Autowired
+	private MessageCountChangeDao mccDao;
+	/**
+	 * 
+	 * <pre>
+	 * 通过社交账号查找记录
+	 * </pre>
+	 * 
+	 * @param socialAccount
+	 * @return
+	 */
+	public List<MessageCountChange> findBySocialAccount(String socialAccount){
+		try {
+			logger.info("---findBySocialAccount()方法");
+			return  mccDao.findBySocialAccount(socialAccount);
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+
+}
