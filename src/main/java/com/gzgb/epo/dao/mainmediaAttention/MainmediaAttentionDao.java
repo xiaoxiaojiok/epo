@@ -1,0 +1,16 @@
+package com.gzgb.epo.dao.mainmediaAttention;
+
+import com.gzgb.epo.dao.base.BaseDao;
+import com.gzgb.epo.entity.MainmediaAttention;
+
+/**
+ * 
+ * <pre>
+ * 主流媒体关注度Dao
+ * </pre>
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-26
+ */
+public interface MainmediaAttentionDao extends BaseDao<MainmediaAttention>{
+
+}

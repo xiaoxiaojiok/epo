@@ -1,0 +1,20 @@
+package com.gzgb.epo.service.keyWords;
+
+import org.springframework.stereotype.Service;
+
+import com.gzgb.epo.entity.KeyWords;
+import com.gzgb.epo.service.base.BaseService;
+
+/**
+ * 
+ * <pre>
+ * 印象关注词Service
+ * </pre>
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-26
+ */
+@Service
+public class KeyWordsService extends BaseService<KeyWords>{
+	
+
+}

@@ -1,0 +1,139 @@
+package com.gzgb.epo.entity;
+
+import javax.persistence.*;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.gzgb.epo.publics.Constants;
+
+/**
+ * 
+ * <pre>
+ * 涉穗报道区域分布
+ * </pre>
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-26
+ */
+@Entity
+@Table(name="epo_reportdistribution", schema = Constants.GZGB_SCH)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SequenceGenerator(name = "gzgb_reportDistribution", sequenceName = "gzgb_reportDistribution_seq", allocationSize = 1)
+public class ReportDistribution extends BaseEntity{
+	
+	private static final long serialVersionUID = 994333666627631654L;
+	
+	/**
+	 *自增id 
+	 */
+	private Long id;
+	
+	/**
+	 * 区域所属的国家
+	 */
+	private String country;
+	
+	/**
+	 * 区域所在的省份
+	 */
+	private String province;
+	
+	/**
+	 * 区域所在的城市
+	 */
+	private String city;
+	
+	/**
+	 * 报道的数量
+	 */
+	private Long count;
+
+	/**
+	 * @return id 
+	 * @see com.gzgb.epo.entity.ReportDistribution#id
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "gzgb_reportDistribution")
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id id
+	 * @see com.gzgb.epo.entity.ReportDistribution#id
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return country 
+	 * @see com.gzgb.epo.entity.ReportDistribution#country
+	 */
+	@Column(name="country")
+	public String getCountry() {
+		return country;
+	}
+
+	/**
+	 * @param country country
+	 * @see com.gzgb.epo.entity.ReportDistribution#country
+	 */
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	/**
+	 * @return province 
+	 * @see com.gzgb.epo.entity.ReportDistribution#province
+	 */
+	@Column(name="province")
+	public String getProvince() {
+		return province;
+	}
+
+	/**
+	 * @param province province
+	 * @see com.gzgb.epo.entity.ReportDistribution#province
+	 */
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	/**
+	 * @return city 
+	 * @see com.gzgb.epo.entity.ReportDistribution#city
+	 */
+	@Column(name="city")
+	public String getCity() {
+		return city;
+	}
+
+	/**
+	 * @param city city
+	 * @see com.gzgb.epo.entity.ReportDistribution#city
+	 */
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	/**
+	 * @return count 
+	 * @see com.gzgb.epo.entity.ReportDistribution#count
+	 */
+	@Column(name="count")
+	public Long getCount() {
+		return count;
+	}
+
+	/**
+	 * @param count count
+	 * @see com.gzgb.epo.entity.ReportDistribution#count
+	 */
+	public void setCount(Long count) {
+		this.count = count;
+	}
+	
+	
+
+}

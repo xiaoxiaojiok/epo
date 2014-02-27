@@ -1,0 +1,21 @@
+package com.gzgb.epo.dao.education;
+
+import org.springframework.stereotype.Repository;
+
+import com.gzgb.epo.dao.base.BaseDaoImpl;
+import com.gzgb.epo.entity.Education;
+import com.gzgb.epo.entity.Mainmedia;
+import com.gzgb.epo.entity.MediaLeader;
+
+/**
+ * 
+ * <pre>
+ * 教育程度DaoImpl
+ * </pre>
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-25
+ */
+@Repository
+public class EducationDaoImpl extends BaseDaoImpl<Education> implements EducationDao{
+
+}

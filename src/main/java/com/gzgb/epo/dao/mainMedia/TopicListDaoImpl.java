@@ -1,0 +1,86 @@
+package com.gzgb.epo.dao.mainMedia;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
+
+import com.gzgb.epo.dao.base.BaseDaoImpl;
+import com.gzgb.epo.entity.NewsList;
+import com.gzgb.epo.entity.Topic;
+
+/**
+ * 
+ * <pre>
+ * 热点话题DAO实现类
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2014-2-27
+ */
+@Repository
+public class TopicListDaoImpl extends BaseDaoImpl<Topic> implements
+TopicListDao {
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> findTopic(String startTime, String endTime,
+			Integer site, String content, Integer page, Integer rows,
+			String sort, String order) {
+		Criteria c = getSession().createCriteria(NewsList.class);
+		c.add(Restrictions.ge("createDate", Date.valueOf(startTime)));
+		c.add(Restrictions.le("createDate", Date.valueOf(endTime)));
+		/*if (site != null) {
+			if(site==19){
+				c.add(Restrictions.eq("mmnIsAbroad", (byte)1));
+			}else{
+				c.add(Restrictions.eq("mmnIsAbroad", (byte)0));
+			}
+		}*/
+		c.add(Restrictions.eq("level", 0)); //默认找级别为0的话题
+		if (content != null) {
+			content = "%" + content + "%";
+			c.add(Restrictions.like("title", content));
+		}
+
+		List<NewsList> list = c.list();
+		int total = 0;
+		if (list != null) {
+			total = list.size();
+		}
+		if (page == null || page == 0) {
+			page = 1;
+		}
+		if (rows == null || rows == 0) {
+			rows = 20;
+		}
+		if (sort != null && order != null) {
+			if ("asc".equals(order)) {
+				c.addOrder(Order.asc(sort));
+			} else {
+				c.addOrder(Order.desc(sort));
+			}
+		} else {
+			// 默认按照热点降序排序
+			c.addOrder(Order.desc("comments"));
+		}
+		List<NewsList> objList = c.setFirstResult((page - 1) * rows)
+				.setMaxResults(rows).list();
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		if (objList != null && objList.size() > 0) {
+			returnMap.put("total", total);
+			returnMap.put("rows", objList);
+			return returnMap;
+		} else {
+			returnMap.put("total", total);
+			returnMap.put("rows", "");
+			return returnMap;
+		}
+	}
+
+}
