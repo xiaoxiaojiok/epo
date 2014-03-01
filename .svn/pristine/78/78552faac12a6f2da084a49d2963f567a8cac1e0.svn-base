@@ -1,0 +1,77 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="../top.jsp"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>广州广报</title>
+
+<script type="text/javascript"> 
+function todo(url){
+	parent.document.getElementById("middleFrame").src = url;
+}
+</script>
+
+</head>
+<body>
+<style type="text/css">
+	body{background:none;}
+	.changemonitorCon { height: 1250px; }
+	.distop { margin-top:80px; }
+	.mergemedia {
+	          width:979px;
+	          height:675px;
+	          margin:0 auto;
+	          margin-top:80px;
+	          }	     	
+</style>
+		
+				<!-- 页面内容 start -->
+				
+		      <div class="monitorCon changemonitorCon">
+					<!-- top start -->
+						<div class="monitorTopBox">
+							<div class="monitorTitle">
+								<span class="aTitle">城市形象与认识度</span>
+								<span class="bTitle">公众评价</span>
+							</div>
+							
+					    </div>
+					<!-- top end -->
+					<!-- content start -->
+					     <div class="distop">
+					          <img src="http://chart.apis.google.com/chart?chs=400x250&chd=${timeEmotion}&cht=lc&chbh=50&chdl=正面|中立|负面&chtt=情感倾向变化趋势&chco=ff0000,0000ff,00ff00&chf=
+									c,ls,90,999999,0.25,CCCCCC,0.25,FFFFFF,0.25&chxt=x,y&chxl=${timeString}"/>
+									
+							  <img src="http://chart.apis.google.com/chart?chs=400x400&chd=${publicAttention_Y}&cht=bvs&chbh=50&chdl=正面|中立|负面&chtt=公众对广州的关注度&chco=ff0000,0000ff,00ff00&chxt=x,y&chxl=${publicAttention_X}"/>
+					     </div>
+					     <div class="mergemedia">
+					         <table>
+					             <tr>
+					                 <c:forEach var="hierarchy" items="${hierarchyList }">
+					                     <th align="center">${hierarchy.name }</th>
+					                 </c:forEach>
+					             </tr>
+					             <tr>
+					                 <td colspan="5" id="displayContent">
+					                <img http://chart.apis.google.com/chart?chs=250x100&chd=${hierarchy_Y }&cht=p3&chco=ff0000&chl=${hierarchy_X } />
+					                 <img src="http://chart.apis.google.com/chart?chs=400x400&chd=${heducation_Y}&cht=bvs&chbh=50&chdl=正面|中立|负面&chtt=学历分布&chco=ff0000,0000ff,00ff00&chxt=x,y&chxl=${heducation_X}"/>
+					                 <img src="http://chart.apis.google.com/chart?chs=400x250&chd=${hemotion_Y}&cht=lc&chbh=50&chdl=正面|中立|负面&chtt=情感倾向变化趋势&chco=ff0000,0000ff,00ff00&chf=
+									c,ls,90,999999,0.25,CCCCCC,0.25,FFFFFF,0.25&chxt=x,y&chxl=${hemotion_X}"/>
+					                 </td>
+					             </tr>
+					         </table>
+					     </div>
+					<!-- content end -->
+			</div>
+				
+				<!-- 页面内容  end -->
+
+<!-- table content end -->
+
+<%@include file="../bottom.jsp"%>
+</body>
+</html>
