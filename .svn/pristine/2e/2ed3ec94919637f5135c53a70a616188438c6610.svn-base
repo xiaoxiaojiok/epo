@@ -70,8 +70,8 @@
 
 <!-- right nav start -->
 <div class="rightNavBox">
-	<span><a href="#hot_top">今日热点微博</a></span>
-	<span><a href="#hot_top">今日热点帖子</a></span>
+	<span><a href="#hot_top">今日涉穂热点</a></span>
+
 	<span><a href="#sensitive_top">最新敏感舆情</a></span>
 	<div class="hoverTop"><a href="#top">&nbsp;</a></div>
 </div>
@@ -85,7 +85,7 @@
 										<div class="lconbak1"></div>
 										<div class="lconbak2">
 											<div class="lconTitle">今天涉穗微博</div>
-											<div class="lconNumber"><tt>${weibos }</tt>条</div>
+											<div class="lconNumber"><tt>109</tt>条</div>
 										</div>
 										<div class="lconbak3"></div>
 									</div>
@@ -94,7 +94,7 @@
 										<div class="lconbak1"></div>
 										<div class="lconbak2">
 											<div class="lconTitle">今天涉穗帖子</div>
-											<div class="lconNumber"><tt>${blogs }</tt>个</div>
+											<div class="lconNumber"><tt>27</tt>个</div>
 										</div>
 										<div class="lconbak3"></div>
 									</div>
@@ -103,7 +103,7 @@
 										<div class="lconbak1"></div>
 										<div class="lconbak2">
 											<div class="lconTitle">今天涉穗博客</div>
-											<div class="lconNumber"><tt>${forums }</tt>条</div>
+											<div class="lconNumber"><tt>2</tt>条</div>
 										</div>
 										<div class="lconbak3"></div>
 									</div>
@@ -112,7 +112,7 @@
 										<div class="lconbak1"></div>
 										<div class="lconbak2">
 											<div class="lconTitle">今天敏感舆情</div>
-											<div class="lconNumber"><tt>${sensitive }</tt>条</div>
+											<div class="lconNumber"><tt>1410</tt>条</div>
 										</div>
 										<div class="lconbak3"></div>
 									</div>
@@ -123,142 +123,82 @@
 
 
 
-<!-- 涉穗新闻TOP10 涉穗评论TOP10 涉穗博客TOP10 start -->
+<!-- 涉穗新闻TOP10 涉穗评论TOP10 start -->
 						<div class="newsCommentaryTop" id="hot_top">
 <!-- 涉穗新闻TOP10 start -->
 					
 						<div class="newsTop tableListBoxHHHHHHHH">
 							<div class="newsTopTitle">	
 								<span class="name">今天热点涉穂微博</span>
-								<span class="detail"><a href="/warning/warningHotWeibo" target="_blank">详细</a></span>
+								<span class="detail"><a href="#" target="_blank">详细</a></span>
 							</div>
 							
-							<c:choose>
-							  <c:when test="${weiboCount ge 0}">
 							<div class="newsTopBnt">
 								<span class="oneFive act" onmousemove='changeValue1(this,"act")'>1-5</span>
-								<c:if test="${weiboCount ge 5}"><span class="sixTen" onmousemove='changeValue2(this,"act")'>6-10</span></c:if>
+								<span class="sixTen" onmousemove='changeValue2(this,"act")'>6-10</span>
 							</div>
 							<div class="newsTopTable">
-								<c:forEach items="${weibolist}" var="types" varStatus="j">
+
 								<table cellpadding="0" cellspacing="0">
 									<tr>
-										<td valign="bottom"><div class="newsCount">${j.count}</div></td>
+										<td valign="bottom"><div class="newsCount">5</div></td>
 										<td class="newsBorder">
-											<div class="newsDocket newsTopDocket"><a href="${types.url }" target="_blank" title='${types.title }'><img class="mbImg" src="/static/images/${types.type }.gif" />${types.title }</a></div>
+											<div class="newsDocket newsTopDocket"><a href="#" target="_blank" title='title'><img src="" class="mbImg" />content</a></div>
 											<div class="sumTime">
-												<span class="reprint detailReprint PeopleTimeMbn">评论：<tt>${types.num1 }</tt></span>
-												<span class="soucre detailsoucre PeopleTimeMbn">转发：<tt>${types.num2 }</tt></span>
+												<span class="reprint detailReprint PeopleTimeMbn">评论：<tt>5</tt></span>
+												<span class="soucre detailsoucre PeopleTimeMbn">转发：<tt>5</tt></span>
 												<div class="clear"></div>
-												<span class="soucre PeopleTimeMbn">作者：${types.num3 }</span>
-												<span class="time PeopleTime">时间：<tt>${types.date }</tt></span>
+												<span class="soucre PeopleTimeMbn">作者：xiao</span>
+												<span class="time PeopleTime">时间：<tt>2013-1-1</tt></span>
 											</div>
 										</td>
 									</tr>
 								</table>
-								</c:forEach>
+						
 							
 							
 							</div>
-							  </c:when>
-							  <c:otherwise>
-							        <img class="nonum" src="/static/images/nonum.jpg" />
-							  </c:otherwise>
-							</c:choose> 
+
 						</div>
 <!-- 涉穗新闻TOP10 end -->
 
 <!-- 涉穗评论TOP10 start -->
 					
-						<div class="newsTop tableListBoxHHHHHHHH">
+						<div class="newsTop commentaryTop tableListBoxHHHHHHHH">
 							<div class="newsTopTitle">	
 								<span class="name">今天热点涉穂帖子</span>
-								<span class="detail"><a href="/warning/warningHotPost" target="_blank">详细</a></span>
+								<span class="detail"><a href="#" target="_blank">详细</a></span>
 							</div>
-							
-							<c:choose>
-							  <c:when test="${forumCount ge 0}">
+						
 							<div class="newsTopBnt">
 								<span class="oneFive act" onmousemove='changeValue1(this,"act")'>1-5</span>
-								<c:if test="${forumCount ge 5}"><span class="sixTen" onmousemove='changeValue2(this,"act")'>6-10</span></c:if>
+								<span class="sixTen" onmousemove='changeValue2(this,"act")'>6-10</span>
 							</div>
 							<div class="newsTopTable">
-								<c:forEach items="${forumlist}" var="types" varStatus="j">
+							
 								<table cellpadding="0" cellspacing="0">
 									<tr>
-										<td valign="bottom"><div class="newsCount">${j.count}</div></td>
+										<td valign="bottom"><div class="newsCount">10</div></td>
 										<td class="newsBorder">
-											<div class="newsDocket newsTopDocket"><a href="${types.url }" target="_blank" title='${types.title }'>${types.title }</a></div>
+											<div class="newsDocket newsTopDocket"><a href="#" target="_blank" title='title'>title</a></div>
 											<div class="sumTime">
-												<span class="reprint detailReprint PeopleTimeMbn">回复：<tt>${types.num1 }</tt></span>
-												<span class="soucre detailsoucre PeopleTimeMbn">查看：<tt>${types.num2 }</tt></span>
+												<span class="reprint clubReprint PeopleTimeMbn">回复：<tt>1</tt></span>
+												<span class="soucre clubsoucre PeopleTimeMbn">查看：<tt>1</tt></span>
 												<div class="clear"></div>
-												<span class="soucre PeopleTimeMbn">网站：${types.num3 }</span>
-												<span class="time PeopleTime">时间：<tt>${types.date }</tt></span>
+												<span class="soucre PeopleTimeMbn">网站：www.fjdksd.com</span>
+												<span class="time PeopleTime">时间：<tt>2014-1-1</tt></span>
 											</div>
 										</td>
 									</tr>
 								</table>
-								</c:forEach>
-							
 							
 							</div>
-							  </c:when>
-							  <c:otherwise>
-							        <img class="nonum" src="/static/images/nonum.jpg" />
-							  </c:otherwise>
-							</c:choose> 
+						</div>
 						</div>
 <!-- 涉穗评论TOP10 end -->
-
-<!-- 涉穗博客TOP10 start -->
-					<!--  
-						
-						<div class="newsTop tableListBoxHHHHHHHH">
-							<div class="newsTopTitle">	
-								<span class="name">今天热点涉穂博客</span>
-								<span class="detail"><a href="/warning/warningHotBlog" target="_blank">详细</a></span>
-							</div>
-							
-							<c:choose>
-							  <c:when test="${blogCount ge 0}">
-							<div class="newsTopBnt">
-								<span class="oneFive act" onmousemove='changeValue1(this,"act")'>1-5</span>
-								<c:if test="${blogCount ge 5}"><span class="sixTen" onmousemove='changeValue2(this,"act")'>6-10</span></c:if>
-							</div>
-							<div class="newsTopTable">
-								<c:forEach items="${bloglist}" var="types" varStatus="j">
-								<table cellpadding="0" cellspacing="0">
-									<tr>
-										<td valign="bottom"><div class="newsCount">${j.count}</div></td>
-										<td class="newsBorder">
-											<div class="newsDocket newsTopDocket"><a href="${types.url }" target="_blank" title='${types.title }'>${types.title }</a></div>
-											<div class="sumTime">
-												<span class="reprint detailReprint PeopleTimeMbn">评论：<tt>${types.num1 }</tt></span>
-												<span class="soucre detailsoucre PeopleTimeMbn">查看：<tt>${types.num2 }</tt></span>
-												<div class="clear"></div>
-												<span class="soucre PeopleTimeMbn">作者：${types.num3 }</span>
-												<span class="time PeopleTime">时间：<tt>${types.date }</tt></span>
-											</div>
-										</td>
-									</tr>
-								</table>
-								</c:forEach>
-							
-							
-							</div>
-							  </c:when>
-							  <c:otherwise>
-							        <img class="nonum" src="/static/images/nonum.jpg" />
-							  </c:otherwise>
-							</c:choose> 
-						</div>
-						-->
-<!-- 涉穗博客TOP10 end -->
-					</div>
 						<div class="clear"></div>
 						
-<!-- 涉穗新闻TOP10 涉穗评论TOP10 涉穗博客TOP10 end -->
+<!-- 涉穗新闻TOP10 涉穗评论TOP10 end -->
 
 
 <!-- 敏感舆情列表 start -->

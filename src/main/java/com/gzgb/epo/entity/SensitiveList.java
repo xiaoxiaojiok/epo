@@ -1,0 +1,410 @@
+package com.gzgb.epo.entity;
+
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.gzgb.epo.publics.Constants;
+
+/**
+ * 
+ * <pre>
+ * 敏感信息实体类
+ * </pre>
+ * @author XiaoJian
+ * @version 1.0, 2014-3-1
+ */
+@Entity
+@Table(name = "epo_judgedsensitivelist", schema = Constants.GZGB_SCH)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SequenceGenerator(name = "gzgb_judgedsensitivelist", sequenceName = "gzgb_judgedsensitivelist_seq", allocationSize = 1)
+public class SensitiveList extends BaseEntity {
+
+	private static final long serialVersionUID = 995235545418631655L;
+
+	/**
+	 * 自增ID
+	 */
+	private Long id;
+	
+	/**
+	 * 标题
+	 */
+	private String jslTitle;
+	
+	/**
+	 * 源url
+	 */
+	private String jslSourceUrl;
+	
+	/**
+	 * 作者
+	 */
+	private String jslAuthor;
+	
+	/**
+	 * 发布时间
+	 */
+	private Date jslDate;
+	
+	/**
+	 * 发布时间戳
+	 */
+	private Integer jslTimestamp;
+	
+	/**
+	 * 敏感度
+	 */
+	private Double jslSensitivity;
+	
+	/**
+	 * 敏感词列表
+	 */
+	private String jslSensitivityList;
+	
+	/**
+	 * 关键字列表
+	 */
+	private String jslKeywords;
+	
+	/**
+	 * 级别
+	 */
+	private Byte jslLevel;
+	
+	/**
+	 * 性质
+	 */
+	private Integer jslNature;
+	
+	/**
+	 * 来源网站
+	 */
+	@JsonBackReference
+	private WebSiteMain wsmId;
+	
+	/**
+	 * 来源类别
+	 */
+	private Integer jslSourceType;
+	
+	/**
+	 * 转载量
+	 */
+	private Integer jslReserved;
+	
+	/**
+	 * 评论数
+	 */
+	private Integer jslCommentTotal;
+	
+	/**
+	 * 转发数
+	 */
+	private Integer jslReservedTotal;
+	
+	/**
+	 * 回复数
+	 */
+	private Integer jslReplyTotal;
+	
+	/**
+	 * 查看数
+	 */
+	private Integer jslViewTotal;
+	
+	/**
+	 * 热度
+	 */
+	private Double jslHotTotal;
+	
+	/**
+	 * 是否为区县舆情
+	 */
+	private Byte jslCounties;
+	
+	/**
+	 * 是否为部门舆情
+	 */
+	private Byte jslDepartment;
+	
+	/**
+	 * 是否隐藏
+	 */
+	private Byte jslHide;
+	
+	/**
+	 * 值班意见
+	 */
+	private String jslProposal;
+	
+	/**
+	 * UUID对照
+	 */
+	private String jslUniqueId;
+	
+	/**
+	 * 更新时间
+	 */
+	private Integer jslUpdateTime;
+	
+	/**
+	 * 创建时间
+	 */
+	private Integer jslCreateTime;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "gzgb_judgedsensitivelist")
+	@Column(name = "jslSensitiveId")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Column(name = "jslTitle", nullable = false, length = 1024)
+	public String getJslTitle() {
+		return jslTitle;
+	}
+
+	public void setJslTitle(String jslTitle) {
+		this.jslTitle = jslTitle;
+	}
+
+	@Column(name = "jslSourceUrl", nullable = false)
+	public String getJslSourceUrl() {
+		return jslSourceUrl;
+	}
+
+	public void setJslSourceUrl(String jslSourceUrl) {
+		this.jslSourceUrl = jslSourceUrl;
+	}
+
+	@Column(name = "jslAuthor", nullable = true)
+	public String getJslAuthor() {
+		return jslAuthor;
+	}
+
+	public void setJslAuthor(String jslAuthor) {
+		this.jslAuthor = jslAuthor;
+	}
+
+	@Column(name = "jslDate", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getJslDate() {
+		return jslDate;
+	}
+
+	public void setJslDate(Date jslDate) {
+		this.jslDate = jslDate;
+	}
+
+	@Column(name = "jslTimestamp", nullable = false)
+	public Integer getJslTimestamp() {
+		return jslTimestamp;
+	}
+
+	public void setJslTimestamp(Integer jslTimestamp) {
+		this.jslTimestamp = jslTimestamp;
+	}
+
+	@Column(name = "jslSensitivity", nullable = false)
+	public Double getJslSensitivity() {
+		return jslSensitivity;
+	}
+
+	public void setJslSensitivity(Double jslSensitivity) {
+		this.jslSensitivity = jslSensitivity;
+	}
+
+	@Column(name = "jslSensitivityList", nullable = true, length = 1024)
+	public String getJslSensitivityList() {
+		return jslSensitivityList;
+	}
+
+	public void setJslSensitivityList(String jslSensitivityList) {
+		this.jslSensitivityList = jslSensitivityList;
+	}
+
+	@Column(name = "jslKeywords", nullable = true, length = 1024)
+	public String getJslKeywords() {
+		return jslKeywords;
+	}
+
+	public void setJslKeywords(String jslKeywords) {
+		this.jslKeywords = jslKeywords;
+	}
+
+	@Column(name = "jslLevel", nullable = false)
+	public Byte getJslLevel() {
+		return jslLevel;
+	}
+
+	public void setJslLevel(Byte jslLevel) {
+		this.jslLevel = jslLevel;
+	}
+
+	@Column(name = "jslNature", nullable = false)
+	public Integer getJslNature() {
+		return jslNature;
+	}
+
+	public void setJslNature(Integer jslNature) {
+		this.jslNature = jslNature;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "wsmId", nullable = false, columnDefinition = "INTEGER default 0")
+	public WebSiteMain getWsmId() {
+		return wsmId;
+	}
+
+	public void setWsmId(WebSiteMain wsmId) {
+		this.wsmId = wsmId;
+	}
+
+	@Column(name = "jslSourceType", nullable = false)
+	public Integer getJslSourceType() {
+		return jslSourceType;
+	}
+
+	public void setJslSourceType(Integer jslSourceType) {
+		this.jslSourceType = jslSourceType;
+	}
+
+	@Column(name = "jslReserved", nullable = false)
+	public Integer getJslReserved() {
+		return jslReserved;
+	}
+
+	public void setJslReserved(Integer jslReserved) {
+		this.jslReserved = jslReserved;
+	}
+
+	@Column(name = "jslCommentTotal", nullable = false)
+	public Integer getJslCommentTotal() {
+		return jslCommentTotal;
+	}
+
+	public void setJslCommentTotal(Integer jslCommentTotal) {
+		this.jslCommentTotal = jslCommentTotal;
+	}
+
+	@Column(name = "jslReservedTotal", nullable = false)
+	public Integer getJslReservedTotal() {
+		return jslReservedTotal;
+	}
+
+	public void setJslReservedTotal(Integer jslReservedTotal) {
+		this.jslReservedTotal = jslReservedTotal;
+	}
+
+	@Column(name = "jslReplyTotal", nullable = false)
+	public Integer getJslReplyTotal() {
+		return jslReplyTotal;
+	}
+
+	public void setJslReplyTotal(Integer jslReplyTotal) {
+		this.jslReplyTotal = jslReplyTotal;
+	}
+
+	@Column(name = "jslViewTotal", nullable = false)
+	public Integer getJslViewTotal() {
+		return jslViewTotal;
+	}
+
+	public void setJslViewTotal(Integer jslViewTotal) {
+		this.jslViewTotal = jslViewTotal;
+	}
+
+	@Column(name = "jslHotTotal", nullable = false)
+	public Double getJslHotTotal() {
+		return jslHotTotal;
+	}
+
+	public void setJslHotTotal(Double jslHotTotal) {
+		this.jslHotTotal = jslHotTotal;
+	}
+
+	@Column(name = "jslCounties", nullable = false)
+	public Byte getJslCounties() {
+		return jslCounties;
+	}
+
+	public void setJslCounties(Byte jslCounties) {
+		this.jslCounties = jslCounties;
+	}
+
+	@Column(name = "jslDepartment", nullable = false)
+	public Byte getJslDepartment() {
+		return jslDepartment;
+	}
+
+	public void setJslDepartment(Byte jslDepartment) {
+		this.jslDepartment = jslDepartment;
+	}
+
+	@Column(name = "jslHide", nullable = false)
+	public Byte getJslHide() {
+		return jslHide;
+	}
+
+	public void setJslHide(Byte jslHide) {
+		this.jslHide = jslHide;
+	}
+
+	@Column(name = "jslProposal", nullable = true, length = 1024)
+	public String getJslProposal() {
+		return jslProposal;
+	}
+
+	public void setJslProposal(String jslProposal) {
+		this.jslProposal = jslProposal;
+	}
+
+	@Column(name = "jslUniqueId", nullable = false)
+	public String getJslUniqueId() {
+		return jslUniqueId;
+	}
+
+	public void setJslUniqueId(String jslUniqueId) {
+		this.jslUniqueId = jslUniqueId;
+	}
+
+	@Column(name = "jslUpdateTime", nullable = false)
+	public Integer getJslUpdateTime() {
+		return jslUpdateTime;
+	}
+
+	public void setJslUpdateTime(Integer jslUpdateTime) {
+		this.jslUpdateTime = jslUpdateTime;
+	}
+
+	@Column(name = "jslCreateTime", nullable = false)
+	public Integer getJslCreateTime() {
+		return jslCreateTime;
+	}
+
+	public void setJslCreateTime(Integer jslCreateTime) {
+		this.jslCreateTime = jslCreateTime;
+	}
+	
+
+}
