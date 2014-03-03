@@ -117,11 +117,11 @@
 							<div class="Choice">
 								<div class="">
 									<span class="systemSearchRight marginLeft" id="selectType" style="padding:0 10px 0 35px;">
-										<span class="chbox"><input type="checkbox" checked="checked" value="News" name="new" />新闻</span>
-										<span class="chbox"><input type="checkbox" checked="checked" value="Comment" name="comment" />评论</span>
-										<span class="chbox"><input type="checkbox" checked="checked" value="Weibo" name="weibo" />微博</span>
-										<span class="chbox"><input type="checkbox" checked="checked" value="Forum" name="forum" />论坛</span>
-										<span class="chbox"><input type="checkbox" checked="checked" value="Blog" name="blog" />博客</span>
+										<span class="chbox"><input type="checkbox" checked="checked" value="News" name="new">新闻</span>
+										<span class="chbox"><input type="checkbox" checked="checked" value="Comment" name="comment">评论</span>
+										<span class="chbox"><input type="checkbox" checked="checked" value="Weibo" name="weibo">微博</span>
+										<span class="chbox"><input type="checkbox" checked="checked" value="Forum" name="forum">论坛</span>
+										<span class="chbox"><input type="checkbox" checked="checked" value="Blog" name="blog">博客</span>
 									</span>
 
 									<span class="systemSearchRight marginLeft">
@@ -132,6 +132,7 @@
 										</select>
 									</span>
 								</div>
+								<span class="amplification"><a href="#" target="_blank"></a></span>
 								<div class="clear"></div>
 							</div>
 							<!--<div class="marginTop2" id="columnChart1"></div>-->
@@ -151,7 +152,7 @@
 									<option value="14">14天</option>
 									<option value="30">30天</option>
 								</select>
-								<input type="hidden" id="statistics" value="/warning/statistics" />
+								<input type="hidden" id="statistics" value="" />
 							</form>
 							</span>
 
@@ -166,7 +167,7 @@
 										<option value="2">评论</option>
 										<option value="5">博客</option>
 									</select>
-									<input type="hidden" id="statistics" value="/warning/statistics" />
+									<input type="hidden" id="statistics" value="" />
 								</form>
 							</span>
 							<div class="clear"></div>
