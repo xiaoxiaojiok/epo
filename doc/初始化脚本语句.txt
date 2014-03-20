@@ -1,0 +1,99 @@
+### 菜单初始化
+INSERT INTO MENU VALUES (1, 0, 'ROOT', NULL, 1, 0, 2, 1);
+INSERT INTO MENU VALUES (2, 1, '主流媒体舆情', '/mainMedia/index', 1, 1, 2, 1);
+INSERT INTO MENU VALUES (3, 2, '主流媒体概况', '/mainMedia/index', 1, 1, 2, 2);
+INSERT INTO MENU VALUES (4, 2, '热点涉穂新闻', '/mainMedia/mainMediaHotNews', 2, 1, 2, 2);
+INSERT INTO MENU VALUES (5, 2, '热点涉穂评论', '/mainMedia/mainMediaHotComments', 3, 1, 2, 2);
+INSERT INTO MENU VALUES (6, 2, '新闻热点话题', '/mainMedia/mainMediaHotTopics', 4, 1, 2, 2);
+INSERT INTO MENU VALUES (7, 2, '实时新闻舆情', '/mainMedia/mainMediaNowNews', 5, 1, 2, 2);
+
+INSERT INTO MENU VALUES (8, 1, '舆情预警', '/warning/index', 2, 1, 2, 1);
+INSERT INTO MENU VALUES (9, 2, '舆情预警概况', '/warning/index', 1, 1, 2, 8);
+INSERT INTO MENU VALUES (10, 2, '热点涉穂微博', '/warning/warningHotWeibo', 2, 1, 2, 8);
+INSERT INTO MENU VALUES (11, 2, '热点涉穂帖子', '/warning/warningHotPost', 3, 1, 2, 8);
+INSERT INTO MENU VALUES (12, 2, '热点涉穂博客', '/warning/warningHotBlog', 4, 1, 2, 8);
+INSERT INTO MENU VALUES (13, 2, '敏感舆情预警', '/warning/warningSensitive', 5, 1, 2, 8);
+INSERT INTO MENU VALUES (14, 2, '实时预警舆情', '/warning/warningNow', 6, 1, 2, 8);
+
+INSERT INTO MENU VALUES (15, 1, '城市形象与认知度', '/cityRecognize/index', 3, 1, 2, 1);
+INSERT INTO MENU VALUES (16, 2, '情感分析', '/cityRecognize/cityRecognizeSentimentAnalysis', 1, 1, 2, 15);
+INSERT INTO MENU VALUES (17, 2, '印象关键词', '/cityRecognize/cityRecognizeImpressionKey', 2, 1, 2, 15);
+INSERT INTO MENU VALUES (18, 2, '涉穗报道分布图', '/cityRecognize/cityRecognizeDistributionMap', 3, 1, 2, 15);
+INSERT INTO MENU VALUES (19, 2, '主流媒体关注度', '/cityRecognize/cityRecognizeMainMediaConcern', 4, 1, 2, 15);
+INSERT INTO MENU VALUES (20, 2, '公众评价', '/cityRecognize/cityRecognizePublicOpinion', 5, 1, 2, 15);
+
+INSERT INTO MENU VALUES (21, 1, '舆论领袖识别', '/leaderRecognition/index', 4, 1, 2, 1);
+INSERT INTO MENU VALUES (22, 2, '舆论领袖名片', '/leaderRecognition/index', 1, 1, 2, 21);
+
+INSERT INTO MENU VALUES (23, 1, '知识库管理', '/knowledgeDictLibManage/index', 5, 1, 2, 1);
+INSERT INTO MENU VALUES (24, 2, '知识库概况', '/knowledgeDictLibManage/index', 1, 1, 2, 23);
+INSERT INTO MENU VALUES (25, 2, '词库管理', '/knowledgeDictLibManage/knowledgeDictLibManageLibManage', 2, 1, 2, 23);
+INSERT INTO MENU VALUES (26, 3, '添加词库', '/knowledgeDictLibManage/knowledgeDictLibManageToAddLib', 1, 1, 2, 25);
+INSERT INTO MENU VALUES (27, 2, '词条管理', '/knowledgeDictLibManage/knowledgeDictLibManageItemManage', 3, 1, 2, 23);
+INSERT INTO MENU VALUES (28, 3, '添加词条', '/knowledgeDictLibManage/knowledgeDictLibManageToAddItem', 1, 1, 2, 27);
+INSERT INTO MENU VALUES (29, 3, '导入词条', '/knowledgeDictLibManage/knowledgeDictLibManageUploadItem', 2, 1, 2, 27);
+
+INSERT INTO MENU VALUES (30, 1, '系统管理', '/systemManage/index', 6, 1, 2, 1);
+INSERT INTO MENU VALUES (31, 2, '站点管理', '/systemManage/index', 1, 1, 2, 30);
+INSERT INTO MENU VALUES (32, 3, '添加站点', '/systemManage/toAddSite', 1, 1, 2, 31);
+INSERT INTO MENU VALUES (33, 2, '采集点管理', '/systemManage/toGatherManage', 2, 1, 2, 30);
+INSERT INTO MENU VALUES (34, 3, '添加采集点', '/systemManage/toAddGather', 1, 1, 2, 33);
+INSERT INTO MENU VALUES (35, 2, '个人中心', '/systemManage/personalCenter', 3, 1, 2, 30);
+INSERT INTO MENU VALUES (36, 3, '更改密码', '/systemManage/toChangePass', 1, 1, 2, 35);
+INSERT INTO MENU VALUES (37, 3, '修改信息', '/systemManage/toEditUser', 2, 1, 2, 35);
+INSERT INTO MENU VALUES (38, 2, '用户管理', '/systemManage/toUserManage', 4, 1, 2, 30);
+INSERT INTO MENU VALUES (39, 3, '添加用户', '/systemManage/toAddUser', 1, 1, 2, 38);
+
+INSERT INTO MENU VALUES (40, 2, '角色管理', '/role/index', 5, 1, 2, 30);
+INSERT INTO MENU VALUES (41, 2, '权限管理', '/permission/index', 6, 1, 2, 30);
+INSERT INTO MENU VALUES (42, 2, '菜单管理', '/menu/index', 7, 1, 2, 30);
+
+##权限初始化##权限管理权限初始化
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (1, '角色添加功能', '角色添加', 1, 'role:add', 40);
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (2, '角色查询功能', '角色查询', 1, 'role:query', 40);
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (3, '角色保存功能', '角色保存', 1, 'role:save', 40);
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (4, '角色删除', '角色删除', 1, 'role:delete', 40);
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (5, '角色菜单显示', '角色菜单', -1, '5', 40);
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (6, '角色编辑功能', '角色编辑', 1, 'role:edit', 40);
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (7, '角色授权功能', '角色授权', 1, 'role:permission', 40);
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (8, '权限查看权限', '权限查看', 1, 'perm:view', 41);
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (9, '权限编辑功能', '权限编辑', 1, 'perm:edit', 41);
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (10, '权限删除功能', '权限删除', 1, 'perm:delete', 41);
+insert into PERMISSION (PERMID, DESCRIPT, PERMNAME, PERMTYPE, PERMVALUE, MENU)
+values (11, '权限菜单显示', '权限菜单显示', -1, '6', 41);
+
+##角色初始化
+insert into ROLE (ROLEID, DESCRIPTION, NAME, STATUS)
+values (1, '超管', '管理员', 1);
+insert into ROLE (ROLEID, DESCRIPTION, NAME, STATUS)
+values (2, '普通', '普通人员', 1);
+
+##角色权限初始
+insert into PERMISSION_ROLE (ROLE_ID, PERM_ID)
+values (1, 2);
+insert into PERMISSION_ROLE (ROLE_ID, PERM_ID)
+values (1, 1);
+insert into PERMISSION_ROLE (ROLE_ID, PERM_ID)
+values (1, 3);
+insert into PERMISSION_ROLE (ROLE_ID, PERM_ID)
+values (1, 5);
+insert into PERMISSION_ROLE (ROLE_ID, PERM_ID)
+values (1, 4);
+insert into PERMISSION_ROLE (ROLE_ID, PERM_ID)
+values (1, 6);
+insert into PERMISSION_ROLE (ROLE_ID, PERM_ID)
+values (1, 7);
+
+##用户角色初始化
+insert into USER_ROLE (USER_ID, ROLE_ID)
+values (2, 1);

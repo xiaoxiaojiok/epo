@@ -1,0 +1,190 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="../top.jsp"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>广州广报</title>
+<script type="text/javascript" src="${ctx }/static/js/medialeader/leader.js"></script>
+<script type="text/javascript"> 
+function todo(url){
+	parent.document.getElementById("middleFrame").src = url;
+}
+</script>
+
+<style type="text/css">
+
+.tableListDivTable table td{width: 368px; overflow: hidden; padding:5px;}
+
+.tableListDivTable table td table {width: 100%; overflow: hidden; border:none;}
+.tableListDivTable table td table td {width: 180px; overflow: hidden; border:none;}
+
+</style>
+
+
+</head>
+<body>
+<div class="con">
+<!-- topNav start -->
+	<div class="topNav">
+		<div class="navDiv"><a href="/mainMedia/index" >主流媒体舆情</a></div>
+		<div class="navDiv"><a href="/warning/index" >舆情预警</a></div> 
+		<div class="navDiv"><a href="/cityRecognize/index" >城市形象与认知度</a></div>
+		<div class="navDiv act"><a href="/leaderRecognition/index" >舆论领袖识别</a></div>
+		<div class="navDiv"><a href="/knowledgeDictLibManage/index" >知识库管理</a></div>
+		<div class="navDiv"><a href="/systemManage/index" >系统管理</a></div>
+	</div>
+<!-- topNav end -->
+
+<!-- table content start -->
+	<div class="tableContent">
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td valign="top">
+				<div class="tableContentLeft">
+					<div class="navTitle"><a class="act" href="/leaderRecognition/index" >舆论领袖名片</a></div>
+				</div>
+			</td>
+			<td class="tdBak" valign="top">
+				<div class="tableContentRight">
+					<div class="currentPosition">
+					&nbsp;&nbsp;&nbsp;&nbsp;当前位置：&nbsp;&nbsp;舆论领袖识别&nbsp;>&nbsp;舆论领袖名片
+					</div>
+				
+				<!-- 页面内容 start -->
+				
+    <div class="systemSearch systemSearchBataCase">
+      	 <form action="/leaderRecognition/getLeaderList">
+						<span class="space2">社交账号：</span>
+						<span class="systemSearchLeft">
+						    <select class="select" id="socialaccount" name="socialaccount">
+						       <option value="全部" >全部</option>
+						       <c:forEach var="account" items="${accountList}">
+						           <option value="${account}">${account}</option>
+						       </c:forEach>
+						    </select>
+						</span>
+
+						<span class="space1">所在地域：</span>
+						<span class="systemSearchLeft">
+							<select class="select" id="region" name="region">
+							        <option value="全部">全部</option>
+								    <option value="广东广州">广东广州</option>
+						            <option value="广东深圳">广东深圳</option>
+						            <option value="广东珠海">广东珠海</option>
+						            
+							</select>
+						</span>
+						
+						<span class="space1">收入阶层：</span>
+						<span class="systemSearchLeft">
+					       <select class="select" name="income">
+					            <option value="全部">全部</option>
+					            <option value="高收入阶层">高收入阶层</option>
+					            <option value="中收入阶层">中收入阶层</option>
+					            <option value="低收入阶层">低收入阶层</option>
+					            
+					       </select>
+						</span>
+						
+						<span class="space1">政治倾向：</span>
+						<span class="systemSearchLeft">
+					       <select class="select" name="political">
+					            <option value="全部">全部</option>
+					            <option value="左倾主义">左倾主义</option>
+					            <option value="中庸主义">中庸主义</option>
+					            <option value="右倾主义">右倾主义</option>
+					            
+					       </select>
+						</span>
+						
+						<span class="space1">舆论影响力：</span>
+						<span class="systemSearchLeft">
+					       <select class="select" name="influence">
+					            <option value="全部">全部</option>
+					            <option value="1级">1级</option>
+					            <option value="2级">2级</option>
+					            <option value="3级">3级</option>
+					            
+					       </select>
+						</span>
+				
+						<span class="img"><a href="###" onclick="return getItemList(1)">&nbsp;</a></span>
+					
+			</form>
+	</div>
+	
+		<div class="clear"></div>
+
+				<div class="tableListDiv">
+						<div class="tableListDivNav">
+							<div class="tableListDivNavLeft" id="pageInfo"  >
+								
+							</div>
+						</div>
+						<div class="tableListDivTable">
+							<table cellpadding="0" cellspacing="0" id="tableContainer">
+								
+							</table>
+<!-- 分页 start -->
+							<div class="tablePage" id="pageContainer">
+
+							    <div id="pageNumber"></div>
+	
+							</div>
+<!-- 分页 end -->
+						</div>
+				</div>
+				
+<script type="text/javascript">
+
+//初始化请求
+$(function(){
+	var initPageInfo = window.location.toString().match(/page(=|\/)([0-9]+)/);
+	getItemList(initPageInfo ? initPageInfo[2] : 0);
+});
+
+var floor;
+var selectID;
+//弹出框居中
+function coveDiv(info)
+{
+	info !=='' ? $('.popupBoxCon').html(info) : '';
+	
+	$(".popupBoxCove").css({opacity:'0.5',width:$(document).width(),height:$(document).height(),display:'block'});
+	$(".popupBox").css({left:($(window).width()-308)/2+'px',top:($(window).height()-188)/2+$(document).scrollTop()+'px',display:'block'});
+}
+
+//关闭弹出框
+function coveColse()
+{
+	$(".popupBoxCove").css({display:'none'});
+	$(".popupBox").css({display:'none'});
+	floor='';
+}
+
+//queding
+function trueColse()
+{
+	floor = 'true';
+	coveColse();
+	onDelete(selectID,'',true);
+}
+
+</script>
+
+				<!-- 页面内容  end -->
+				</div>
+			</td>
+		</tr>
+	</table>
+	</div>
+<!-- table content end -->
+</div>
+
+<%@include file="../bottom.jsp"%>
+</body>
+</html>

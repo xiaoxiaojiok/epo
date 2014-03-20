@@ -1,0 +1,68 @@
+package com.gzgb.epo.dao.keyWords;
+
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Criteria;
+import org.hibernate.QueryException;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
+
+import com.gzgb.epo.dao.base.BaseDaoImpl;
+import com.gzgb.epo.entity.KeyWords;
+import com.gzgb.epo.entity.RemarkRecord;
+
+/**
+ * 
+ * <pre>
+ * 印象关键词DaoImpl
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-26
+ */
+@Repository
+public class KeyWordsDaoImpl extends BaseDaoImpl<KeyWords> implements
+		KeyWordsDao {
+	
+	/**
+	 * 
+	 * <pre>
+	 *查找前十 的记录
+	 * </pre>
+	 * 
+	 * @param 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<KeyWords> findKeyWords(String type, Map<String, Long> mapId, Integer startTime, Integer number)throws QueryException {
+		try {
+			Criteria criteria = getSession().createCriteria(KeyWords.class);
+			if(type != null)
+				criteria.add(Restrictions.eq("type", type));
+			if(startTime != null)
+				criteria.add(Restrictions.gt("time", startTime));
+			if(mapId != null && !mapId.isEmpty()){
+				for(String key : mapId.keySet()){
+					criteria.add(Restrictions.eq(key, mapId.get(key)));
+				}
+			}
+			criteria.addOrder(Order.desc("count"));
+			if(number != null)
+				criteria.setMaxResults(number);
+			else
+				criteria.setMaxResults(10);
+			List<KeyWords> list = criteria.list();
+			if (list.size() == 0 || list == null) {
+				return null;
+			}
+			return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+		
+	}
+
+}

@@ -1,0 +1,62 @@
+**************************************************
+*  项目编码规范
+*  在编码前，请认真阅读
+*
+**************************************************
+1、格式与命名：
+	1) 编码排版与换行，尽量满足易于阅读、简洁；
+	2）遇到if,for,while等逻辑时，需要注明程序逻辑，且需要使用{}对，易于阅读；
+	3）命名：不允许使用中文拼音，必须使用有意义的英文或组合作为接口、类、方法、参数等名称；
+			接口使用“I”作为前缀，实现方法使用“Impl”作为后缀；
+			static的常量请使用大些加下划线组合，其他变量或常量一般都使用小写；
+			获取成员函数使用get前缀，如getPersonName()；
+			设置成员函数使用set前缀 ，如setPersonName();
+			布尔类型函数使用is前缀，如 isPersistent()；
+			数组定义约定为数字类型[] 数组名，如 String[] arr,byte[] buffer等；
+						
+2、注释：
+	1) 注释中的第一个句子要以（英文）句号、问号或者感叹号结束。Javadoc生成工具会将注释中的第一个句子放在方法汇总表和索引中；
+	2) 注释中若引用或参考了其他类，请使用see com.gdcn.xxx.MyClass或see com.gdcn.xxx.MyClass#myMethod(String)来跳转链接；
+	3）Class,method等必须申明author；
+	4）标识(java keyword, class/method/field/argument名，Constants)在注释中第一次出现时以 {@link xxx.Myclass}注解以便JavaDoc与IDE中可以链接；
+	5）注释的内容：
+		2.5.1 Class的目的及功能；接口的设置的目的及如何使用；
+		2.5.2 成员函数内部注释，需要指明函数的作用，逻辑结构或者使用方法，最好有代码示例；
+		2.5.3 注释中的@pamar 必须中文注释出意义，不可保留IDE自动生成的注释；
+		2.5.5 对于@return 需要指明返回的Object 类型，如果返回null则需要做说明；
+		2.5.6 对于@throws，需要说明抛出的异常；
+	6）对于有BUG或需要完善的代码：使用//TODO或//FIXME声明；
+	7）注释内容超过一行，请使用<p></p>包含，实例代码使用<pre>{@code yourcodexxx}</pre>包含；
+	8）对class/method的引用请使用@see ;
+	
+3、编码要点：
+	1）System.out.println()打印不易于系统的维护，如果需要输出(如异常)请使用LOG方式；
+	2）尽量少使用数组而使用Collections类，避免非检查的数组越界报空指针错误；
+	3)在比较多的字符串时，请使用StringBuffer或StringBuilder以节省内存\CUP开销；
+	4）通过接口应用对象，变量的定义、函数的返回值尽量泛化，比如返回一个HashMap时应该使用Map；
+	5)接口优于抽象类;
+	6）尽量避免对过期方法的引用；
+	7）在method中尽量避免使用过长的参数;
+	8)尽量消除受检警告（Warning），保证代码安全编译;
+	9)重要的Class/method，必须写TestCase；
+		
+4、异常处理：
+	1）异常的抛出必须保留原来的异常，如果抛出异常且没有被捕获必须写入日志；
+	2）异常一般在Controller层捕捉处理并写入日志；
+	3）封装低级异常为开发人员及维护人员容易明白的异常类；
+	4)避免使用Exception作为异常抛出，而应该要细化异常，如：
+		IllegalArgumentException 非null参数值不正确
+		IllegelStateException 对于调用方法而言，对象状态不合适
+		NollpointerException 空指针
+		IndexOutOfBoundsException 下标越界
+		ConcurrentModificationException 禁止对象修改
+		UnsupportedOperationException 不支持用户请求的方法
+	5)自定义的异常应尽可能多的提供异常信息。
+	
+5、使用JDK1.5新特性：
+	1）重载方法必须使用@Override，可避免父类方法改变时导致重载函数失效。 
+	2)优先考虑泛型，如使用容器时，必须加上容器的参数类型，eg. List<?> list = new ArrayList<?>(); Map<String,Object> map = new HashMap<String,Object>();
+	3）不需要关心的warning信息用@SuppressWarnings("unused"), @SuppressWarnings("unchecked"), @SuppressWarnings("serial") 注释；
+	4）优先使用for-each方式遍历；
+	5）优先使用基本类型（int ,double,float等），而不是装箱类型（Integer,Double,Float）.
+	

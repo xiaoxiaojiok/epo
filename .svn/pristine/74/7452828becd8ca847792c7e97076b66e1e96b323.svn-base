@@ -1,0 +1,429 @@
+package com.gzgb.epo.service.mainmediaAttention;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Criteria;
+import org.hibernate.QueryException;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gzgb.epo.dao.mainmediaAttention.MainmediaAttentionDao;
+import com.gzgb.epo.dao.puerMainmedia.MainmediaDao;
+import com.gzgb.epo.entity.Mainmedia;
+import com.gzgb.epo.entity.MainmediaAttention;
+import com.gzgb.epo.entity.PublicEmotion;
+import com.gzgb.epo.service.base.BaseService;
+
+/**
+ * 
+ * <pre>
+ * 主流媒体关注度Service
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-26
+ */
+@Service
+public class MainmediaAttentionService extends BaseService<MainmediaAttention> {
+
+	private static Logger logger = LoggerFactory
+			.getLogger(MainmediaAttentionService.class);
+	@Autowired
+	private MainmediaAttentionDao mmaDao;
+	@Autowired
+	private MainmediaDao mmDao;
+
+	/**
+	 * 
+	 * <pre>
+	 * 统计主流媒体的关注 Map<主流媒体名称，Map<类型， 数量>>
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public Map<String, Map<String, Long>> findAllMainmediaAttention(int isAbout) {
+		try {
+			logger.info("---findAllMainmediaAttention()方法");
+			List<Mainmedia> mainmediaList  = mmDao.findAll(Mainmedia.class);
+			Map<String, Map<String, Long>> map = new HashMap<String, Map<String, Long>>();
+			for (Mainmedia mm : mainmediaList) {
+				Map<String, String> mapping = new HashMap<String, String>();
+				mapping.put("name", mm.getName());
+				List<MainmediaAttention> mma = mmaDao.getAll(
+						MainmediaAttention.class, mapping);
+				if(isAbout != 0){
+					for(int i =0; i<mma.size(); i++){
+						 if(mma.get(i).getIsAbout() == 0)
+							 mma.remove(i);
+					}
+				}
+				Map<String, Long> targetMap = new HashMap<String, Long>();
+				if (mma.size() != 0) {
+					for (MainmediaAttention targetmma : mma) {
+						
+						targetMap.put(targetmma.getType(), targetmma.getCount());
+
+					}
+					map.put(mm.getName(), targetMap);
+				}
+				else{
+					map.put(mm.getName(), null);
+				}
+			}
+			return map;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	/**
+	 * 
+	 * <pre>
+	 * 根据主流媒体的名称统计主流媒体的关注 Map<类型， 数量>
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public Map<String, Long> findMainmediaAttentionByName(String name, int isAbout) {
+		try {
+			logger.info("---findMainmediaAttentionByName()方法");
+			Map<String, Map<String, Long>> map = findAllMainmediaAttention(isAbout);
+			if(name == null)
+				return null;
+			return map.get(name);
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据媒体名称获得Map<情感类型，Map<时间， 数量>>
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public Map<String, Map<String, Long>> getEmotionChgTimeByName(String name, int isAbout)
+			throws QueryException {
+		try {
+			logger.info("---getEmotionChgTimeByName()方法");
+			Map<String, Long> positiveMap = new HashMap<String, Long>();
+			Map<String, Long> neutralMap = new HashMap<String, Long>();
+			Map<String, Long> negativeMap = new HashMap<String, Long>();
+			Map<String, Map<String, Long>> map = new HashMap<String, Map<String, Long>>();
+			Map<String, String> mapping = new HashMap<String, String>();
+			mapping.put("name", name);
+			List<MainmediaAttention> list = mmaDao.getAll(MainmediaAttention.class, mapping);
+			if(isAbout != 0){
+				for(int i=0; i<list.size(); i++){
+					if(list.get(i).getIsAbout() == 0)
+						list.remove(i);
+				}
+			}
+			if (list.size() == 0) {
+				return null;
+			} else {
+				for (MainmediaAttention pe : list) { 
+					if("正面".equals(pe.getType()) ){
+						if(positiveMap.containsKey(pe.getTime())){
+							long count = positiveMap.get(pe.getTime());
+							positiveMap.remove(pe.getTime());
+							count+=pe.getCount();
+							positiveMap.put(String.valueOf(pe.getTime()), count);
+						}
+						else{
+							positiveMap.put(String.valueOf(pe.getTime()), pe.getCount());
+						}
+
+					}
+					else if("中立".equals(pe.getType()) ){
+						if(neutralMap.containsKey(pe.getTime())){
+							long count = neutralMap.get(pe.getTime());
+							neutralMap.remove(pe.getTime());
+							count+=pe.getCount();
+							neutralMap.put(String.valueOf(pe.getTime()), count);
+						}
+						else{
+							neutralMap.put(String.valueOf(pe.getTime()), pe.getCount());
+						}
+
+					}
+					else{
+						if(negativeMap.containsKey(pe.getTime())){
+							long count = negativeMap.get(pe.getTime());
+							negativeMap.remove(pe.getTime());
+							count+=pe.getCount();
+							negativeMap.put(String.valueOf(pe.getTime()), count);
+						}
+						else{
+							negativeMap.put(String.valueOf(pe.getTime()), pe.getCount());
+						}
+					}	
+				}
+			}
+			map.put("正面", positiveMap);
+			map.put("中立", neutralMap);
+			map.put("负面", negativeMap);
+			return map;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据情感类型获得相应时间内的总数
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public long getCountByTypeAndTime(String type, String value, Integer startTime ) throws QueryException {
+		try {
+			logger.info("---getCountByTypeAndTime()方法");
+			List<MainmediaAttention> list = mmaDao.getListByTypeAndTime(type, value, startTime);
+			long total = 0;
+			if (list == null || list.size() == 0) {
+				return 0;
+			} else {
+				for (MainmediaAttention pe : list) {
+					total += pe.getCount();
+				}
+			}
+			return total;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return 0;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 查找在特定月里面的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param startAndEnd
+	 * @return
+	 */
+	public List<Long> getCountListBetweenTime(List<Integer> startAndEnd, String type, Integer isAbout, Long mmId) {
+		try {
+			logger.info("---getCountListBetweenTime()方法");
+			List<MainmediaAttention> list = mmaDao.getListBetweenTime(startAndEnd, null, isAbout, mmId);
+			if(list == null || list.size() == 0)
+				return null;
+			else{
+				long positiveCount = 0;
+				long neutralCount = 0;
+				long negativeCount = 0;
+				if("emotion".equals(type)){
+					for(MainmediaAttention rr : list){
+						if("喜欢".equals(rr.getEmotion()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getEmotion()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				}
+				else{
+					for(MainmediaAttention rr : list){
+						if("右倾".equals(rr.getType()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getType()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				}
+				List<Long> returnList = new ArrayList<Long>();
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据mainmediaId查找相关类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param 
+	 * @return
+	 */
+	public List<Long> getCountListBymmIdAndType(Long mmId, String type) {
+		try {
+			logger.info("---getCountListBymmIdAndType()方法");
+			List<MainmediaAttention> list = mmaDao.getCountListBymmId(mmId);
+			List<Long> returnList = new ArrayList<Long>();
+			long positiveCount = 0;
+			long neutralCount = 0;
+			long negativeCount = 0;
+			if(list == null || list.size() == 0){
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+			else{
+				if("emotion".equals(type)){
+					for(MainmediaAttention rr : list){
+						if("喜欢".equals(rr.getEmotion()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getEmotion()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				}
+				else{
+					for(MainmediaAttention rr : list){
+						if("右倾".equals(rr.getType()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getType()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				}
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据departmentId查找在特定月里面的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param startAndEnd
+	 * @return
+	 */
+	public List<Long> getCountListBetweenTimeBydbiId(List<Integer> startAndEnd, Long departmentId) {
+		try {
+			logger.info("---getCountListBetweenTimeBydbiId()方法");
+			List<MainmediaAttention> list = mmaDao.getListBetweenTimeBydbiId(startAndEnd, departmentId);
+			if(list == null || list.size() == 0)
+				return null;
+			else{
+				long positiveCount = 0;
+				long neutralCount = 0;
+				long negativeCount = 0;
+					for(MainmediaAttention rr : list){
+						if("喜欢".equals(rr.getEmotion()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getEmotion()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				
+				List<Long> returnList = new ArrayList<Long>();
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据mmId和类型查找在特定时间内的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * @param isAbout TODO
+	 * @param startAndEnd
+	 * 
+	 * @return
+	 */
+	public List<Long> getCountListBymmIdAndTypeAndTime(Long mmId, String type, Integer startTime, Integer isAbout){
+		try {
+			logger.info("---getCountListBymmIdAndTypeAndTime()方法");
+			List<MainmediaAttention> list = mmaDao.getListBymmIdAndTypeAndTime(mmId, startTime, isAbout);
+			long positiveCount = 0;
+			long neutralCount = 0;
+			long negativeCount = 0;
+			List<Long> returnList = new ArrayList<Long>();
+			if(list == null || list.size() == 0){
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+			else{
+				
+				if("emotion".equals(type)){
+					for(MainmediaAttention rr : list){
+						if("喜欢".equals(rr.getEmotion()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getEmotion()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				}
+				else{
+					for(MainmediaAttention rr : list){
+						if("右倾".equals(rr.getType()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getType()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+					
+				}		
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	
+
+
+}

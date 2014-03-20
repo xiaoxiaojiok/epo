@@ -1,0 +1,51 @@
+package com.gzgb.epo.util;
+
+import java.util.Arrays;
+
+public class QsortUtil {
+	public int partion(int a[],int m[],int p,int r)
+	{
+		int i=p;
+		int j=r+1;
+		int x=a[p];
+		int kk=m[p];
+		while(true)
+		    {
+				while(a[++i]>x&&i<r);
+				while(a[--j]<x);
+				if(i>=j) break;
+				int t=a[i];
+				a[i]=a[j];
+				a[j]=t;
+				t=m[i];
+				m[i]=m[j];
+				m[j]=t;
+		    }
+		a[p]=a[j];
+		a[j]=x;
+		m[p]=m[j];
+		m[j]=kk;
+		return j;
+	}
+	
+	public void qsort(int a[],int m[],int p,int r)
+	{
+		if(p<r)
+		{
+			int q=partion(a,m,p,r);
+			qsort(a,m,p,q-1);
+			qsort(a,m,q+1,r);
+		}
+	}
+	public static void main(String[] args) {
+		int[] a={5,2,6,8,2};
+		int[] m=new int[a.length];
+		for(int i=0;i<a.length;i++){
+			m[i]=i;
+		}
+		new QsortUtil().qsort(a,m,0,a.length-1);
+		System.out.println(Arrays.toString(a));
+		System.out.println(Arrays.toString(m));
+	}
+
+}

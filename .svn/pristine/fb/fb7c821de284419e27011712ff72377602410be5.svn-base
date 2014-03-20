@@ -1,0 +1,89 @@
+package com.gzgb.epo.dao.publicEmotion;
+
+import java.util.List;
+import java.util.Map;
+
+import com.gzgb.epo.dao.base.BaseDao;
+import com.gzgb.epo.entity.PublicEmotion;
+import com.gzgb.epo.entity.RemarkRecord;
+
+/**
+ * 
+ * <pre>
+ * 公众情感Dao
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-26
+ */
+public interface PublicEmotionDao extends BaseDao<PublicEmotion> {
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据情感的类型获得map 数量
+	 * </pre>
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public List<PublicEmotion> getListByType(String type, String value);
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据情感的类型获得对应时间内的数量
+	 * </pre>
+	 * 
+	 * @param type， month
+	 * @return
+	 */
+	public List<PublicEmotion> getCountByTypeAndTime(String type, String value, Integer startTime);
+	
+	/**
+	 * 
+	 * <pre>
+	 *查找在特定月里面的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param startAndEnd
+	 * @param isAbout TODO
+	 * @return
+	 */
+	public List<PublicEmotion> getListBetweenTime(List<Integer> startAndEnd, Map<String, String> map, Integer isAbout);
+	
+	/**
+	 * 
+	 * <pre>
+	 *根据departmentId查找在特定月里面的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param startAndEnd
+	 * @param isAbout TODO
+	 * @return
+	 */
+	public List<PublicEmotion> getListBetweenTimeById(List<Integer> startAndEnd, Map<String, Long> mapId, Integer isAbout);
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型Id获得相应的记录
+	 * </pre>
+	 * 
+	 * @param startAndEnd
+	 * @return
+	 */
+	public List<PublicEmotion> getListByTypeId(String type, Long Id);
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型Id获得相应时间内的记录
+	 * </pre>
+	 * @param isAbout TODO
+	 * @param startAndEnd
+	 * 
+	 * @return
+	 */
+	public List<PublicEmotion> getListByTypeIdAndTime(String type, Long id, Integer startTime, Integer isAbout);
+}

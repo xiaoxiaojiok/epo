@@ -1,0 +1,94 @@
+
+package com.gzgb.epo.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.SecurityUtils;
+
+import com.gzgb.epo.publics.Constants;
+import com.gzgb.epo.service.shiro.ShiroDbRealm.ShiroUser;
+
+/**
+ * 
+ * <pre>
+ * 登录过滤器
+ * 解决session超时，只能局部跳转登陆的问题
+ * </pre>
+ */
+public class SessionFilter implements Filter
+{
+	protected static final String CONTENT_TYPE = "text/html; charset=UTF-8";
+	
+	public void init(FilterConfig filterConfig) throws ServletException
+	{
+	}
+	
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,
+			ServletException
+	{
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse resp = (HttpServletResponse) response;
+		String reqUri = req.getRequestURI();
+		String contextPath = req.getContextPath();
+		String reqPage = "";
+		if (contextPath.equals("/"))
+		{
+			reqPage = reqUri;
+		}else{
+			reqPage = reqUri.replaceFirst(contextPath, "");
+		}
+		reqPage = reqPage.replaceAll("//", "/");
+		String[] urls = new String[2];
+		if(req.getSession().getAttribute("curr_url")!=null){
+			 urls= (String[]) req.getSession().getAttribute("curr_url");
+		}
+		ShiroUser shiroUser = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		//比对前两个访问路径是否一致，如果不一致，则路径可能被shiro改掉，就需要框架页跳转至/login
+		if((urls[0].equals(reqPage) || urls[0].equals("/index") || urls[1].startsWith("/static")) && (shiroUser == null || reqPage.startsWith("/login") || reqPage.startsWith("/static") || reqPage.startsWith("/index"))){
+			filterChain.doFilter(request, response);
+		}else{
+			if (req.getSession().getAttribute(Constants.USER_SESSION_KEY) == null){
+				resp.setContentType(CONTENT_TYPE);
+				postRedirect(req, resp);
+			}else{
+				filterChain.doFilter(request, response);
+			}
+		}
+	}
+	
+	public void destroy()
+	{
+	}
+
+	/**
+	 * 未登录或限制超时提示及跳转
+	 * @param req
+	 * @param resp
+	 * @throws IOException
+	 */
+	private void postRedirect(HttpServletRequest req, HttpServletResponse resp) throws IOException
+	{
+		PrintWriter out = resp.getWriter();
+		out.println("<html>");
+		out.println("<head><title>redirecting...</title></head>");
+		out.println("<body>");
+		out.println("<script language='javascript'>");
+		out.println("window.parent.location.href='" + req.getContextPath() + "/index';");
+		out.println("</script>");
+		out.println("</body>");
+		out.println("</html>");
+		out.flush();
+		out.close();
+	}
+
+}

@@ -1,0 +1,250 @@
+package com.gzgb.epo.dao.publicEmotion;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.QueryException;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.gzgb.epo.dao.base.BaseDaoImpl;
+import com.gzgb.epo.dao.departmentBaseInfo.DepartmentBaseInfoDao;
+import com.gzgb.epo.entity.DepartmentBaseInfo;
+import com.gzgb.epo.entity.PublicEmotion;
+
+/**
+ * 
+ * <pre>
+ * 公众情感DaoImpl
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-26
+ */
+@Repository
+public class PublicEmotionDaoImpl extends BaseDaoImpl<PublicEmotion> implements PublicEmotionDao {
+
+	@Autowired
+	private DepartmentBaseInfoDao departmentBaseInfoDao;
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型获得相应的记录
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PublicEmotion> getListByType(String type, String value)
+			throws QueryException {
+		try {
+			Criteria criteria = getSession()
+					.createCriteria(PublicEmotion.class);
+			criteria.add(Restrictions.eq(type, value));
+			criteria.addOrder(Order.asc("time"));
+			List<PublicEmotion> list = criteria.list();
+			if (list.size() == 0) {
+				return null;
+			}
+			return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型获得相应的记录
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PublicEmotion> getListByTypeId(String type, Long Id)
+			throws QueryException {
+		try {
+			Criteria criteria = getSession()
+					.createCriteria(PublicEmotion.class);
+			criteria.add(Restrictions.eq(type, Id));
+			criteria.addOrder(Order.asc("time"));
+			List<PublicEmotion> list = criteria.list();
+			if (list.size() == 0) {
+				return null;
+			}
+			return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型获得相应时间内的记录
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PublicEmotion> getListByTypeIdAndTime(String type, Long id, Integer startTime, Integer isAbout)
+			throws QueryException {
+		try {
+			Criteria criteria = getSession().createCriteria(PublicEmotion.class);
+			criteria.add(Restrictions.eq(type, id));
+			if(isAbout != null)
+				criteria.add(Restrictions.eq("isAbout", isAbout));
+			criteria.add(Restrictions.gt("time", startTime));
+			criteria.addOrder(Order.asc("time"));
+			List<PublicEmotion> list = criteria.list();
+			if (list.size() == 0) {
+				return null;
+			}
+			return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据情感的类型获得对应时间内的记录
+	 * </pre>
+	 * 
+	 * @param type， month
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PublicEmotion> getCountByTypeAndTime(String type, String value, Integer startTime)throws QueryException {
+		try {
+				Criteria criteria = getSession().createCriteria(PublicEmotion.class);
+				criteria.add(Restrictions.eq(type, value));
+				if(startTime != null)
+					criteria.add(Restrictions.gt("time", startTime));
+				criteria.addOrder(Order.asc("time"));
+				List<PublicEmotion> list = criteria.list();
+				if (list.size() == 0) {
+					return null;
+				}
+				return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	
+    }
+	
+
+	/**
+	 * 
+	 * <pre>
+	 * 查找在特定月里面的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PublicEmotion> getListBetweenTime(List<Integer> startAndEnd, Map<String, String> map, Integer isAbout)
+			throws QueryException {
+		try {
+			Criteria criteria = getSession().createCriteria(PublicEmotion.class);
+			
+			if(map != null && !map.isEmpty()){
+				for(String key : map.keySet()){
+					criteria.add(Restrictions.eq(key, map.get(key)));
+				}
+			}
+			if(isAbout != null)
+				criteria.add(Restrictions.eq("isAbout", isAbout));
+			criteria.add(Restrictions.between("time", startAndEnd.get(0),startAndEnd.get(1)));
+			List<PublicEmotion> list = criteria.list();
+			if (list.size() == 0 || list == null) {
+				return null;
+			}
+			return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 查找在特定月里面的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PublicEmotion> getListBetweenTimeById(List<Integer> startAndEnd, Map<String, Long> mapId, Integer isAbout)
+			throws QueryException {
+		try {
+			Criteria criteria = getSession().createCriteria(PublicEmotion.class);
+			
+			if(!mapId.entrySet().contains(Long.valueOf(-1))){
+				for(String key : mapId.keySet())
+				criteria.add(Restrictions.eq(key, mapId.get(key)));
+			}
+			if(isAbout != null)
+				criteria.add(Restrictions.eq("isAbout", isAbout));
+			criteria.add(Restrictions.isNotNull("departmentId"));
+			criteria.add(Restrictions.between("time", startAndEnd.get(0),startAndEnd.get(1)));
+			List<PublicEmotion> list = criteria.list();
+			if (list.size() == 0 || list == null) {
+				return null;
+			}
+			return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int[] getDepartmentConcern(Integer startTime) {
+		try {
+			List<DepartmentBaseInfo> departmentBaseInfo = departmentBaseInfoDao.findAll(DepartmentBaseInfo.class);
+			int[] array = new int[departmentBaseInfo.size()];
+			String sql = "select departmentId,sum(count) total from epo_publicemotion where time > ? group by departmentId order by total desc;";
+			Query query = getSession().createSQLQuery(sql);
+			query.setParameter(0, startTime);
+			List list = query.list();
+			for(Iterator iterator = list.iterator();iterator.hasNext();){ 
+	            Object[] objects = (Object[]) iterator.next(); 
+	            int i = ((BigInteger) objects[0]).intValue();
+	            int count = ((BigDecimal) objects[1]).intValue();
+	            array[i]=count;
+		    } 
+			return array;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	
+	
+}
+

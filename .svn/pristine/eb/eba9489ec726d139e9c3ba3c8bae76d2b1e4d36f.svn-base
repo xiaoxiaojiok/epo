@@ -1,0 +1,114 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%@include file="../top.jsp"%>
+<%@ taglib prefix="sitemesh" uri="http://www.opensymphony.com/sitemesh/decorator" %>  
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link type="text/css" href="${ctx }/static/jquery-zTree-v3.4/css/demo.css" rel="stylesheet"/>
+<link type="text/css" href="${ctx }/static/jquery-zTree-v3.4/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"/>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>广州广报</title>
+
+<script type="text/javascript" src="${ctx }/static/jquery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="${ctx }/static/jquery-zTree-v3.4/js/jquery.ztree.core-3.4.js"></script>
+<script type="text/javascript" src="/static/js/base/base.js"></script>
+<script type="text/javascript" src="/static/js/syspurview/left/menu.js"></script>
+<script type="text/javascript">
+	var baseUrl = "${ctx}/menu";
+	$(document).ready(function(){
+		base.load("content",baseUrl + "/list",function(){});
+	});
+</script>
+
+</head>
+<body>
+<div class="con">
+<!-- topNav start -->
+	<div class="topNav">
+		<c:forEach items="${menuList}" var="one_menu">
+				<c:if test="${one_menu.status eq 1}">
+					<div <c:choose>
+					       <c:when test="${one_menu.id eq pMenuId}">
+					       	class="navDiv act"
+					       </c:when>
+					       <c:otherwise>
+					       	class="navDiv"
+					       </c:otherwise>
+						</c:choose>
+					>
+					<a href="${one_menu.menuUrl}/${one_menu.id}" >${one_menu.menuName}</a>
+					</div>
+				</c:if>
+		</c:forEach>
+	</div>
+<!-- topNav end -->
+
+<!-- table content start -->
+	<div class="tableContent">
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td valign="top">
+				<div class="tableContentLeft">
+					<c:forEach items="${menu.subMenuList}" var="fir_menu">
+						<c:if test="${fir_menu.status eq 1}">
+							<div class="navSubTitle">
+								<a <c:choose>
+								       <c:when test="${fir_menu.id eq sMenuId}">
+								       	class="act"
+								       </c:when>
+								       <c:otherwise>
+								       	class=""
+								       </c:otherwise>
+									</c:choose>
+								href="${fir_menu.menuUrl}/${fir_menu.id}" >
+								${fir_menu.menuName}
+								</a>
+							</div>
+							<c:forEach items="${fir_menu.subMenuList}" var="sec_menu">
+								<c:if test="${sec_menu.status eq 1}">
+									<div class="navSupTitle">
+										<a <c:choose>
+										       <c:when test="${sec_menu.id eq sMenuId}">
+										       	class="act"
+										       </c:when>
+										       <c:otherwise>
+										       	class=""
+										       </c:otherwise>
+											</c:choose>
+										href="${sec_menu.menuUrl}/${sec_menu.id}" >
+										${sec_menu.menuName}
+										</a>
+									</div>
+								</c:if>
+							</c:forEach>
+						</c:if>
+					</c:forEach>
+				</div>
+			</td>
+			<td class="tdBak" valign="top">
+				<div class="tableContentRight">
+					<div class="currentPosition">
+					&nbsp;&nbsp;&nbsp;&nbsp;当前位置：&nbsp;&nbsp;<a href="${fUrl }" >${fMenu }</a>
+					&nbsp;>&nbsp;<a href="${sUrl }" >${sMenu }</a>
+					<c:if test="${not empty tMenu}">&nbsp;>&nbsp;<a href="${tUrl }" >${tMenu }</a></c:if>
+					</div>
+				<!-- 页面内容 start -->
+				
+					<div id="content"></div>
+					
+				<!-- 页面内容  end -->
+				</div>
+			</td>
+		</tr>
+	</table>
+	</div>
+<!-- table content end -->
+</div>
+
+<%@include file="../bottom.jsp"%>
+</body>
+</html>

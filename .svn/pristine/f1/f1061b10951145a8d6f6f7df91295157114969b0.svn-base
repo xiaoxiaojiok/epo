@@ -1,0 +1,1444 @@
+package com.gzgb.epo.controller.cityRecognize;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.gzgb.epo.entity.DepartmentBaseInfo;
+import com.gzgb.epo.entity.Education;
+import com.gzgb.epo.entity.Hierarchy;
+import com.gzgb.epo.entity.KeyWords;
+import com.gzgb.epo.entity.Mainmedia;
+import com.gzgb.epo.entity.PublicEmotion;
+import com.gzgb.epo.service.departmentBaseInfo.DepartmentBaseInfoService;
+import com.gzgb.epo.service.education.EducationService;
+import com.gzgb.epo.service.hierarchy.HierarchyService;
+import com.gzgb.epo.service.keyWords.KeyWordsService;
+import com.gzgb.epo.service.mainmediaAttention.MainmediaAttentionService;
+import com.gzgb.epo.service.publicEmotion.PublicEmotionService;
+import com.gzgb.epo.service.puerMainmedia.PuerMainmediaService;
+import com.gzgb.epo.service.reportDistribution.ReportDistributionService;
+import com.gzgb.epo.service.user.UserService;
+import com.gzgb.epo.util.DateUtil;
+import com.gzgb.epo.util.QsortUtil;
+
+/**
+ * 
+ * <pre>
+ * 城市形象与认知度控制器
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2013-12-18
+ */
+@Controller
+@RequestMapping(value = "/cityRecognize")
+public class CityRecognizeController {
+
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private PuerMainmediaService mmService;
+	@Autowired
+	private HierarchyService hService;
+	@Autowired
+	private EducationService eService;
+	@Autowired
+	private PublicEmotionService peService;
+	@Autowired
+	private KeyWordsService kwService;
+	@Autowired
+	private ReportDistributionService rdService;
+	@Autowired
+	private PuerMainmediaService pmmService;
+	@Autowired
+	private MainmediaAttentionService mmaService;
+	@Autowired
+	private DepartmentBaseInfoService dbiService;
+	@Autowired
+	private PublicEmotionService publicEmotionService;
+	@Autowired
+	private MainmediaAttentionService mainmediaAttentionService;
+	@Autowired
+	private DepartmentBaseInfoService departmentBaseInfoService;
+	
+	Logger logger = LoggerFactory.getLogger(CityRecognizeController.class);
+
+	/**
+	 * 进入城市形象与认知度页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "index")
+	public String index(Model model, HttpServletRequest request) {
+	/*	
+        //情感变化倾向趋势
+        Map<String, Long> positiveMap = peService.getMapTimeByType("emotion", "正面");
+        Map<String, Long> negativeMap = peService.getMapTimeByType("emotion", "负面");
+        Map<String, Long> neutralMap = peService.getMapTimeByType("emotion", "中立");
+        List<PublicEmotion> peList = peService.findAll(PublicEmotion.class);
+        TreeSet<String> timeSet = new TreeSet<String>();
+   //     for(PublicEmotion pe : peList){
+   //     	timeSet.add(pe.getTime());
+   //     }
+        String timeEmotion = "t:";
+        String timePositive = "";
+        String timeNeutral = "";
+        String timeNegative = "";
+        String timeString = "1:|0|50|100|0:";
+        for(String time : timeSet){
+        	timeString+="|" + time;
+        	if((Long)positiveMap.get(time) != null)
+        		timePositive+=(double)positiveMap.get(time)+",";
+        	else
+        		timePositive+=0.0+",";
+        	if((Long)neutralMap.get(time) != null)
+        		timeNeutral+=(double)neutralMap.get(time)+",";
+        	else
+        		timeNeutral+=0.0+",";
+        	if((Long)negativeMap.get(time) != null)
+        		timeNegative+=(double)negativeMap.get(time)+",";
+        	else
+        		timeNegative+=0.0+",";
+        }
+        if(timePositive.length()>0)
+        timePositive = timePositive.substring(0, timePositive.length()-1);
+        if(timeNeutral.length()>0)
+        timeNeutral = timeNeutral.substring(0, timeNeutral.length()-1);
+        if(timeNegative.length()>0)
+        timeNegative = timeNegative.substring(0, timeNegative.length()-1);
+        timeEmotion = timeEmotion + timePositive + "|" + timeNeutral + "|" + timeNegative;
+        model.addAttribute("timeEmotion", timeEmotion);
+        model.addAttribute("timeString", timeString);
+        
+        //主流媒体关注度排行
+        Map<String, Map<String, Long>> map = mmaService.findAllMainmediaAttention(0);
+        String mediaAttention_X = "0:";
+        String mediaAttention_Y = "t:";
+        String mediaPositive = "";
+        String mediaNegative = "";
+        String mediaNeutral = "";
+        for(String key : map.keySet()){
+        	mediaAttention_X+="|" + key;
+        	if(map.get(key) != null){
+        		if(map.get(key).get("正面") != null)
+        			mediaPositive+=(map.get(key).get("正面")>100?(double)map.get(key).get("正面")/100:map.get(key).get("正面"))+",";
+        		else
+        			mediaPositive+=0.0+",";
+        		if(map.get(key).get("中立") != null)
+        			mediaNeutral+=(map.get(key).get("中立")>100?(double)map.get(key).get("中立")/100:map.get(key).get("中立"))+",";
+        		else 
+        			mediaNeutral+=0.0+",";
+        		if(map.get(key).get("负面") != null)
+        			mediaNegative+=(map.get(key).get("负面")>100?(double)map.get(key).get("负面")/100:map.get(key).get("负面"))+",";
+        		else
+        			mediaNegative+=0.0+",";
+        	}
+        	else{
+        		mediaPositive+=0.0+",";
+            	mediaNeutral+=0.0+",";
+            	mediaNegative+=0.0+",";
+        	}
+        	
+        
+        }
+        mediaAttention_X+="|" + "1:|0|50|100";
+        if(mediaPositive.length()>0)
+        mediaPositive = mediaPositive.substring(0, mediaPositive.length()-1);
+        if(mediaNeutral.length()>0)
+        mediaNeutral = mediaNeutral.substring(0, mediaNeutral.length()-1);
+        if(mediaNegative.length()>0)
+        mediaNegative = mediaNegative.substring(0, mediaNegative.length()-1);
+        mediaAttention_Y = mediaAttention_Y + mediaPositive + "|" + mediaNeutral + "|" + mediaNegative;
+        model.addAttribute("mediaAttention_Y", mediaAttention_Y);
+        model.addAttribute("mediaAttention_X", mediaAttention_X);
+        
+        //公众对广州的关注度
+        Map<String, Map<String, Long>> publicAttention = peService.getAllMapByType(Hierarchy.class);
+        String publicAttention_X = "0:";
+        String publicAttention_Y = "t:";
+        String publicPositive = "";
+        String publicNegative = "";
+        String publicNeutral = "";
+        for(String key : publicAttention.keySet()){
+        	publicAttention_X+="|" + key;
+        	if(publicAttention.get(key) != null){
+        		if(publicAttention.get(key).get("正面") != null)
+        			publicPositive+=(publicAttention.get(key).get("正面")>100?(double)publicAttention.get(key).get("正面")/100:publicAttention.get(key).get("正面"))+",";
+        		else
+        			publicPositive+=0.0+",";
+        		if(publicAttention.get(key).get("中立") != null)
+        			publicNeutral+=(publicAttention.get(key).get("中立")>100?(double)publicAttention.get(key).get("中立")/100:publicAttention.get(key).get("中立"))+",";
+        		else 
+        			publicNeutral+=0.0+",";
+        		if(publicAttention.get(key).get("负面") != null)
+        			publicNegative+=(publicAttention.get(key).get("负面")>100?(double)publicAttention.get(key).get("负面")/100:publicAttention.get(key).get("负面"))+",";
+        		else
+        			publicNegative+=0.0+",";
+        	}
+        	else{
+        		publicPositive+=0.0+",";
+            	publicNeutral+=0.0+",";
+            	publicNegative+=0.0+",";
+        	}
+        	
+        
+        }
+        publicAttention_X+="|" + "1:|0|50|100";
+        if(publicPositive.length()>0)
+        publicPositive = publicPositive.substring(0, publicPositive.length()-1);
+        if(publicNeutral.length()>0)
+        publicNeutral = publicNeutral.substring(0, publicNeutral.length()-1);
+        if(publicNegative.length()>0)
+        publicNegative = publicNegative.substring(0, publicNegative.length()-1);
+        publicAttention_Y = publicAttention_Y + publicPositive + "|" + publicNeutral + "|" + publicNegative;
+        model.addAttribute("publicAttention_Y", publicAttention_Y);
+        
+        model.addAttribute("publicAttention_X", publicAttention_X);
+        */
+		return "cityRecognize/cityRecognizeIndex";
+		
+	}
+
+	/**
+	 * 进入情感分析页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "cityRecognizeSentimentAnalysis")
+	public String sentimentAnalysis(Model model, HttpServletRequest request) {
+        List<DepartmentBaseInfo> List = dbiService.findAll(DepartmentBaseInfo.class);
+        model.addAttribute("departmentList", List);
+		return "cityRecognize/cityRecognizeSentimentAnalysis_blank";
+	}
+
+	/**
+	 * 进入印象关键词页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "cityRecognizeImpressionKey")
+	public String impressionKey(Model model, HttpServletRequest request) {
+		return "cityRecognize/cityRecognizeImpressionKey_blank";
+	}
+
+	/**
+	 * 进入涉穗报道分布图页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "cityRecognizeDistributionMap")
+	public String distributionMap(Model model, HttpServletRequest request) {
+		return "cityRecognize/cityRecognizeDistributionMap";
+	}
+
+	/**
+	 * 进入主流媒体关注度页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "cityRecognizeMainMediaConcern")
+	public String mainMediaConcern(Model model, HttpServletRequest request) {
+		List<Mainmedia> mainMediaList = pmmService.findAll(Mainmedia.class);
+	    model.addAttribute("mainMediaList", mainMediaList);
+	    
+		return "cityRecognize/cityRecognizeMainMediaConcern_blank";
+	}
+
+	/**
+	 * 进入公众评价页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "cityRecognizePublicOpinion")
+	public String publicOpinion(Model model, HttpServletRequest request) {
+	    List<Hierarchy> hierarchyList = hService.findAll(Hierarchy.class);
+	    model.addAttribute("hierarchyList", hierarchyList);
+	/*	//情感变化倾向趋势
+        Map<String, Long> positiveMap = peService.getMapTimeByType("emotion", "正面");
+        Map<String, Long> negativeMap = peService.getMapTimeByType("emotion", "负面");
+        Map<String, Long> neutralMap = peService.getMapTimeByType("emotion", "中立");
+        List<PublicEmotion> peList = peService.findAll(PublicEmotion.class);
+        TreeSet<String> timeSet = new TreeSet<String>();
+    //    for(PublicEmotion pe : peList){
+    //    	timeSet.add(pe.getTime());
+    //    }
+        String timeEmotion = "t:";
+        String timePositive = "";
+        String timeNeutral = "";
+        String timeNegative = "";
+        String timeString = "1:|0|50|100|0:";
+        for(String time : timeSet){
+        	timeString+="|" + time;
+        	if((Long)positiveMap.get(time) != null)
+        		timePositive+=(double)positiveMap.get(time)+",";
+        	else
+        		timePositive+=0.0+",";
+        	if((Long)neutralMap.get(time) != null)
+        		timeNeutral+=(double)neutralMap.get(time)+",";
+        	else
+        		timeNeutral+=0.0+",";
+        	if((Long)negativeMap.get(time) != null)
+        		timeNegative+=(double)negativeMap.get(time)+",";
+        	else
+        		timeNegative+=0.0+",";
+        }
+        if(timePositive.length()>0)
+        timePositive = timePositive.substring(0, timePositive.length()-1);
+        if(timeNeutral.length()>0)
+        timeNeutral = timeNeutral.substring(0, timeNeutral.length()-1);
+        if(timeNegative.length()>0)
+        timeNegative = timeNegative.substring(0, timeNegative.length()-1);
+        timeEmotion = timeEmotion + timePositive + "|" + timeNeutral + "|" + timeNegative;
+        model.addAttribute("timeEmotion", timeEmotion);
+        model.addAttribute("timeString", timeString);
+        //公众对广州的关注度
+        Map<String, Map<String, Long>> publicAttention = peService.getAllMapByType(Hierarchy.class);
+        String publicAttention_X = "0:";
+        String publicAttention_Y = "t:";
+        String publicPositive = "";
+        String publicNegative = "";
+        String publicNeutral = "";
+        for(String key : publicAttention.keySet()){
+        	publicAttention_X+="|" + key;
+        	if(publicAttention.get(key) != null){
+        		if(publicAttention.get(key).get("正面") != null)
+        			publicPositive+=(publicAttention.get(key).get("正面")>100?(double)publicAttention.get(key).get("正面")/100:publicAttention.get(key).get("正面"))+",";
+        		else
+        			publicPositive+=0.0+",";
+        		if(publicAttention.get(key).get("中立") != null)
+        			publicNeutral+=(publicAttention.get(key).get("中立")>100?(double)publicAttention.get(key).get("中立")/100:publicAttention.get(key).get("中立"))+",";
+        		else 
+        			publicNeutral+=0.0+",";
+        		if(publicAttention.get(key).get("负面") != null)
+        			publicNegative+=(publicAttention.get(key).get("负面")>100?(double)publicAttention.get(key).get("负面")/100:publicAttention.get(key).get("负面"))+",";
+        		else
+        			publicNegative+=0.0+",";
+        	}
+        	else{
+        		publicPositive+=0.0+",";
+            	publicNeutral+=0.0+",";
+            	publicNegative+=0.0+",";
+        	}
+        	
+        
+        }
+        publicAttention_X+="|" + "1:|0|50|100";
+        if(publicPositive.length()>0)
+        publicPositive = publicPositive.substring(0, publicPositive.length()-1);
+        if(publicNeutral.length()>0)
+        publicNeutral = publicNeutral.substring(0, publicNeutral.length()-1);
+        if(publicNegative.length()>0)
+        publicNegative = publicNegative.substring(0, publicNegative.length()-1);
+        publicAttention_Y = publicAttention_Y + publicPositive + "|" + publicNeutral + "|" + publicNegative;
+        model.addAttribute("publicAttention_Y", publicAttention_Y);
+        model.addAttribute("publicAttention_X", publicAttention_X);
+        
+        //根据特定的阶层，获得其情感情况
+        Iterator iterator = publicAttention.keySet().iterator();
+        String hierarhyName = (String)iterator.next();
+        Map<String, Long> hierarchyMap = peService.getMapByType("hierarchy",hierarhyName);
+        String hierarchy_X="";
+        String hierarchy_Y="t:";
+        if(hierarchyMap != null && !hierarchyMap.isEmpty())
+        for(String name : hierarchyMap.keySet()){
+        	hierarchy_X+=name+"|";
+        	if(hierarchyMap.get(name) != null)
+        		hierarchy_Y+=hierarchyMap.get(name)+",";
+        	else
+        		hierarchy_Y+=0.0+",";
+        }
+        hierarchy_X = hierarchy_X.substring(0,  hierarchy_X.length()-1);
+        hierarchy_Y = hierarchy_Y.substring(0,  hierarchy_Y.length()-1);
+        model.addAttribute("hierarchy_X", hierarchy_X);
+        model.addAttribute("hierarchy_Y", hierarchy_Y);
+        
+        //获得特定阶层的不同教育水平的数据
+        Map<String, Map<String, Long>> educationMap = peService.getAllMapBySpecialType("hierarchy",hierarhyName );
+        String heducation_X = "0:";
+        String heducation_Y = "t:";
+        String educationPositive = "";
+        String educationNegative = "";
+        String educationNeutral = "";
+        if(educationMap != null && !educationMap.isEmpty())
+        for(String key : educationMap.keySet()){
+        	heducation_X+="|" + key;
+        	if(educationMap.get(key) != null){
+        		if(educationMap.get(key).get("正面") != null)
+        			educationPositive+=(educationMap.get(key).get("正面")>100?(double)educationMap.get(key).get("正面")/100:educationMap.get(key).get("正面"))+",";
+        		else
+        			educationPositive+=0.0+",";
+        		if(educationMap.get(key).get("中立") != null)
+        			educationNeutral+=(educationMap.get(key).get("中立")>100?(double)educationMap.get(key).get("中立")/100:educationMap.get(key).get("中立"))+",";
+        		else 
+        			educationNeutral+=0.0+",";
+        		if(educationMap.get(key).get("负面") != null)
+        			educationNegative+=(educationMap.get(key).get("负面")>100?(double)educationMap.get(key).get("负面")/100:educationMap.get(key).get("负面"))+",";
+        		else
+        			educationNegative+=0.0+",";
+        	}
+        	else{
+        		educationPositive+=0.0+",";
+        		educationNeutral+=0.0+",";
+        		educationNegative+=0.0+",";
+        	}
+        	
+        
+        }
+        heducation_X+="|" + "1:|0|50|100";
+        if(educationPositive.length()>0)
+        educationPositive = educationPositive.substring(0, educationPositive.length()-1);
+        if(educationNeutral.length()>0)
+        educationNeutral = educationNeutral.substring(0, educationNeutral.length()-1);
+        if(educationNegative.length()>0)
+        educationNegative = educationNegative.substring(0, educationNegative.length()-1);
+        heducation_Y = heducation_Y + educationPositive + "|" + educationNeutral + "|" + educationNegative;
+        model.addAttribute("heducation_Y", heducation_Y);
+        model.addAttribute("heducation_X", heducation_X);
+        
+         //获得特定阶层的情感变化
+        Map<String, Map<String, Long>> attentionChange = peService.getEmotionChgTimeByType("hierarchy", hierarhyName);
+		    List<String> list = new ArrayList<String>();
+		    String hemotion_Y = "t:";
+	        String hemotionPositive = "";
+	        String hemotionNeutral = "";
+	        String hemotionNegative = "";
+	        String hemotion_X = "1:|0|50|100|0:";
+	        List<PublicEmotion> hierarypeList = peService.findAll(PublicEmotion.class);
+	        TreeSet<String> htimeSet = new TreeSet<String>();
+	   //     for(PublicEmotion pe : hierarypeList){
+	  //      	htimeSet.add(pe.getTime());
+	   //     }
+	        if(attentionChange != null && !attentionChange.isEmpty())
+	        for(String time : htimeSet){
+	        	hemotion_X+="|" + time;
+	        	if(attentionChange.get("正面") != null){
+		        	if((Long)attentionChange.get("正面").get(time) != null)
+		        		hemotionPositive+=(double)attentionChange.get("正面").get(time)+",";
+		        	else
+		        		hemotionPositive+=0.0+",";
+	        	}
+	        	else
+	        		hemotionPositive+=0.0+",";
+	        	if(attentionChange.get("中立") != null){
+		        	if((Long)attentionChange.get("中立").get(time) != null)
+		        		hemotionNeutral+=(double)attentionChange.get("中立").get(time)+",";
+		        	else
+		        		hemotionNeutral+=0.0+",";
+	        	}
+	        	else
+	        		hemotionNeutral+=0.0+",";
+	        	if(attentionChange.get("负面") != null){
+		        	if((Long)attentionChange.get("负面").get(time) != null)
+		        		hemotionNegative+=(double)attentionChange.get("负面").get(time)+",";
+		        	else
+		        		hemotionNegative+=0.0+",";
+	        	}
+	        	else
+	        		hemotionNegative+=0.0+",";
+	        }
+	        if(hemotionPositive.length()>0)
+	        hemotionPositive = hemotionPositive.substring(0, hemotionPositive.length()-1);
+	        if(hemotionNeutral.length()>0)
+	        hemotionNeutral = hemotionNeutral.substring(0, hemotionNeutral.length()-1);
+	        if(hemotionNegative.length()>0)
+	        hemotionNegative = hemotionNegative.substring(0, hemotionNegative.length()-1);
+	        hemotion_Y = hemotion_Y + hemotionPositive + "|" + hemotionNeutral + "|" + hemotionNegative;
+            model.addAttribute("hemotion_Y", hemotion_Y);
+            model.addAttribute("hemotion_X", hemotion_X);*/
+		return "cityRecognize/cityRecognizePublicOpinion_blank";
+	}
+	
+	/**
+	 * ajax getAttentionChange
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getAttentionChange")
+	public @ResponseBody
+	List<String> getAttentionChange(HttpServletRequest request, String department) {
+		Map<String, Map<String, Long>> attentionChange = peService.getEmotionChgTimeByType("department", department);
+			List<String> list = new ArrayList<String>();
+		    String department_Y = "t:";
+	        String timePositive = "";
+	        String timeNeutral = "";
+	        String timeNegative = "";
+	        String department_X = "1:|0|50|100|0:";
+            List<PublicEmotion> peList = peService.findAll(PublicEmotion.class);
+		    if(peList != null && peList.size() != 0){
+			TreeSet<String> timeSet = new TreeSet<String>();
+		//	for(PublicEmotion pe : peList){
+		////	     timeSet.add(pe.getTime());
+		//	 }
+			if(attentionChange == null){
+				for(String time : timeSet)
+		        	department_X+="|" + time;
+			}
+				else{
+                     for(String time : timeSet){
+			        	department_X+="|" + time;
+			        	if(attentionChange.get("正面") != null){
+				        	if((Long)attentionChange.get("正面").get(time) != null)
+				        		timePositive+=(double)attentionChange.get("正面").get(time)+",";
+				        	else
+				        		timePositive+=0.0+",";
+			        	}
+			        	else
+			        		timePositive+=0.0+",";
+			        	if(attentionChange.get("中立") != null){
+				        	if((Long)attentionChange.get("中立").get(time) != null)
+				        		timeNeutral+=(double)attentionChange.get("中立").get(time)+",";
+				        	else
+				        		timeNeutral+=0.0+",";
+			        	}
+			        	else
+			        		timePositive+=0.0+",";
+			        	if(attentionChange.get("负面") != null){
+				        	if((Long)attentionChange.get("负面").get(time) != null)
+				        		timeNegative+=(double)attentionChange.get("负面").get(time)+",";
+				        	else
+				        		timeNegative+=0.0+",";
+			        	}
+			        	else
+			        		timePositive+=0.0+",";
+			        }
+		        }
+	        }
+	        if(timePositive.length() > 0)
+	        timePositive = timePositive.substring(0, timePositive.length()-1);
+	        if(timeNeutral.length() > 0)
+	        timeNeutral = timeNeutral.substring(0, timeNeutral.length()-1);
+	        if(timeNegative.length() > 0)
+	        timeNegative = timeNegative.substring(0, timeNegative.length()-1);
+	        department_Y = department_Y + timePositive + "|" + timeNeutral + "|" + timeNegative;
+	        list.add(department_Y);
+	        list.add(department_X);
+	        return list;
+	}
+
+
+	/**
+	 * ajax getHierarchyDetail
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getHierarchyDetail")
+	public @ResponseBody
+	List<Map<String, String>> getHierarchyDetail(HttpServletRequest request, String hierarchyName) {	
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		//根据特定的阶层，获得其情感情况
+        Map<String, Long> hierarchyMap = peService.getMapByType("hierarchy",hierarchyName);
+        String hierarchy_X="";
+        String hierarchy_Y="t:";
+        if(hierarchyMap != null && !hierarchyMap.isEmpty())
+        for(String name : hierarchyMap.keySet()){
+        	hierarchy_X+=name+"|";
+        	if(hierarchyMap.get(name) != null)
+        		hierarchy_Y+=hierarchyMap.get(name)+",";
+        	else
+        		hierarchy_Y+=0.0+",";
+        }
+        hierarchy_X = hierarchy_X.substring(0,  hierarchy_X.length()-1);
+        hierarchy_Y = hierarchy_Y.substring(0,  hierarchy_Y.length()-1);
+        Map<String, String> hMap = new HashMap<String, String>();
+        hMap.put("X", hierarchy_X);
+        hMap.put("Y", hierarchy_Y);
+        list.add(hMap);
+        
+        //获得特定阶层的不同教育水平的数据
+        Map<String, Map<String, Long>> educationMap = peService.getAllMapBySpecialType("hierarchy",hierarchyName );
+        String heducation_X = "0:";
+        String heducation_Y = "t:";
+        String educationPositive = "";
+        String educationNegative = "";
+        String educationNeutral = "";
+        if(educationMap != null && !educationMap.isEmpty())
+        for(String key : educationMap.keySet()){
+        	heducation_X+="|" + key;
+        	if(educationMap.get(key) != null){
+        		if(educationMap.get(key).get("正面") != null)
+        			educationPositive+=(educationMap.get(key).get("正面")>100?(double)educationMap.get(key).get("正面")/100:educationMap.get(key).get("正面"))+",";
+        		else
+        			educationPositive+=0.0+",";
+        		if(educationMap.get(key).get("中立") != null)
+        			educationNeutral+=(educationMap.get(key).get("中立")>100?(double)educationMap.get(key).get("中立")/100:educationMap.get(key).get("中立"))+",";
+        		else 
+        			educationNeutral+=0.0+",";
+        		if(educationMap.get(key).get("负面") != null)
+        			educationNegative+=(educationMap.get(key).get("负面")>100?(double)educationMap.get(key).get("负面")/100:educationMap.get(key).get("负面"))+",";
+        		else
+        			educationNegative+=0.0+",";
+        	}
+        	else{
+        		educationPositive+=0.0+",";
+        		educationNeutral+=0.0+",";
+        		educationNegative+=0.0+",";
+        	}
+        	
+        
+        }
+        heducation_X+="|" + "1:|0|50|100";
+        
+        if(educationPositive.length()>0)
+        educationPositive = educationPositive.substring(0, educationPositive.length()-1);
+        if(educationNeutral.length()>0)
+        educationNeutral = educationNeutral.substring(0, educationNeutral.length()-1);
+        if(educationNegative.length()>0)
+        educationNegative = educationNegative.substring(0, educationNegative.length()-1);
+        heducation_Y = heducation_Y + educationPositive + "|" + educationNeutral + "|" + educationNegative;
+        Map<String, String> heMap = new HashMap<String, String>();
+        heMap.put("X", heducation_X);
+        heMap.put("Y", heducation_Y);
+        list.add(heMap);
+        
+         //获得特定阶层的情感变化
+        Map<String, Map<String, Long>> attentionChange = peService.getEmotionChgTimeByType("hierarchy", hierarchyName);
+		    List<String> attentionChangeList = new ArrayList<String>();
+		    String hemotion_Y = "t:";
+	        String hemotionPositive = "";
+	        String hemotionNeutral = "";
+	        String hemotionNegative = "";
+	        String hemotion_X = "1:|0|50|100|0:";
+	        List<PublicEmotion> hierarypeList = peService.findAll(PublicEmotion.class);
+	        TreeSet<String> htimeSet = new TreeSet<String>();
+	    //    for(PublicEmotion pe : hierarypeList){
+	    //    	htimeSet.add(pe.getTime());
+	    //    }
+	        if(attentionChange != null && !attentionChange.isEmpty())
+	        for(String time : htimeSet){
+	        	hemotion_X+="|" + time;
+	        	if(attentionChange.get("正面") != null){
+		        	if((Long)attentionChange.get("正面").get(time) != null)
+		        		hemotionPositive+=(double)attentionChange.get("正面").get(time)+",";
+		        	else
+		        		hemotionPositive+=0.0+",";
+	        	}
+	        	else
+	        		hemotionPositive+=0.0+",";
+	        	if(attentionChange.get("中立") != null){
+		        	if((Long)attentionChange.get("中立").get(time) != null)
+		        		hemotionNeutral+=(double)attentionChange.get("中立").get(time)+",";
+		        	else
+		        		hemotionNeutral+=0.0+",";
+	        	}
+	        	else
+	        		hemotionNeutral+=0.0+",";
+	        	if(attentionChange.get("负面") != null){
+		        	if((Long)attentionChange.get("负面").get(time) != null)
+		        		hemotionNegative+=(double)attentionChange.get("负面").get(time)+",";
+		        	else
+		        		hemotionNegative+=0.0+",";
+	        	}
+	        	else
+	        		hemotionNegative+=0.0+",";
+	        }
+	        if(hemotionPositive.length()>0)
+	        hemotionPositive = hemotionPositive.substring(0, hemotionPositive.length()-1);
+	        if(hemotionNeutral.length()>0)
+	        hemotionNeutral = hemotionNeutral.substring(0, hemotionNeutral.length()-1);
+	        if(hemotionNegative.length()>0)
+	        hemotionNegative = hemotionNegative.substring(0, hemotionNegative.length()-1);
+	        hemotion_Y = hemotion_Y + hemotionPositive + "|" + hemotionNeutral + "|" + hemotionNegative;
+	        Map<String, String> hemMap = new HashMap<String, String>();
+	        hemMap.put("X", hemotion_X);
+	        hemMap.put("Y", hemotion_Y);
+	        list.add(hemMap);
+		    return list;	
+		  
+	}
+
+	/**
+	 * ajax getMainmediaAttentionDetail
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getMainmediaAttentionDetail")
+	public @ResponseBody List<Map<String, Object>> getMainmediaAttentionDetail(HttpServletRequest request, String type, Integer month, Integer isAbout, Long mmId) {	
+		Integer startTime = null;
+		if(month == 0 || month == null)
+			startTime = 0;
+		else{
+			DateUtil du = new DateUtil();
+			Calendar  cal = Calendar.getInstance();
+		 	cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-month);
+		 	String time = du.getYearAndMonthOfDate(cal.getTime());
+		 	List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		 	startTime = startAndEnd.get(0);
+		}
+        List<Long> countList = mmaService.getCountListBymmIdAndTypeAndTime(mmId,type, startTime, isAbout );
+        List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
+        Map<String, Object> positivemap = new HashMap<String, Object>();
+        Map<String, Object> neutralmap = new HashMap<String, Object>();
+        Map<String, Object> negativemap = new HashMap<String, Object>();
+        if("emotion".equals(type)){ 
+            positivemap.put("name", "正面");
+            positivemap.put("count", countList.get(0));
+            neutralmap.put("name", "中立");
+            neutralmap.put("count", countList.get(1));
+            negativemap.put("name", "负面");
+            negativemap.put("count", countList.get(2));
+        }
+        else{
+            positivemap.put("name", "右倾");
+            positivemap.put("count", countList.get(0));
+            neutralmap.put("name", "中立");
+            neutralmap.put("count", countList.get(1));
+            negativemap.put("name", "左倾");
+            negativemap.put("count", countList.get(2));
+        }
+    
+        returnList.add(positivemap);
+        returnList.add(neutralmap);
+        returnList.add(negativemap);
+        return returnList;
+        
+	}
+
+	
+	
+	/**
+	 * ajax getemotionCountByTypeAndTime
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getemotionCountByTypeAndTime")
+	public @ResponseBody
+	List<Map<String, Object>> getemotionCountByTypeAndTime(HttpServletRequest request, String type, Integer month) {	
+		List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
+		Integer startTime = null ;
+		if(month != 0){
+			DateUtil du = new DateUtil();
+			Calendar  cal = Calendar.getInstance();
+		 	cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-month);
+		 	String time = du.getYearAndMonthOfDate(cal.getTime());
+		 	List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		 	startTime = startAndEnd.get(0); 
+		}
+
+		if("公众".equals(type)){
+			Map<String, Object> positiveMap = new HashMap<String, Object>();
+			Map<String, Object> neutralMap = new HashMap<String, Object>();
+			Map<String, Object> negativeMap = new HashMap<String, Object>();
+			positiveMap.put("name", "喜欢");
+			positiveMap.put("count", peService.getCountByTypeAndTime("emotion", "喜欢", startTime));
+			neutralMap.put("name", "中立");
+			neutralMap.put("count", peService.getCountByTypeAndTime("emotion", "中立", startTime));
+			negativeMap.put("name", "讨厌");
+			negativeMap.put("count", peService.getCountByTypeAndTime("emotion", "讨厌", startTime));
+			returnList.add(positiveMap);
+			returnList.add(neutralMap);
+			returnList.add(negativeMap);
+			return returnList;
+		}
+		else{
+				Map<String, Object> positiveMap = new HashMap<String, Object>();
+				Map<String, Object> neutralMap = new HashMap<String, Object>();
+				Map<String, Object> negativeMap = new HashMap<String, Object>();
+				positiveMap.put("name", "喜欢");
+				positiveMap.put("count", mmaService.getCountByTypeAndTime("emotion", "喜欢", startTime));
+				neutralMap.put("name", "中立");
+				neutralMap.put("count", mmaService.getCountByTypeAndTime("emotion", "中立", startTime));
+				negativeMap.put("name", "讨厌");
+				negativeMap.put("count", mmaService.getCountByTypeAndTime("emotion", "讨厌", startTime));
+				returnList.add(positiveMap);
+				returnList.add(neutralMap);
+				returnList.add(negativeMap);
+				return returnList;
+		}
+
+		 
+	}
+
+
+	/**
+	 * ajax getemotionChgByType
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getemotionChgByType")
+	public @ResponseBody
+	Map<String,Object> getemotionChgByType(HttpServletRequest request, String type, Integer month) {	
+		
+		if("公众".equals(type)){
+			    List<Long> positiveList = new ArrayList<Long>();
+		        List<Long> neutralList = new ArrayList<Long>();
+		        List<Long> negativeList = new ArrayList< Long>();
+		        List<String> timeList = new ArrayList<String>();
+		        Map<String, Object> returnMap = new HashMap<String, Object>();
+		        DateUtil du = new DateUtil();
+		        for(int i=month; i>0; i--){
+		    		Calendar  cal = Calendar.getInstance();
+		    		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-i);
+		    		String time = du.getYearAndMonthOfDate(cal.getTime());
+		    		List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		    		List<Long> countList = peService.getCountListBetweenTime(startAndEnd, "emotion", 1);
+		    		timeList.add(time);
+		    		if(countList == null || countList.size() == 0){
+		    			positiveList.add(Long.valueOf(0));
+		    			neutralList.add(Long.valueOf(0));
+		    			negativeList.add(Long.valueOf(0));
+		    		}
+		    		else{
+		    			positiveList.add(countList.get(0));
+		    			neutralList.add(countList.get(1));
+		    			negativeList.add(countList.get(2));
+		    		}
+		    		
+		        }
+		        returnMap.put("positive", positiveList);
+		        returnMap.put("neutral", neutralList);
+		        returnMap.put("negative", negativeList);
+		        returnMap.put("time", timeList);
+		        return returnMap;
+		}
+		else{
+
+		    List<Long> positiveList = new ArrayList<Long>();
+	        List<Long> neutralList = new ArrayList<Long>();
+	        List<Long> negativeList = new ArrayList< Long>();
+	        List<String> timeList = new ArrayList<String>();
+	        Map<String, Object> returnMap = new HashMap<String, Object>();
+	        DateUtil du = new DateUtil();
+	        for(int i=month; i>0; i--){
+	    		Calendar  cal = Calendar.getInstance();
+	    		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-i);
+	    		String time = du.getYearAndMonthOfDate(cal.getTime());
+	    		List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+	    		List<Long> countList = mmaService.getCountListBetweenTime(startAndEnd, "emotion", null, null);
+	    		timeList.add(time);
+	    		if(countList == null || countList.size() == 0){
+	    			positiveList.add(Long.valueOf(0));
+	    			neutralList.add(Long.valueOf(0));
+	    			negativeList.add(Long.valueOf(0));
+	    		}
+	    		else{
+	    			positiveList.add(countList.get(0));
+	    			neutralList.add(countList.get(1));
+	    			negativeList.add(countList.get(2));
+	    		}
+	    		
+	        }
+	        returnMap.put("positive", positiveList);
+	        returnMap.put("neutral", neutralList);
+	        returnMap.put("negative", negativeList);
+	        returnMap.put("time", timeList);
+	        return returnMap;
+		}
+
+		 
+	}
+
+	
+	/**
+	 * ajax getkeyWords
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getkeyWords")
+	public @ResponseBody Map<String,Object> getkeyWork(HttpServletRequest request, String type, Integer month, Integer number, Long cityRegionId, Long mainmediaId) {	
+		Integer startTime = null ;
+		if(month == null || month == 0)
+			startTime = 0;
+		else{
+			DateUtil du = new DateUtil();
+			Calendar  cal = Calendar.getInstance();
+		 	cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-month);
+		 	List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		 	startTime = startAndEnd.get(0); 
+		}
+		List<KeyWords> list = kwService.findKeyWords(type, cityRegionId, mainmediaId, startTime, number);
+		List<Object> returnList = new ArrayList<Object>();
+        if(list.size() > 0){
+        	List<Object> inList = new ArrayList<Object>();
+        	inList.add((Object) list.get(0).getName());
+        	inList.add((Object)Double.valueOf(50));
+		    inList.add((Object)Double.valueOf(50));
+		    inList.add((Object)Integer.valueOf(0));
+		    inList.add((Object)Long.valueOf(list.get(0).getCount()));
+		    returnList.add((Object)inList);
+        }
+		double x = 0;
+	    double y = 0;
+		int size = list.size();
+		//double length = 45/(Math.ceil(Math.sqrt(size))/2+1);
+		double length = 40/(list.size()/4);
+		for(int i=1; i<list.size(); i++){
+			List<Object> inList = new ArrayList<Object>();
+		    
+		    x = 50;
+		    y = 50;
+		    switch((i-1)%4){
+		    case 0 : x = x+((Math.random()%0.5)+0.4)* (1+(i-1)/4)*length;
+		    		 //y = y+((Math.random()%0.5)+0.4)* (Math.ceil(Math.sqrt(i))/2+1)*length;
+		    		 y = y+((Math.random()%0.5)+0.4)* (1+(i-1)/4)*length;
+		    		 break;
+		    case 1 : x = x-((Math.random()%0.5)+0.4)* (1+(i-1)/4)*length;
+		    		 y = y+((Math.random()%0.5)+0.4)* (1+(i-1)/4)*length;
+		    		 break;
+		    case 2 : x = x-((Math.random()%0.5)+0.4)* (1+(i-1)/4)*length;
+		             y = y-((Math.random()%0.5)+0.4)* (1+(i-1)/4)*length;
+		    		 break;
+		    case 3 : y = y-((Math.random()%0.5)+0.4)* (1+(i-1)/4)*length;
+		    		 x = x+((Math.random()%0.5)+0.4)* (1+(i-1)/4)*length;
+		    		 break;
+		    		 
+		    }
+		    inList.add((Object) list.get(i).getName());
+		    inList.add((Object)Double.valueOf(x));
+		    inList.add((Object)Double.valueOf(y));
+		    inList.add((Object)Integer.valueOf(i));
+		    inList.add((Object)Long.valueOf(list.get(i).getCount()));
+		    returnList.add((Object)inList);
+		}
+		
+		 Map<String,Object> returnMap = new HashMap<String, Object>();
+		 returnMap.put("data", returnList);
+		 return returnMap;
+	}
+	
+	/**
+	 * ajax getmainmediaAttention
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getmainmediaAttention")
+	public @ResponseBody List<Object> getmainmediaAttention(HttpServletRequest request) {	
+		List<Object> returnList = new ArrayList<Object>();
+		List<Mainmedia> mainmediaList = mmService.findAll(Mainmedia.class);
+		for(int i=0; i<mainmediaList.size(); i++){
+			List<Long> list = mmaService.getCountListBymmIdAndType(mainmediaList.get(i).getId(), "type");
+			List<Object> inList = new ArrayList<Object>();
+			inList.add(mainmediaList.get(i).getName());
+			for(int j=0; j<list.size(); j++){
+				inList.add(list.get(j));
+			}
+			returnList.add(inList);
+		}
+		return returnList;
+	}
+	
+	
+	/**
+	 * ajax getDepartnemtAttentionChange
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getDepartnemtAttentionChange")
+	public @ResponseBody Map<String,Object> getDepartnemtAttentionChange(HttpServletRequest request, String type, Integer month, Long departmentId) {	
+		
+		if("公众".equals(type)){
+			    List<Long> positiveList = new ArrayList<Long>();
+		        List<Long> neutralList = new ArrayList<Long>();
+		        List<Long> negativeList = new ArrayList< Long>();
+		        List<String> timeList = new ArrayList<String>();
+		        Map<String, Object> returnMap = new HashMap<String, Object>();
+		        DateUtil du = new DateUtil();
+		        for(int i=month; i>0; i--){
+		    		Calendar  cal = Calendar.getInstance();
+		    		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-i);
+		    		String time = du.getYearAndMonthOfDate(cal.getTime());
+		    		List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		    		List<Long> countList = peService.getCountListBetweenTimeBydbiId(startAndEnd, departmentId);
+		    		timeList.add(time);
+		    		if(countList == null || countList.size() == 0){
+		    			positiveList.add(Long.valueOf(0));
+		    			neutralList.add(Long.valueOf(0));
+		    			negativeList.add(Long.valueOf(0));
+		    		}
+		    		else{
+		    			positiveList.add(countList.get(0));
+		    			neutralList.add(countList.get(1));
+		    			negativeList.add(countList.get(2));
+		    		}
+		    		
+		        }
+		        returnMap.put("positive", positiveList);
+		        returnMap.put("neutral", neutralList);
+		        returnMap.put("negative", negativeList);
+		        returnMap.put("time", timeList);
+		        return returnMap;
+		}
+		else if("媒体".equals(type)){
+		    List<Long> positiveList = new ArrayList<Long>();
+	        List<Long> neutralList = new ArrayList<Long>();
+	        List<Long> negativeList = new ArrayList< Long>();
+	        List<String> timeList = new ArrayList<String>();
+	        Map<String, Object> returnMap = new HashMap<String, Object>();
+	        DateUtil du = new DateUtil();
+	        for(int i=month; i>0; i--){
+	    		Calendar  cal = Calendar.getInstance();
+	    		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-i);
+	    		String time = du.getYearAndMonthOfDate(cal.getTime());
+	    		List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+	    		List<Long> countList = mmaService.getCountListBetweenTimeBydbiId(startAndEnd, departmentId);
+	    		timeList.add(time);
+	    		if(countList == null || countList.size() == 0){
+	    			positiveList.add(Long.valueOf(0));
+	    			neutralList.add(Long.valueOf(0));
+	    			negativeList.add(Long.valueOf(0));
+	    		}
+	    		else{
+	    			positiveList.add(countList.get(0));
+	    			neutralList.add(countList.get(1));
+	    			negativeList.add(countList.get(2));
+	    		}
+	    		
+	        }
+	        returnMap.put("positive", positiveList);
+	        returnMap.put("neutral", neutralList);
+	        returnMap.put("negative", negativeList);
+	        returnMap.put("time", timeList);
+	        return returnMap;
+		}
+		else{
+			    List<Long> positiveList = new ArrayList<Long>();
+		        List<Long> neutralList = new ArrayList<Long>();
+		        List<Long> negativeList = new ArrayList< Long>();
+		        List<String> timeList = new ArrayList<String>();
+		        Map<String, Object> returnMap = new HashMap<String, Object>();
+		        DateUtil du = new DateUtil();
+		        for(int i=month; i>0; i--){
+		    		Calendar  cal = Calendar.getInstance();
+		    		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-i);
+		    		String time = du.getYearAndMonthOfDate(cal.getTime());
+		    		List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		    		List<Long> mmacountList = mmaService.getCountListBetweenTimeBydbiId(startAndEnd, departmentId);
+		    		List<Long> pecountList = peService.getCountListBetweenTimeBydbiId(startAndEnd, departmentId);
+		    		timeList.add(time);
+		    		if(mmacountList == null || mmacountList.size() == 0){
+		    			if(pecountList == null || pecountList.size() == 0){
+		    				positiveList.add(Long.valueOf(0));
+			    			neutralList.add(Long.valueOf(0));
+			    			negativeList.add(Long.valueOf(0));
+		    			}
+		    			else{
+		    				positiveList.add(pecountList.get(0));
+			    			neutralList.add(pecountList.get(1));
+			    			negativeList.add(pecountList.get(2));
+		    			}
+		    		}
+		    		else{
+		    			if(pecountList == null || pecountList.size() == 0){
+		    				positiveList.add(mmacountList.get(0));
+			    			neutralList.add(mmacountList.get(1));
+			    			negativeList.add(mmacountList.get(2));
+		    			}
+		    			else{
+		    				positiveList.add(pecountList.get(0)+mmacountList.get(0));
+			    			neutralList.add(pecountList.get(1)+mmacountList.get(1));
+			    			negativeList.add(pecountList.get(2)+mmacountList.get(2));
+		    			}
+		    		}
+		    		
+		        }
+		        returnMap.put("positive", positiveList);
+		        returnMap.put("neutral", neutralList);
+		        returnMap.put("negative", negativeList);
+		        returnMap.put("time", timeList);
+		        return returnMap;
+		}
+	}
+
+
+	/**
+	 * ajax getpublicPoliticalByType
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getpublicPoliticalByType")
+	public @ResponseBody List<Object> getpublicPoliticalByType(HttpServletRequest request, String type) {	
+		List<Object> returnList = new ArrayList<Object>();
+		if("阶层".equals(type)){
+			List<Hierarchy> hierarchyList = hService.findAll(Hierarchy.class);
+			for(int i=0; i<hierarchyList.size(); i++){
+				List<Long> countList = peService.getCountListByTypeId("hierarchyId.id", hierarchyList.get(i).getId());
+				List<Object> list = new ArrayList<Object>();
+				list.add(hierarchyList.get(i).getName());
+				list.add(countList.get(0));
+				list.add(countList.get(1));
+				list.add(countList.get(2));
+				returnList.add(list);
+ 			}
+		}
+		else if("学历".equals(type)){
+			List<Education> educationList = eService.findAll(Education.class);
+			for(int i=0; i<educationList.size(); i++){
+				List<Long> countList = peService.getCountListByTypeId("educationId.id", educationList.get(i).getId());
+				List<Object> list = new ArrayList<Object>();
+				list.add(educationList.get(i).getName());
+				list.add(countList.get(0));
+				list.add(countList.get(1));
+				list.add(countList.get(2));
+				returnList.add(list);
+ 			}
+		}
+		return returnList;
+	}	
+
+	/**
+	 * ajax getAttentionByTypeAndTime
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getAttentionByTypeAndTime")
+	public @ResponseBody List<Object> getAttentionByTypeAndTime(HttpServletRequest request, String type, Integer month) {	
+		List<Object> returnList = new ArrayList<Object>();
+		List<Mainmedia> mainmediaList = mmService.findAll(Mainmedia.class);
+		Integer startTime = null;
+		if(month == 0)
+			startTime = 0;
+		else{
+			DateUtil du = new DateUtil();
+			Calendar  cal = Calendar.getInstance();
+		 	cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-month);
+		 	String time = du.getYearAndMonthOfDate(cal.getTime());
+		 	List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		 	startTime = startAndEnd.get(0); 
+		}
+		for(int i=0; i<mainmediaList.size(); i++){
+			List<Long> list = mmaService.getCountListBymmIdAndTypeAndTime(mainmediaList.get(i).getId(), type, startTime, null);
+			List<Object> inList = new ArrayList<Object>();
+			inList.add(mainmediaList.get(i).getName());
+			for(int j=0; j<list.size(); j++){
+				inList.add(list.get(j));
+			}
+			returnList.add(inList);
+		}
+		return returnList;
+	}
+
+	
+	/**
+	 * ajax getChgBymmIdAndTimeAndType
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getChgBymmIdAndTimeAndType")
+	public @ResponseBody
+	Map<String,Object> getChgBymmIdAndTimeAndType(HttpServletRequest request, String type, Integer month, Long mmId, Integer isAbout) {	
+			List<Long> positiveList = new ArrayList<Long>();
+	        List<Long> neutralList = new ArrayList<Long>();
+	        List<Long> negativeList = new ArrayList< Long>();
+	        List<String> timeList = new ArrayList<String>();
+	        Map<String, Object> returnMap = new HashMap<String, Object>();
+	        DateUtil du = new DateUtil();
+	        for(int i=month; i>0; i--){
+	    		Calendar  cal = Calendar.getInstance();
+	    		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-i);
+	    		String time = du.getYearAndMonthOfDate(cal.getTime());
+	    		List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+	    		List<Long> countList = mmaService.getCountListBetweenTime(startAndEnd, type,isAbout, mmId);
+	    		timeList.add(time);
+	    		if(countList == null || countList.size() == 0){
+	    			positiveList.add(Long.valueOf(0));
+	    			neutralList.add(Long.valueOf(0));
+	    			negativeList.add(Long.valueOf(0));
+	    		}
+	    		else{
+	    			positiveList.add(countList.get(0));
+	    			neutralList.add(countList.get(1));
+	    			negativeList.add(countList.get(2));
+	    		}
+	    		
+	        }
+	        returnMap.put("positive", positiveList);
+	        returnMap.put("neutral", neutralList);
+	        returnMap.put("negative", negativeList);
+	        returnMap.put("time", timeList);
+	        return returnMap;
+	
+			   
+	}
+
+	/**
+	 * ajax getpublicEmotionChgByTime
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getpublicEmotionChgByTime")
+	public @ResponseBody
+	Map<String,Object> getpublicEmotionChgByTime(HttpServletRequest request, String type, Integer month, Integer isAbout) {	
+			    List<Long> positiveList = new ArrayList<Long>();
+		        List<Long> neutralList = new ArrayList<Long>();
+		        List<Long> negativeList = new ArrayList< Long>();
+		        List<String> timeList = new ArrayList<String>();
+		        Map<String, Object> returnMap = new HashMap<String, Object>();
+		        DateUtil du = new DateUtil();
+		        for(int i=month; i>0; i--){
+		    		Calendar  cal = Calendar.getInstance();
+		    		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-i);
+		    		String time = du.getYearAndMonthOfDate(cal.getTime());
+		    		List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		    		List<Long> countList = peService.getCountListBetweenTime(startAndEnd, type, isAbout);
+		    		timeList.add(time);
+		    		if(countList == null || countList.size() == 0){
+		    			positiveList.add(Long.valueOf(0));
+		    			neutralList.add(Long.valueOf(0));
+		    			negativeList.add(Long.valueOf(0));
+		    		}
+		    		else{
+		    			positiveList.add(countList.get(0));
+		    			neutralList.add(countList.get(1));
+		    			negativeList.add(countList.get(2));
+		    		}
+		    		
+		        }
+		        returnMap.put("positive", positiveList);
+		        returnMap.put("neutral", neutralList);
+		        returnMap.put("negative", negativeList);
+		        returnMap.put("time", timeList);
+		        return returnMap;
+	}
+
+
+	/**
+	 * ajax getHierarchyEmotionCountByTime
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getHierarchyEmotionCountByTime")
+	public @ResponseBody List<Object> getHierarchyEmotionCountByTime(HttpServletRequest request, Integer month, String type) {	
+		List<Object> returnList = new ArrayList<Object>();
+			List<Hierarchy> hierarchyList = hService.findAll(Hierarchy.class);
+			DateUtil du = new DateUtil();
+			Calendar  cal = Calendar.getInstance();
+		 	cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-month);
+		 	List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		 	Integer startTime = startAndEnd.get(0);
+			for(int i=0; i<hierarchyList.size(); i++){
+				List<Long> countList = peService.getCountListByTypeIdAndTime("hierarchyId.id", hierarchyList.get(i).getId(), startTime, type);
+				List<Object> list = new ArrayList<Object>();
+				list.add(hierarchyList.get(i).getName());
+				list.add(countList.get(0));
+				list.add(countList.get(1));
+				list.add(countList.get(2));
+				returnList.add(list);
+ 			}
+		return returnList;
+	}	
+
+	
+	/**
+	 * ajax getHierarchyCountByTypeAndTime
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getHierarchyCountByTypeAndTime")
+	public @ResponseBody List<Object> getHierarchyCountByTypeAndTime(HttpServletRequest request, Integer month, String type, Long hierarchyId) {	
+		List<Object> returnList = new ArrayList<Object>();
+		Integer startTime = null;
+		if(month == 0 || month == null)
+			startTime = 0;
+		else{
+			DateUtil du = new DateUtil();
+			Calendar  cal = Calendar.getInstance();
+		 	cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-month);
+		 	List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		 	startTime = startAndEnd.get(0);
+		}
+			List<Long> countList = peService.getCountListByTypeIdAndTime("hierarchyId.id", hierarchyId, startTime, type);
+			Map<String, Object> positivemap = new HashMap<String, Object>();
+        	Map<String, Object> neutralmap = new HashMap<String, Object>();
+        	Map<String, Object> negativemap = new HashMap<String, Object>();
+			if("emotion".equals(type)){
+            	positivemap.put("name", "正面");
+            	positivemap.put("count",countList.get(0));
+            	neutralmap.put("name", "中立");
+            	neutralmap.put("count",countList.get(1));
+            	negativemap.put("name", "负面");
+            	negativemap.put("count",countList.get(2));
+            	
+            }else{
+                	positivemap.put("name", "右倾");
+                	positivemap.put("count",countList.get(0));
+                	neutralmap.put("name", "中立");
+                	neutralmap.put("count",countList.get(1));
+                	negativemap.put("name", "左倾");
+                	negativemap.put("count",countList.get(2));
+                	
+            }
+			
+			returnList.add(positivemap);
+			returnList.add(neutralmap);
+			returnList.add(negativemap);
+		return returnList;
+	}	
+	
+	/**
+	 * ajax getHierarchyCountChgByTypeAndTime
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getHierarchyCountChgByTypeAndTime")
+	public @ResponseBody
+	Map<String,Object> getHierarchyCountChgByTypeAndTime(HttpServletRequest request, String type, Integer month, Integer isAbout, Long hierarchyId) {	
+			    List<Long> positiveList = new ArrayList<Long>();
+		        List<Long> neutralList = new ArrayList<Long>();
+		        List<Long> negativeList = new ArrayList< Long>();
+		        List<String> timeList = new ArrayList<String>();
+		        Map<String, Object> returnMap = new HashMap<String, Object>();
+		        DateUtil du = new DateUtil();
+		        for(int i=month; i>0; i--){
+		    		Calendar  cal = Calendar.getInstance();
+		    		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-i);
+		    		String time = du.getYearAndMonthOfDate(cal.getTime());
+		    		List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+		    		List<Long> countList = peService.getCountListBetweenTimeByHieId(startAndEnd, type, isAbout, hierarchyId);
+		    		timeList.add(time);
+		    		if(countList == null || countList.size() == 0){
+		    			positiveList.add(Long.valueOf(0));
+		    			neutralList.add(Long.valueOf(0));
+		    			negativeList.add(Long.valueOf(0));
+		    		}
+		    		else{
+		    			positiveList.add(countList.get(0));
+		    			neutralList.add(countList.get(1));
+		    			negativeList.add(countList.get(2));
+		    		}
+		    		
+		        }
+		        returnMap.put("positive", positiveList);
+		        returnMap.put("neutral", neutralList);
+		        returnMap.put("negative", negativeList);
+		        returnMap.put("time", timeList);
+		        return returnMap;
+	}
+
+	
+	
+	/**
+	 * ajax getEducationCountByhIdAndTime
+	 * @return
+	 */
+	@RequestMapping(value = "getEducationCountByhIdAndTime")
+	public @ResponseBody List<Map<String, Object>> getEducationCountByhIdAndTime(Long hierarchyId, Integer month, Integer isAbout){
+        List<Map<String, Object>> returnList = new ArrayList<Map<String,Object>>();
+        Integer startTime = null;
+        if(month == 0 || month == null)
+        	startTime = 0;
+        else{
+        	DateUtil du = new DateUtil();
+    		Calendar  cal = Calendar.getInstance();
+    	 	cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-month);
+    	 	List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+    	 	startTime = startAndEnd.get(0);
+        }
+        
+        List<PublicEmotion> li = peService.getListByTypeIdAndTime("hierarchyId.id", hierarchyId, startTime, isAbout);
+        Map<String, Long> map = new HashMap<String, Long>();
+        if(li != null && li.size() >0){
+        		for (PublicEmotion influence : li) {
+	        		if(map.containsKey(influence.getEducationId().getName())){
+	    			    long count = map.get(influence.getEducationId().getName());
+	    				map.remove(influence.getEducationId().getName());
+	    				map.put(influence.getEducationId().getName(),count+influence.getCount());
+	    			}
+	        		else{
+	        			map.put(influence.getEducationId().getName(),influence.getCount());
+	        		}
+        		}
+        }
+        	List<Education> education = eService.findAll(Education.class);
+        	for(int i=0; i<education.size(); i++){
+        		Map<String, Object> map1 = new HashMap<String, Object>();
+        		if(!map.containsKey(education.get(i).getName())){
+        			map1.put("name", education.get(i).getName());
+            		map1.put("count", 0);
+        			returnList.add(map1);
+        		}
+        		else{
+        			map1.put("name", education.get(i).getName());
+            		map1.put("count",map.get(education.get(i).getName()));
+        			returnList.add(map1);
+        		}
+        			
+        	}
+        return returnList;
+        
+	}
+
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据公众/媒体类型,情感/政治倾向,月份(几月以前)统计部门关注度
+	 * </pre>
+	 * @param request
+	 * @param publicOrMedia 公众/媒体类型 : 0、全部	1、公众	2、媒体
+	 * @param type 情感/政治倾向 ：0、全部	1、情感	2、政治
+	 * @param month 月份
+	 * @return
+	 */
+	@RequestMapping(value = "getDepartmentConcern")
+	public @ResponseBody List<Map<String, Object>> getDepartmentConcern(HttpServletRequest request,Integer publicOrMedia,Integer type, Integer month){
+		
+        List<Map<String, Object>> returnList = new ArrayList<Map<String,Object>>();
+        Integer startTime = null;
+        if(month == 0 || month == null)
+        	startTime = 0;
+        else{
+        	DateUtil du = new DateUtil();
+    		Calendar  cal = Calendar.getInstance();
+    	 	cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-month);
+    	 	List<Integer> startAndEnd = du.getStartAndEndTime(cal);
+    	 	startTime = startAndEnd.get(0);
+        }
+        int[] result = null;
+        int[] listPub = null;
+        int[] listMedia=null;
+        if(publicOrMedia == 0 || publicOrMedia == 1){
+        	listPub = publicEmotionService.getDepartmentConcern(type, startTime);
+        }
+        if(publicOrMedia == 0 || publicOrMedia == 2){
+        	listMedia = mainmediaAttentionService.getDepartmentConcern(type, startTime);
+        }
+        if(publicOrMedia == 1){
+        	result = listPub;
+        }
+        if(publicOrMedia == 2){
+        	result = listMedia;
+        }
+        if(publicOrMedia == 0){
+        	for(int i=0;i<listPub.length;i++){
+        		listPub[i]+=listMedia[i];
+        	}
+        	result = listPub;
+        }
+		int[] m=new int[result.length];
+		for(int i=0;i<result.length;i++){
+			m[i]=i;
+		}
+		new QsortUtil().qsort(result,m,0,result.length-1);
+        for(int i=0;i<10;i++){
+        	System.out.println("m"+m[i]);
+        	if(m[i]==0){
+        		continue;
+        	}
+        	DepartmentBaseInfo departmentBaseInfo = departmentBaseInfoService.findById(Long.parseLong(String.valueOf(m[i])), DepartmentBaseInfo.class);
+        	Map<String, Object> map = new HashMap<String,Object>();
+        	map.put("name", departmentBaseInfo.getDbiName());
+        	map.put("total", result[i]);
+        	returnList.add(map);
+        }
+        System.out.println(returnList);
+		return returnList;
+		
+	}
+	
+
+
+}

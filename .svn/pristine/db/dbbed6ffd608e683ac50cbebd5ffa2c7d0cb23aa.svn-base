@@ -1,0 +1,674 @@
+package com.gzgb.epo.service.publicEmotion;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.QueryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import com.gzgb.epo.dao.departmentBaseInfo.DepartmentBaseInfoDao;
+import com.gzgb.epo.dao.education.EducationDao;
+import com.gzgb.epo.dao.hierarchy.HierarchyDao;
+import com.gzgb.epo.dao.publicEmotion.PublicEmotionDao;
+import com.gzgb.epo.entity.DepartmentBaseInfo;
+import com.gzgb.epo.entity.Education;
+import com.gzgb.epo.entity.Hierarchy;
+import com.gzgb.epo.entity.Mainmedia;
+import com.gzgb.epo.entity.MainmediaAttention;
+import com.gzgb.epo.entity.PublicEmotion;
+import com.gzgb.epo.entity.RemarkRecord;
+import com.gzgb.epo.service.base.BaseService;
+
+/**
+ * 
+ * <pre>
+ * 公众情感Service
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-26
+ */
+@Service
+public class PublicEmotionService extends BaseService<PublicEmotion> {
+
+	private static Logger logger = LoggerFactory
+			.getLogger(PublicEmotionService.class);
+	@Autowired
+	private PublicEmotionDao peDao;
+	@Autowired
+	private HierarchyDao hDao;
+	@Autowired
+	private EducationDao eDao;
+	@Autowired
+	private DepartmentBaseInfoDao dDao;
+    
+	/**
+	 * 
+	 * <pre>
+	 * 根据情感类型获得相应时间内的总数
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public long getCountByTypeAndTime(String type, String value, Integer startTime ) throws QueryException {
+		try {
+			logger.info("---getCountByTypeAndTime()方法");
+			Map<String, String> map = new HashMap<String, String>();
+			map.put(type, value);
+			List<PublicEmotion> list = peDao.getCountByTypeAndTime(type, value, startTime);
+			long total = 0;
+			if ( list == null || list.size() == 0 ) {
+				return 0;
+			} else {
+				for (PublicEmotion pe : list) {
+					total += pe.getCount();
+				}
+			}
+			return total;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return 0;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型例如部门 或 学历 来获得Map<情感类型，Map<时间， 数量>>
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public Map<String, Map<String, Long>> getEmotionChgTimeByType(String type, String value)
+			throws QueryException {
+		try {
+			logger.info("---getEmotionChgTimeByType()方法");
+			Map<String, Long> positiveMap = new HashMap<String, Long>();
+			Map<String, Long> neutralMap = new HashMap<String, Long>();
+			Map<String, Long> negativeMap = new HashMap<String, Long>();
+			Map<String, Map<String, Long>> map = new HashMap<String, Map<String, Long>>();
+			List<PublicEmotion> list = peDao.getListByType(type, value);
+			if (list.size() == 0) {
+				return null;
+			} else {
+				for (PublicEmotion pe : list) { 
+					if("正面".equals(pe.getEmotion()) ){
+						if(positiveMap.containsKey(pe.getTime())){
+							long count = positiveMap.get(pe.getTime());
+							positiveMap.remove(pe.getTime());
+							count+=pe.getCount();
+							positiveMap.put(String.valueOf(pe.getTime()), count);
+						}
+						else{
+							positiveMap.put(String.valueOf(pe.getTime()), pe.getCount());
+						}
+
+					}
+					else if("中立".equals(pe.getEmotion()) ){
+						if(neutralMap.containsKey(pe.getTime())){
+							long count = neutralMap.get(pe.getTime());
+							neutralMap.remove(pe.getTime());
+							count+=pe.getCount();
+							neutralMap.put(String.valueOf(pe.getTime()), count);
+						}
+						else{
+							neutralMap.put(String.valueOf(pe.getTime()), pe.getCount());
+						}
+
+					}
+					else{
+						if(negativeMap.containsKey(pe.getTime())){
+							long count = negativeMap.get(pe.getTime());
+							negativeMap.remove(pe.getTime());
+							count+=pe.getCount();
+							negativeMap.put(String.valueOf(pe.getTime()), count);
+						}
+						else{
+							negativeMap.put(String.valueOf(pe.getTime()), pe.getCount());
+						}
+					}	
+				}
+			}
+			map.put("正面", positiveMap);
+			map.put("中立", neutralMap);
+			map.put("负面", negativeMap);
+			return map;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型获得按时间排序的 数量
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public Map<String, Long> getMapTimeByType(String type, String value)
+			throws QueryException {
+		try {
+			logger.info("---getMapByType()方法");
+			Map<String, Long> map = new HashMap<String, Long>();
+			List<PublicEmotion> list = peDao.getListByType(type, value);
+			if (list.size() == 0) {
+				return null;
+			} else {
+				for (PublicEmotion pe : list) { 
+					if(map.containsKey(pe.getTime())){
+						long count = map.get(pe.getTime());
+						map.remove(pe.getTime());
+						count+=pe.getCount();
+						map.put(String.valueOf(pe.getTime()), count);
+					}
+					else{
+						map.put(String.valueOf(pe.getTime()), pe.getCount());
+					}	
+				}
+			}
+			return map;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型（例如根据阶层，值为 企业家）获得map数量（按情感分类）map<情感， 数量>
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public Map<String, Long> getMapByType(String type, String value)
+			throws QueryException {
+		try {
+			logger.info("---getMapByType()方法");
+			List<PublicEmotion> list = peDao.getListByType(type, value);
+			Map<String, Long> targetMap = new HashMap<String, Long>();
+			if (list.size() == 0) {
+				return null;
+			} else {
+				long neutral = 0;
+				long positive = 0;
+				long negative = 0;
+				for (PublicEmotion pe : list) {
+					if ("正面".equals(pe.getEmotion()))
+						positive += pe.getCount();
+					else if ("负面".equals(pe.getEmotion()))
+						negative += pe.getCount();
+					else
+						neutral += pe.getCount();
+				}
+				targetMap.put("正面", positive);
+				targetMap.put("负面", negative);
+				targetMap.put("中立", neutral);
+			}
+			return targetMap;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型获得所有该类型下不同值的map数量（按情感分类）Map<类型的不同值,Map<情感类型，数量>>
+	 * </pre>
+	 * @param <T>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public Map<String, Map<String, Long>> getAllMapByType(Class cls)
+			throws QueryException {
+		try {
+
+			logger.info("---getMapByType()方法");
+			List typeList = null;
+			if(cls == Hierarchy.class){
+				typeList = hDao.findAll(cls);
+				Map<String, Map<String, Long>> map = new HashMap<String, Map<String, Long>>();
+				for (int i=0; i<typeList.size(); i++) {
+					Hierarchy hierarchy = (Hierarchy)typeList.get(i);
+					Map<String, String> mapping = new HashMap<String, String>();
+					mapping.put("hierarchy", hierarchy.getName());
+					List<PublicEmotion> peList = peDao.getAll(
+							PublicEmotion.class, mapping);
+					Map<String, Long> targetMap = new HashMap<String, Long>();
+					if (peList.size() != 0) {
+						for (PublicEmotion targetmma : peList) {
+							if(targetMap.containsKey(targetmma.getEmotion())){
+								long count = targetMap.get(targetmma.getEmotion());
+								targetMap.remove(targetmma.getEmotion());
+								targetMap.put(targetmma.getEmotion(), count+targetmma.getCount());
+							}
+							else{
+								targetMap.put(targetmma.getEmotion(), targetmma.getCount());
+							}
+
+						}
+						map.put(hierarchy.getName(), targetMap);
+					}
+					else{
+						map.put(hierarchy.getName(), null);
+					}
+				}
+				return map;
+			}
+			    
+			if(cls == Education.class){
+				typeList = eDao.findAll(cls);
+				Map<String, Map<String, Long>> map = new HashMap<String, Map<String, Long>>();
+				for (int i=0; i<typeList.size(); i++) {
+					Education education = (Education)typeList.get(i);
+					Map<String, String> mapping = new HashMap<String, String>();
+					mapping.put("education", education.getName());
+					List<PublicEmotion> peList = peDao.getAll(
+							PublicEmotion.class, mapping);
+					Map<String, Long> targetMap = new HashMap<String, Long>();
+					if (peList.size()!= 0) {
+						for (PublicEmotion targetmma : peList) {
+							if(targetMap.containsKey(targetmma.getEmotion())){
+								long count = targetMap.get(targetmma.getEmotion());
+								targetMap.remove(targetmma.getEmotion());
+								targetMap.put(targetmma.getEmotion(), count+targetmma.getCount());
+							}
+							else{
+								targetMap.put(targetmma.getEmotion(), targetmma.getCount());
+							}
+
+						}
+						map.put(education.getName(), targetMap);
+					}
+					else{
+						map.put(education.getName(), null);
+					}
+				}
+				return map;
+			}
+			if(cls == DepartmentBaseInfo.class){
+				typeList = dDao.findAll(cls);
+				Map<String, Map<String, Long>> map = new HashMap<String, Map<String, Long>>();
+				for (int i=0; i<typeList.size(); i++) {
+					DepartmentBaseInfo department = (DepartmentBaseInfo)typeList.get(i);
+					Map<String, String> mapping = new HashMap<String, String>();
+					mapping.put("department", department.getDbiName());
+					List<PublicEmotion> peList = peDao.getAll(
+							PublicEmotion.class, mapping);
+					Map<String, Long> targetMap = new HashMap<String, Long>();
+					if (peList.size() != 0) {
+						for (PublicEmotion targetmma : peList) {
+							if(targetMap.containsKey(targetmma.getEmotion())){
+								long count = targetMap.get(targetmma.getEmotion());
+								targetMap.remove(targetmma.getEmotion());
+								targetMap.put(targetmma.getEmotion(), count+targetmma.getCount());
+							}
+							else{
+								targetMap.put(targetmma.getEmotion(), targetmma.getCount());
+							}
+
+						}
+						map.put(department.getDbiName(), targetMap);
+					}
+					else{
+						map.put(department.getDbiName(), null);
+					}
+				}
+				return map;
+			}
+			return null;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型的特定值获得所有该类型特定值下不同教育水平类型值的map数量（按情感分类）Map<类型值,Map<情感类型，数量>>
+	 * </pre>
+	 * @param <T>
+	 * 
+	 * @param
+	 * @return
+	 */
+	public Map<String, Map<String, Long>> getAllMapBySpecialType(String type, String value) throws QueryException {
+		try {
+			logger.info("---getAllMapBySpecialType()方法");
+			Map<String, Map<String, Long>> map = new HashMap<String, Map<String, Long>>();
+			List<Education> educationList = eDao.findAll(Education.class);
+			Map<String, String> mapping = new HashMap<String, String>();
+			mapping.put(type, value);
+			List<PublicEmotion> list = peDao.getAll(PublicEmotion.class, mapping);
+			for(Education education : educationList){
+				String educationName = education.getName();
+				Map<String, Long> educationMap = new HashMap<String, Long>();
+				for(PublicEmotion publicEmotion : list){
+					if(educationName.equals(publicEmotion.getEducationId().getName())){
+						 if(educationMap.containsKey(publicEmotion.getEmotion())){
+								long count = educationMap.get(publicEmotion.getEmotion());
+								educationMap.remove(publicEmotion.getEmotion());
+								count+=publicEmotion.getCount();
+								educationMap.put(publicEmotion.getEmotion(), count);
+							}
+							else{
+								educationMap.put(publicEmotion.getEmotion(), publicEmotion.getCount());
+							}
+							
+					       }
+						}
+				map.put(educationName, educationMap);		
+				}
+			return map;
+			
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 查找在特定月里面的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param startAndEnd
+	 * @param isAbout TODO
+	 * @return
+	 */
+	public List<Long> getCountListBetweenTime(List<Integer> startAndEnd, String type, Integer isAbout) {
+		try {
+			logger.info("---getCountListBetweenTime()方法");
+			List<PublicEmotion> list = peDao.getListBetweenTime(startAndEnd, null, 1);
+			if(list == null || list.size() == 0)
+				return null;
+			else{
+				long positiveCount = 0;
+				long neutralCount = 0;
+				long negativeCount = 0;
+				if("emotion".equals(type)){
+					for(PublicEmotion rr : list){
+						if("喜欢".equals(rr.getEmotion()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getEmotion()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				}
+				else{
+					for(PublicEmotion rr : list){
+						if("正面".equals(rr.getPolitical()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getPolitical()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				}
+				List<Long> returnList = new ArrayList<Long>();
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据departmentId查找在特定月里面的不同情感的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param startAndEnd
+	 * @return
+	 */
+	public List<Long> getCountListBetweenTimeBydbiId(List<Integer> startAndEnd, Long departmentId) {
+		try {
+			logger.info("---getCountListBetweenTimeBydbiId()方法");
+			Map<String, Long> mapId = new HashMap<String, Long>();
+			mapId.put("departmentId.id", departmentId);
+			List<PublicEmotion> list = peDao.getListBetweenTimeById(startAndEnd, mapId, null);
+			if(list == null || list.size() == 0)
+				return null;
+			else{
+				long positiveCount = 0;
+				long neutralCount = 0;
+				long negativeCount = 0;
+					for(PublicEmotion rr : list){
+						if("喜欢".equals(rr.getEmotion()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getEmotion()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				
+				List<Long> returnList = new ArrayList<Long>();
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型Id查找不同政治倾向类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param startAndEnd
+	 * @return
+	 */
+	public List<Long> getCountListByTypeId(String type, Long typeId) {
+		try {
+			logger.info("---getCountListByTypeId()方法");
+			List<PublicEmotion> list = peDao.getListByTypeId(type, typeId);
+			long positiveCount = 0;
+			long neutralCount = 0;
+			long negativeCount = 0;
+			List<Long> returnList = new ArrayList<Long>();
+			if(list == null || list.size() == 0){
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}	
+			else{
+					for(PublicEmotion rr : list){
+						if("右倾".equals(rr.getPolitical()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getPolitical()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				
+				
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型Id查找相应时间内不同情感倾向类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param startAndEnd
+	 * @return
+	 */
+	public List<Long> getCountListByTypeIdAndTime(String type, Long typeId, Integer startTime, String emotionOrPolitical) {
+		try {
+			logger.info("---getCountListByTypeIdAndTime()方法");
+			List<PublicEmotion> list = peDao.getListByTypeIdAndTime(type, typeId,startTime, null);
+			long positiveCount = 0;
+			long neutralCount = 0;
+			long negativeCount = 0;
+			List<Long> returnList = new ArrayList<Long>();
+			if(list == null || list.size() == 0){
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}	
+			else{
+				if("emotion".equals(emotionOrPolitical)){
+					for(PublicEmotion rr : list){
+						if("喜欢".equals(rr.getEmotion()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getEmotion()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				}
+					else{
+							for(PublicEmotion rr : list){
+								if("右倾".equals(rr.getPolitical()))
+									positiveCount+=rr.getCount();
+								else if("中立".equals(rr.getPolitical()))
+									neutralCount+=rr.getCount();
+								else
+									negativeCount+=rr.getCount();		
+							}
+				
+				}
+					
+				
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据HierarchyId查找在特定月里面的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param startAndEnd
+	 * @param isAbout TODO
+	 * @return
+	 */
+	public List<Long> getCountListBetweenTimeByHieId(List<Integer> startAndEnd, String type, Integer isAbout, Long hierarchyId) {
+		try {
+			logger.info("---getCountListBetweenTimeByHieId()方法");
+			Map<String, Long> mapId = new HashMap<String, Long>();
+			mapId.put("hierarchyId.id", hierarchyId);
+			List<PublicEmotion> list = peDao.getListBetweenTimeById(startAndEnd, mapId, isAbout );
+			if(list == null || list.size() == 0)
+				return null;
+			else{
+				long positiveCount = 0;
+				long neutralCount = 0;
+				long negativeCount = 0;
+				if("emotion".equals(type)){
+					for(PublicEmotion rr : list){
+						if("喜欢".equals(rr.getEmotion()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getEmotion()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				}
+				else{
+					for(PublicEmotion rr : list){
+						if("正面".equals(rr.getPolitical()))
+							positiveCount+=rr.getCount();
+						else if("中立".equals(rr.getPolitical()))
+							neutralCount+=rr.getCount();
+						else
+							negativeCount+=rr.getCount();		
+					}
+				}
+				List<Long> returnList = new ArrayList<Long>();
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据类型Id查找相应时间内的记录
+	 * </pre>
+	 * 
+	 * @param 
+	 * @return
+	 */
+	public List<PublicEmotion> getListByTypeIdAndTime(String typeId, Long id, Integer startTime, Integer isAbout) {
+		try {
+			logger.info("---getListByTypeIdAndTime()方法");
+			List<PublicEmotion> list = peDao.getListByTypeIdAndTime(typeId, id, startTime, isAbout);
+			return list;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	
+}

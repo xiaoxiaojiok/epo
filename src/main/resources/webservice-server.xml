@@ -13,7 +13,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
       
       <jaxws:client 
 		id="gzgbClient" 
-		address="http://125.216.245.197:8080/webservice/gzgb?wsdl" 
+		address="http://localhost:8080/webservice/gzgb?wsdl" 
 		serviceClass="com.gzgb.epo.webservice.RemoteService"/>  
 
 </beans>

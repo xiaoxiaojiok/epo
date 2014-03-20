@@ -1,0 +1,210 @@
+package com.gzgb.epo.dao.mainmediaAttention;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.QueryException;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.gzgb.epo.dao.base.BaseDaoImpl;
+import com.gzgb.epo.dao.departmentBaseInfo.DepartmentBaseInfoDao;
+import com.gzgb.epo.entity.DepartmentBaseInfo;
+import com.gzgb.epo.entity.MainmediaAttention;
+
+/**
+ * 
+ * <pre>
+ * 主流媒体关注度DaoImpl
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-26
+ */
+@Repository
+public class MainmediaAttentionDaoImpl extends BaseDaoImpl<MainmediaAttention>
+		implements MainmediaAttentionDao {
+	
+	@Autowired
+	private DepartmentBaseInfoDao departmentBaseInfoDao;
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据情感的类型获得对应时间内的记录
+	 * </pre>
+	 * 
+	 * @param type， month
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MainmediaAttention> getListByTypeAndTime(String type, String value, Integer startTime)throws QueryException {
+		try {
+				Criteria criteria = getSession().createCriteria(MainmediaAttention.class);
+				criteria.add(Restrictions.eq(type, value));
+				if(startTime != null)
+					criteria.add(Restrictions.gt("time", startTime));
+				criteria.addOrder(Order.asc("time"));
+				List<MainmediaAttention> list = criteria.list();
+				if (list.size() == 0) {
+					return null;
+				}
+				return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	
+    }
+	
+	/**
+	 * 
+	 * <pre>
+	 * 查找在特定月里面的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MainmediaAttention> getListBetweenTime(List<Integer> startAndEnd, Map<String, String> map, Integer isAbout, Long mmId)
+			throws QueryException {
+		try {
+			Criteria criteria = getSession().createCriteria(MainmediaAttention.class);
+			
+			if(map != null && !map.isEmpty()){
+				for(String key : map.keySet()){
+					criteria.add(Restrictions.eq(key, map.get(key)));
+				}
+			}
+			if(isAbout != null)
+				criteria.add(Restrictions.eq("isAbout", isAbout));
+			if(mmId != null)
+				criteria.add(Restrictions.eq("mainmediaId.id", mmId));
+			criteria.add(Restrictions.between("time", startAndEnd.get(0),startAndEnd.get(1)));
+			List<MainmediaAttention> list = criteria.list();
+			if (list.size() == 0 || list == null) {
+				return null;
+			}
+			return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 *根据mainmediaId查找相关类型的记录
+	 * </pre>
+	 * 
+	 * @param mmid
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MainmediaAttention> getCountListBymmId(Long mmid) throws QueryException {
+		try {
+			Criteria criteria = getSession().createCriteria(MainmediaAttention.class);
+			criteria.add(Restrictions.eq("mainmediaId.id", mmid));
+			List<MainmediaAttention> list = criteria.list();
+			if (list.size() == 0 || list == null) {
+				return null;
+			}
+			return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * <pre>
+	 * 查找在特定月里面的不同的类型的数量list<正面的数量，中立的数量，负面的数量>
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MainmediaAttention> getListBetweenTimeBydbiId(List<Integer> startAndEnd, Long dbiId)
+			throws QueryException {
+		try {
+			Criteria criteria = getSession().createCriteria(MainmediaAttention.class);
+			
+			if(dbiId != -1){
+				criteria.add(Restrictions.eq("departmentId.id", dbiId));
+			}
+			criteria.add(Restrictions.isNotNull("departmentId"));
+			criteria.add(Restrictions.between("time", startAndEnd.get(0),startAndEnd.get(1)));
+			List<MainmediaAttention> list = criteria.list();
+			if (list.size() == 0 || list == null) {
+				return null;
+			}
+			return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * <pre>
+	 *根据mmId和类型查找在特定时间内的记录
+	 * </pre>
+	 * @param startAndEnd
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MainmediaAttention> getListBymmIdAndTypeAndTime(Long mmId, Integer startTime, Integer isAbout)throws QueryException {
+		try {
+			Criteria criteria = getSession().createCriteria(MainmediaAttention.class);
+			criteria.add(Restrictions.eq("mainmediaId.id", mmId));
+			criteria.add(Restrictions.gt("time", startTime));
+			if(isAbout != null)
+			criteria.add(Restrictions.eq("isAbout", isAbout));
+			List<MainmediaAttention> list = criteria.list();
+			if (list.size() == 0 || list == null) {
+				return null;
+			}
+			return list;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int[] getDepartmentConcern(Integer startTime) {
+		try {
+			List<DepartmentBaseInfo> departmentBaseInfo = departmentBaseInfoDao.findAll(DepartmentBaseInfo.class);
+			int[] array = new int[departmentBaseInfo.size()];
+			String sql = "select departmentId,sum(count) total from epo_mainmediaattention where time > ? group by departmentId order by total desc;";
+			Query query = getSession().createSQLQuery(sql);
+			query.setParameter(0, startTime);
+			List list = query.list();
+			for(Iterator iterator = list.iterator();iterator.hasNext();){ 
+	            Object[] objects = (Object[]) iterator.next(); 
+	            int i = ((BigInteger) objects[0]).intValue();
+	            int count = ((BigDecimal) objects[1]).intValue();
+	            array[i]=count;
+		    } 
+			return array;
+		} catch (QueryException qe) {
+			throw qe;
+		}
+	}
+}

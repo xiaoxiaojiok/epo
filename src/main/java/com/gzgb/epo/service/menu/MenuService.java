@@ -1,0 +1,620 @@
+package com.gzgb.epo.service.menu;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.shiro.SecurityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+
+import com.gzgb.epo.dao.menu.MenuDao;
+import com.gzgb.epo.dao.permission.PermissionDao;
+import com.gzgb.epo.entity.Menu;
+import com.gzgb.epo.entity.Permission;
+import com.gzgb.epo.entity.Role;
+import com.gzgb.epo.entity.User;
+import com.gzgb.epo.service.base.BaseService;
+import com.gzgb.epo.service.shiro.ShiroDbRealm.ShiroUser;
+import com.gzgb.epo.util.RandomUtil;
+
+/**
+ * 
+ * <pre>
+ * 菜单管理service
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2013-3-15
+ */
+@Service
+@Transactional(readOnly = true)
+public class MenuService extends BaseService<Menu>
+{
+	private static Logger logger = LoggerFactory.getLogger(MenuService.class);
+
+	@Autowired
+	private MenuDao menuDao;
+	
+	@Autowired
+	private PermissionDao permissionDao;
+	/**
+	 * 
+	 * <pre>
+	 * 根据id获取一条菜单实体
+	 * </pre>
+	 * @param id
+	 * @return
+	 */
+	public Menu findById(Long id)
+	{
+		logger.info("---findById()方法");
+		return menuDao.findById(id, Menu.class);
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据菜单名称得到一条菜单实体
+	 * </pre>
+	 * @param menuName
+	 * @return
+	 */
+	public Menu findByMenuName(String menuName)
+	{
+		logger.info("---findByMenuName()方法");
+		return menuDao.findByMenuName(menuName);
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 保存菜单项，添加事务
+	 * </pre>
+	 * @param menu
+	 */
+	@Transactional(readOnly = false)
+	public void save(Menu menu)
+	{
+		logger.info("---save()方法");
+		if (menu.getId() == null || menu.getId() == 0)
+		{
+			menuDao.save(menu);
+		}
+		else
+		{
+			menuDao.update(menu);
+		}
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 删除菜单项，添加事务
+	 * </pre>
+	 * @param id
+	 */
+	@Transactional(readOnly = false)
+	public void delete(Long id)
+	{
+		logger.info("---delete()方法");
+		Menu menu = menuDao.findById(id, Menu.class);
+		List<Permission> plist = this.permissionDao.getPermissionsByMenuId(menu.getId());
+		for(Permission p:plist){
+			this.permissionDao.delete(p);
+		}
+		menuDao.delete(menu);
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 删除子菜单项，添加事务
+	 * </pre>
+	 * @param list
+	 */
+	@Transactional(readOnly=false)
+	public void deleteSubMenus(List<Menu> list)
+	{
+		logger.info("---deleteSubMenus()方法");
+		for (Menu menu : list)
+		{
+			this.deleteSubMenus(menu.getSubMenuList());
+			this.delete(menu.getId());
+		}
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据当前登陆用户，得到所能拥有的菜单集合
+	 * </pre>
+	 * @param user
+	 * @return
+	 */
+	public List<Menu> getMenuListByCurrUser(User user)
+	{
+		logger.info("---getMenuListByCurrUser()方法");
+		String roleIds = "";
+		List<Role> roleList = user.getRoleList();
+		if (roleList == null || roleList.isEmpty())
+		{
+//			roleIds += "2";
+			return null;
+		}
+		else
+		{
+			for (Role role : roleList)
+			{
+				roleIds += role.getId() + ",";
+			}
+			if (roleIds.length() >= 2)
+			{
+				roleIds = roleIds.substring(0, roleIds.length() - 1);
+			}
+		}
+		List<Permission> list = permissionDao.getPermissionByRoles(roleIds);
+		List<Long> menuIds = new ArrayList<Long>();
+		for (Permission per : list)
+		{
+//			menuIds.add(Long.parseLong(per.getPermValue()));
+			if(!menuIds.contains(per.getMenu().getId())){
+				menuIds.add(per.getMenu().getId());
+			}
+		}
+		List<Menu> listMenu = (List<Menu>) menuDao.getMenuListByLevel(1);
+//		List<Menu> allMenuList	= menuDao.findAll(Menu.class);
+		List<Menu> allMenuList	= findAll();
+		
+		// 获取其下所有子菜单
+		for (Menu menu : listMenu)
+		{
+			List<Menu> li = this.getSubMenuListByPMenu(menu,allMenuList);
+			menu.setSubMenuList(li);
+		}
+		//遍历所有菜单，并且根据用户所具备权限，过滤不显示的菜单
+		for (Menu m : listMenu)
+		{
+			if (m.getSubMenuList() == null || m.getSubMenuList().size() == 0 || m.getStatus()==0)
+			{
+				m.setStatus(0);
+				continue;
+			}else{
+				int menuCount = 0;
+				for (Menu m2 : m.getSubMenuList())
+				{
+					if (!menuIds.contains(m2.getId())){
+						m2.setStatus(0);
+					}else{
+						menuCount++;
+					}
+					if (m2.getHasNext() == 1){
+						if (m2.getStatus() == 1){
+							for (Menu m3 : m2.getSubMenuList()){
+								if (m3.getStatus() != 0){
+									if (!menuIds.contains(m3.getId())){
+										m3.setStatus(0);
+									}else{
+										menuCount++;
+									}
+								}
+							}
+						}else{
+							m2.setStatus(0);
+						}
+					}else{
+						//m2.setStatus(0);
+					}
+				}
+				if(menuCount==0)
+					m.setStatus(0);
+			}
+		}
+		return listMenu;
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 循环遍历左侧菜单，判断用户是否有权限,否则设置状态为0
+	 * </pre>
+	 * @param menuList
+	 * @param menuIds
+	 * @return
+	 */
+	public List<Menu> getLeftMenuByMenuListAndUser(List<Menu> menuList,List<Long> menuIds){
+		logger.info("---getLeftMenuByMenuListAndUser()方法");
+		if(menuList==null || menuList.size()==0)return null;
+		for (Menu m2 : menuList)
+		{
+			if (!menuIds.contains(m2.getId())){
+				m2.setStatus(0);
+			}
+			int subcount=0;
+			if (m2.getHasNext() == 1){
+				if (m2.getStatus() == 1){
+					for (Menu m3 : m2.getSubMenuList()){
+						if (m3.getStatus() != 0){
+							if (!menuIds.contains(m3.getId())){
+								m3.setStatus(0);
+							}else{
+								subcount++;
+							}
+						}
+					}
+				}else{
+					m2.setStatus(0);
+				}
+			}else{
+//				m2.setStatus(0);
+			}
+//			if(subcount==0)
+//				m2.setStatus(0);
+		}
+		return menuList;
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据当前用户取得当前用户所能拥有的所有3级菜单集合
+	 * </pre>
+	 * @param user
+	 * @return
+	 */
+	public List<Long> getMenuIdsByCurrUser(User user){
+		logger.info("---getMenuIdsByCurrUser()方法");
+		String roleIds = "";                                   
+		List<Role> roleList = user.getRoleList();
+		if (roleList == null || roleList.isEmpty())
+		{
+			roleIds += "1";
+		}
+		else
+		{
+			for (Role role : roleList)
+			{
+				roleIds += role.getId() + ",";
+			}
+			if (roleIds.length() >= 2)
+			{
+				roleIds = roleIds.substring(0, roleIds.length() - 1);
+			}
+		}
+		List<Permission> list = permissionDao.getPermissionByRoles(roleIds);
+		List<Long> menuIds = new ArrayList<Long>();
+		for (Permission per : list)
+		{
+//			menuIds.add(Long.parseLong(per.getPermValue()));
+			if(!menuIds.contains(per.getMenu().getId())){
+				menuIds.add(per.getMenu().getId());
+			}
+		}
+		return menuIds;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据菜单等级获取菜单集合
+	 * </pre>
+	 * @param menuLevel
+	 * @return
+	 */
+	public List<Menu> getMenuListByLevel(int menuLevel)
+	{
+		logger.info("---getMenuListByLevel()方法");
+		List<Menu> list = (List<Menu>) menuDao.getMenuListByLevel(menuLevel);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("_order_menuLevel_asc", "");
+		map.put("_order_orderNum_asc", "");
+		List<Menu> alllist = (List<Menu>) menuDao.getAll(Menu.class,map);
+		// 获取其下所有子菜单
+		for (Menu menu : list)
+		{
+			List<Menu> sublist = this.getSubMenuListByPMenu(menu,alllist);
+			menu.setSubMenuList(sublist);
+		}
+		return list;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据上级菜单获取子菜单集合
+	 * </pre>
+	 * @param pMenu
+	 * @return
+	 */
+	public List<Menu> getSubMenuListByPMenu(Menu pMenu,List<Menu> allMenuList)
+	{
+		logger.info("---getSubMenuListByPMenu()方法");
+		List<Menu> relist = new ArrayList<Menu>();
+		for(Menu m:allMenuList){
+			if(m.getMenu()!=null &&m.getMenu().getId().equals(pMenu.getId())){
+				pMenu.setHasNext(1);
+				m.setSubMenuList(getSubMenuListByPMenu(m,allMenuList));
+				relist.add(m);
+			}
+		}
+		return relist;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据菜单集合转换为json格式的内容，提供给前台生成树形结构
+	 * </pre>
+	 * @param list
+	 * @param jsonString
+	 * @return
+	 */
+	public String getJsonStringForZTree(List<Menu> list, String jsonString)
+	{
+		logger.info("---getJsonStringForZTree()方法");
+		for (Menu menu : list){
+			jsonString += "{";
+			jsonString += "id : " + menu.getId() + ",";
+			jsonString += "name : '" + menu.getMenuName() + "'" + ",";
+			jsonString += "status : " + menu.getStatus() + ",";
+			jsonString += "orderNum : " + menu.getOrderNum() + ",";
+			jsonString += "menuLevel : " + menu.getMenuLevel() + ",";
+			jsonString += "hasNext : " + menu.getHasNext() + ",";
+			jsonString += "pMaxNum : " + list.size() + ",";
+			jsonString += "maxNum : " + menu.getSubMenuList().size() + ",";
+
+			if (menu.getStatus() == 0){
+				jsonString += "font : {'color' : '#c6c6c6'},";
+			}
+			if(menu.getMenuLevel() == 1){
+				if (menu.getHasNext() == 1){
+					jsonString += "pId : 0,";
+					jsonString += "open : true,";
+					jsonString += "menuUrl : '" + menu.getMenuUrl() + "',";
+					jsonString += "iconSkin : 'pIcon01'";
+				}
+			}
+			if (menu.getMenuLevel() == 2){
+				if (menu.getHasNext() == 1){
+					jsonString += "pId : "+menu.getMenu().getId()+",";
+					jsonString += "open : true,";
+					jsonString += "menuUrl : '" + menu.getMenuUrl() + "',";
+					jsonString += "iconSkin : 'pIcon01'";
+				}
+				else{
+					jsonString += "pId : "+menu.getMenu().getId()+",";
+					jsonString += "open : true,";
+					jsonString += "menuUrl : '" + menu.getMenuUrl() + "',";
+					jsonString += "iconSkin : 'icon0" + RandomUtil.getInstance().randomInt(2, 8) + "'";
+				}
+			}else if (menu.getMenuLevel() == 3){
+				if (menu.getHasNext() == 1){
+					jsonString += "pId : " + menu.getMenu().getId() + ",";
+					jsonString += "menuUrl : '" + menu.getMenuUrl() + "',";
+					jsonString += "iconSkin : 'pIcon01'";
+				}else{
+					jsonString += "pId : " + menu.getMenu().getId() + ",";
+					jsonString += "menuUrl : '" + menu.getMenuUrl() + "',";
+					jsonString += "iconSkin : 'icon0" + RandomUtil.getInstance().randomInt(2, 8) + "'";
+				}
+			}
+			jsonString += "},";
+
+			if (menu.getHasNext() == 1){
+				jsonString = this.getJsonStringForZTree(menu.getSubMenuList(), jsonString);
+			}
+		}
+		return jsonString;
+	}
+
+	/**
+	 * 
+	 * <pre>
+	 * 获取所有的菜单集合
+	 * </pre>
+	 * @return
+	 */
+	public List<Menu> findAll()
+	{
+		logger.info("---findAll()方法");
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("_order_menuLevel_asc", "");
+		map.put("_order_orderNum_asc", "");
+		return (List<Menu>) menuDao.getAll(Menu.class,map);
+	}
+
+	/**
+	 * 菜单列表下拉框（ 有级别关系）
+	 * @param list
+	 * @return
+	 */
+	public String menuOptions(List<Menu> list, Menu m)
+	{
+		logger.info("---menuOptions()方法");
+		StringBuffer sbf = new StringBuffer();
+		String blanks = "";
+		for (Menu menu : list)
+		{
+			blanks = getLevelBlank(menu.getMenuLevel());
+			sbf.append("<option value='");
+			sbf.append(menu.getId());
+			sbf.append("'");
+			if (m != null)
+			{
+				if (m.getId() == menu.getId())
+				{
+					sbf.append(" selected");
+				}
+			}
+			sbf.append(">");
+			sbf.append(blanks);
+			sbf.append(menu.getMenuName());
+			sbf.append("</option>");
+			String subOptions = "";
+			if (menu.getHasNext()==1 && menu.getSubMenuList().size()>0)
+			{
+				subOptions = menuOptions(menu.getSubMenuList(), m);
+			}
+			sbf.append(subOptions);
+		}
+		return sbf.toString();
+	}
+
+	/**
+	 * 根据等级获取下拉框名称缩进的空格
+	 * @return
+	 */
+	public String getLevelBlank(Integer level)
+	{
+		logger.info("---getLevelBlank()方法");
+		if (level == null || level == 0)
+		{
+			level = 0;
+		}
+		int count = level * 2;
+		String blank = "";
+		for (int i = 0; i < count; i++)
+		{
+			blank += "&nbsp;&nbsp;&nbsp;";
+		}
+		return blank;
+	}
+
+	/**
+	 * 重组菜单
+	 * @param list
+	 */
+	public List<Menu> constructMenuList(List<Menu> list)
+	{
+		logger.info("---constructMenuList()方法");
+		if (list == null)
+		{
+			return null;
+		}
+		List<Menu> menuList = new ArrayList<Menu>();
+		int minLevel = 0;
+		for (int i = 0; i < list.size(); i++)
+		{
+			Menu menu = list.get(i);
+			if (i == 0)
+				minLevel = menu.getMenuLevel();
+			if (menu.getMenuLevel() < minLevel)
+			{
+				minLevel = menu.getMenuLevel();
+			}
+		}
+		for (Menu menu1 : list)
+		{
+			List<Menu> subMenuList = new ArrayList<Menu>();
+			for (Menu menu2 : list)
+			{
+				if (!menu1.getId().equals(menu2.getId()))
+				{
+					if (menu2.getMenu() == null)
+						continue;
+					if (menu2.getMenu().getId().equals(menu1.getId()))
+					{
+						subMenuList.add(menu2);
+					}
+				}
+			}
+			menu1.setSubMenuList(subMenuList);
+			if (menu1.getMenuLevel() <= minLevel)
+			{
+				menuList.add(menu1);
+			}
+		}
+		menuList = constructSubMenuToList(menuList);
+		return menuList;
+	}
+
+	/**
+	 * 根据当前菜单集合获取其下一级别子菜单
+	 * @param pid
+	 * @param status
+	 * @return
+	 */
+	public List<Menu> constructSubMenuToList(List<Menu> list)
+	{
+		logger.info("---constructSubMenuToList()方法");
+		List<Menu> menuList = new ArrayList<Menu>();
+		String blanks = "";
+		for (Menu menu : list)
+		{
+			blanks = getLevelBlank(menu.getMenuLevel());
+			menu.setMenuName(blanks + menu.getMenuName());
+			menuList.add(menu);
+			if (menu.getSubMenuList().size() > 0)
+			{
+				menuList.addAll(constructSubMenuToList(menu.getSubMenuList()));
+			}
+		}
+		return menuList;
+	}
+	
+	/**
+	 * 得到侧边栏子菜单列表
+	 * <pre>
+	 * 
+	 * </pre>
+	 * @param pMenuId
+	 * @param model
+	 * @return
+	 */
+	public void getLeftMenu(Long pMenuId,Model model){
+		ShiroUser user = (ShiroUser)SecurityUtils.getSubject().getPrincipal();
+		List<Long> menuIds = user.getMenuIds();
+		Menu menu1 = (Menu) this.findById(pMenuId,Menu.class);
+		Menu menu = null;
+		if(menu1.getMenuLevel()==1){
+			menu = menu1;
+		}
+		if(menu1.getMenuLevel()==2){
+			menu = menu1.getMenu();
+		}
+		if(menu1.getMenuLevel()==3){
+			menu = menu1.getMenu().getMenu();
+		}
+		List<Menu> allList = this.findAll();
+		List<Menu> menuList = this.getLeftMenuByMenuListAndUser(this.getSubMenuListByPMenu(menu,allList),menuIds);
+		menu.setSubMenuList(menuList);
+		model.addAttribute("menu", menu);
+		model.addAttribute("pMenuId", menu.getId());
+		model.addAttribute("fMenu", menu.getMenuName());
+		model.addAttribute("fUrl", menu.getMenuUrl()+"/"+menu.getId());
+		if(menuList!=null && menuList.size() > 0){
+			if(menu1.getMenuLevel()==1){
+				Menu me = null;
+				for(Menu m: menuList){
+					if(m.getStatus()!=0){
+						me = m;
+						break;
+					}
+				}
+				if(me!=null){
+					model.addAttribute("sMenuId",me.getId());
+					model.addAttribute("sMenu", me.getMenuName());
+				}
+			}else{
+				model.addAttribute("sMenuId",pMenuId);
+				if(menu1.getMenuLevel()==2){
+					model.addAttribute("sMenu", menu1.getMenuName());
+					model.addAttribute("sUrl", menu1.getMenuUrl()+"/"+menu1.getId());
+					model.addAttribute("sId", menu1.getId());
+				}
+				if(menu1.getMenuLevel()==3){
+					model.addAttribute("sMenu", menu1.getMenu().getMenuName());
+					model.addAttribute("sUrl", menu1.getMenu().getMenuUrl()+"/"+menu1.getMenu().getId());
+					model.addAttribute("tMenu", menu1.getMenuName());
+					model.addAttribute("tUrl", menu1.getMenuUrl()+"/"+menu1.getId());
+				}
+			}
+		}
+	}
+	
+}
