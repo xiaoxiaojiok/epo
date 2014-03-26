@@ -2,28 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../top.jsp"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>广州广报</title>
-
+<%@include file="/static/common/import_js.jsp"%>
 <link type="text/css" rel="stylesheet" href="${ctx }/static/css/table.css"/>
-<link rel="stylesheet" type="text/css"	href="${ctx}/static/easyui/themes/default/easyui.css" />
-<link rel="stylesheet" type="text/css"	href="${ctx}/static/easyui/themes/icon.css" />
-<script	type="text/javascript" src="${ctx}/static/easyui/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="${ctx }/static/js/base/base.js"></script>
-<script type="text/javascript" src="/static/js/syspurview/role/role.js"></script>
-<script type="text/javascript"	src="${ctx}/static/easyui/jquery.easyui.min.js"></script> 
-<script	type="text/javascript" src="${ctx}/static/js/serialize/syUtile.js"></script>
-<script type="text/javascript"	src="${ctx}/static/easyui/locale/easyui-lang-zh_CN.js"></script> 
-
-<script type="text/javascript">
-//<!--
-
+<script type="text/javascript" src="${ctx }/static/js/syspurview/mcode/mcode.js"></script>
+<script	type="text/javascript">
+	
 	$(document).ready(function() {
 		 	$('#dg').datagrid({
-		    url: '/role/list',
+		    url: '/mcode/query',
 			pageSize:20,
 		    pageList:[20,30,50],
 		    width: 700,  
@@ -45,43 +37,12 @@
 			$("#dg").datagrid("load", sy.serializeObject($("#sear_forms").form()));
 		}
 
-		function statusformatter(value,row,index){
-			if(value==-1){
-				return "<span id='statusDisplay"+row.id+"'><font color='red'>停用</font></span>";
-			}else{
-				return "<span id='statusDisplay"+row.id+"'>正常</span>";
-			}		
-		}
-
 		function rowformater(value,row,index){
-			var edit = "<a  onclick='edit("+row.id+");' href='javascript:void(0);'>修改</a>&nbsp;&nbsp;&nbsp;&nbsp;"
-		    var setup1 = "<a id='setUnable"+row.id+"'  onclick='stopRole("+row.id+");' href='javascript:void(0);'";
-		    if(row.status==-1){
-				setup1 +=" style='display:none;'>停用</a>";
-		    }else{
-		    	setup1 +=" >停用</a>";
-			} 
-		    
-		    var setup2 = "<a id='setAble"+row.id+"'  onclick='startRole("+row.id+");' href='javascript:void(0);'";
-		    if(row.status==1){
-				setup2 +=" style='display:none;'>启用</a>";
-		    } else{
-		    	setup2 +=" >启用</a>";
-		    }
-		    var accredit = "&nbsp;&nbsp;&nbsp;&nbsp;<a onclick='accredit("+row.id+");' href='javascript:void(0);'>授权</a>";
-			return edit+setup1+setup2+accredit;
+			var edit = "<a onclick='edit("+row.id+");' href='javascript:void(0);'>修改</a>";
+			var del = "&nbsp;&nbsp;&nbsp;&nbsp;<a onclick='del("+row.id+");' href='javascript:void(0);'>删除</a>";
+			return edit+del;
 		}
-	
-//回车事件搜索
-document.onkeydown = function(e){ 
-    var currKey=0,e=e||event; 
-    if(e.keyCode==13) 
-    {
-    	roleQuery();
-    } 
-};
-//-->
-</script>
+	</script>
 
 </head>
 <body>
@@ -155,43 +116,41 @@ document.onkeydown = function(e){
 					&nbsp;>&nbsp;<a href="${sUrl }" >${sMenu }</a>
 					<c:if test="${not empty tMenu}">&nbsp;>&nbsp;<a href="${tUrl }" >${tMenu }</a></c:if>
 					</div>
+					
 				<!-- 页面内容 start -->
 
-				
-				
+		
 				<!-- 页面内容  end -->
 				</div>
 				<div class="easyui-layout" fit="true">
-				<div region="north" border="false" title="角色管理" style="height: 110px;overflow: hidden;">
-					<form  id="sear_forms" action="serachproperty" style="width:100% ; height: 100%">
+				<div region="north" border="false" title="码表管理" style="height: 110px;overflow: hidden;">
+					<form  id="sear_forms" style="width:100% ; height: 100%">
 						<table class="tableFrom datagrid-toolbar" style="width: 100%;height: 100%">
 							<tr>
-							 <td class="biaoge_11">查询条件</td>
-								<td class="biaoge_12">
-								 角色名称：
-				      				<input class="text_1" name="roleName" id="roleName" type="text" />
-				      				<shiro:user>
-										<shiro:hasPermission name="role:view">
-											<a href="javascript:void(0);" class="easyui-linkbutton" onclick="roleQuery();" style="margin-left:5px;">查询</a>
-										</shiro:hasPermission>
-									</shiro:user>
+								<td class="biaoge_11">查询条件</td>
+								<td  class="biaoge_12"><span style="float:left">码类型：
+										<input type="text" id="sear_mtype" name="sear_mtype"/>
+									</span>
 								</td>
 							</tr>
 							<tr>
-							<td class="biaoge_11">操作</td>
-								<td class="biaoge_12">
+								<td class="biaoge_11">操作</td>
+								<td  class="biaoge_12">
 								 <div style="text-align:left;padding:5px">
 								<shiro:user>
-									<shiro:hasPermission name="role:edit">
-										<a href="javascript:void(0);" class="easyui-linkbutton" onclick="window.location.href='/role/create'" style="margin-left:5px;">添加</a>
+									<shiro:hasPermission name="mcode:edit">
+										<a href="javascript:void(0);" class="easyui-linkbutton" onclick="codeQuery()" style="margin-left:20px;" >查询</a>		
+									</shiro:hasPermission>
+									<shiro:hasPermission name="mcode:edit">
+										<a href="javascript:void(0);" class="easyui-linkbutton" onclick="edit(0);" style="margin-left:20px;" >添加</a>
 									</shiro:hasPermission>
 								</shiro:user>
 								<shiro:user>
-									<shiro:hasPermission name="role:delete">
-										<a href="javascript:void(0);" class="easyui-linkbutton" onclick="delMore();" style="margin-left:5px;">删除</a>
+									<shiro:hasPermission name="mcode:delete">
+										<a href="javascript:void(0);" class="easyui-linkbutton" onclick="delMore();" style="margin-left:20px;" >删除</a>
 									</shiro:hasPermission>
 								</shiro:user>
-								 </div>
+								</div>
 								</td>
 							</tr>
 						</table>
@@ -202,10 +161,15 @@ document.onkeydown = function(e){
 						<thead>
 							<tr>
 								<th data-options="field:'id',width:180,checkbox:true">全选</th>
-								<th data-options="field:'name',width:150">角色名称</th>
-								<th data-options="field:'description',width:180">角色描述</th>
-								<th data-options="field:'status',width:100,formatter:statusformatter">状态</th>
-								<th data-options="field:'opt',width:180,formatter:rowformater">操作</th>
+								<th data-options="field:'mtype',width:150,sortable:true,align:'center'">码类型</th>
+								<th data-options="field:'mkey',width:180,sortable:true,align:'center'">码名称</th>
+								<th data-options="field:'mvalue',width:50,sortable:true,align:'center'">码值</th>
+								<th data-options="field:'orderNum',width:80,sortable:true,align:'center'">码排序</th>
+								<th data-options="field:'datelevel',width:80,sortable:true,align:'center'">码级别</th>
+								<th data-options="field:'remark',width:150,sortable:true,align:'center'">备注</th>
+								<th data-options="field:'date',width:120,sortable:true,align:'center'">创建时间</th>
+								<th data-options="field:'createrName',width:100,sortable:true,align:'center'">创建者</th>
+								<th data-options="field:'opt',width:180,formatter:rowformater,align:'center'">操作</th>
 							</tr>
 							</thead>
 						</table>
@@ -222,4 +186,3 @@ document.onkeydown = function(e){
 <%@include file="../bottom.jsp"%>
 </body>
 </html>
-

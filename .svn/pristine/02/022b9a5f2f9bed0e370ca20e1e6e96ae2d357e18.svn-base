@@ -10,9 +10,8 @@
 <link type="text/css"  href="${ctx }/static/style/css.css" rel="stylesheet"/>
 <link type="text/css"  href="${ctx }/static/style/logn.css" rel="stylesheet"/>
 <link rel="shortcut icon" href="${ctx }/favicon.ico" />
-<script type="text/javascript" src="/static/easyui/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="/static/js/base/base.js"></script>
-
+<script type="text/javascript" src="/static/easyui/jquery-1.8.0.min.js"></script>
 <script type="text/javascript">
 function tosubmit(){
 	
