@@ -1,0 +1,229 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+<title>广州广报</title>
+<link type="text/css"  href="${ctx }/static/style/css.css" rel="stylesheet"/>
+<link rel="shortcut icon" href="${ctx }/favicon.ico" />
+<script type="text/javascript" src="${ctx }/static/js/base/base.js"></script>
+<script type="text/javascript" src="${ctx}/static/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="${ctx }/static/js/datepicker.js"></script>
+<script type="text/javascript" src="${ctx }/static/js/eye.js"></script>
+<script type="text/javascript" src="${ctx }/static/js/chooseDate.js"></script>
+<script type="text/javascript" src="${ctx }/static/js/knowledge/ajaxfileupload.js"></script>
+<link rel="shortcut icon" href="${ctx }/favicon.ico" />
+
+<style type="text/css">
+	body{background:none;}
+.indivlCenter{width:960px;overflow:hidden;margin:15px auto 0px;}
+.indivlCenterTableLeft{width:180px;overflow:hidden;}
+.indivlCenterPhoto{width:150px;border-bottom:1px dashed #cccccc;clear:both;padding-bottom:10px;margin-top:10px;}
+.photoLeft{width:150px;height:210px;float:left;display:inline;background:url(../images/nopicture.jpg) no-repeat left top;}
+.photoLeft img{width:150px;height:200px;position:relative;top:7px;left:7px;}
+	
+</style>
+
+</head>
+<body>
+	<div class="indivlCenter">
+		<div class="monitorTopBox" width="1045px" align="center">
+	<!-- top start -->
+			<div class="monitorTitle">
+				<span class="aTitle">舆论领袖</span>
+				<span class="bTitle">个人中心</span>
+			</div>
+			<div class="clear"></div>
+	<!-- top end -->
+		</div>
+		<table cellspacing="0" cellpadding="0">
+
+			<tr>
+				<td valign="top">
+					<div class="indivlCenterTableLeft">					
+					    <form method="post" id="leaderPhoto" action="/leaderRecognition/updateLeaderPhoto">
+							<div class="indivlCenterPhoto">
+								<div class="photoLeft">
+									<a href="###">
+									<img class="image" alt="用户头像" src="/leaderRecognition/getImage?networkId=${leader.id }&time=312234534547">
+									</a>
+								</div>
+						
+								<span class="input1"><input type="file" size="30" value="上传头像" name="photo" id="photo" /></span>
+							</div>
+						</form>
+							<div class="indivlCenterPhoto">
+							    <button onclick="fileSubmitForm()">修改头像</button>
+					    	</div>
+							<div class="photoRight">
+								<span class="photoTitle"></span>
+								<span class="photoDocket"></span>
+							</div>
+							
+					<form method="post" id="leaderDetail" action="/leaderRecognition/updateLeader">
+						<div class="indivlCenterPhoto">
+							<span class="textTitle">网络ID</span>
+							<span>${leader.id }</span>
+						</div>
+						<div class="indivlCenterPhoto">
+							<span class="textTitle">社交账号</span>
+							<span>${leader.socialAccount }</span>
+						</div>
+						<div class="indivlCenterPhoto">
+							<span class="textTitle">所在地域</span>
+							<span>${leader.regionId.name }</span>
+						</div>
+						<div class="indivlCenterPhoto">
+							<span class="textTitle">收入阶层</span>
+							<span>${leader.hierarchy.mkey }</span>
+						</div>
+							<div class="indivlCenterPhoto">
+								<span class="textTitle">收政治倾向</span>
+								<span>
+		  							<select  name="political">
+									
+										<option value="1" <c:if test="${'1' eq leader.political.mvalue }"> selected="selected" </c:if>>左倾主义</option>
+										<option vaule="2" <c:if test="${'2' eq leader.political.mvalue }"> selected="selected" </c:if>>中立主义</option>
+										<option value="3" <c:if test="${'3' eq leader.political.mvalue }"> selected="selected" </c:if>>右倾主义</option>
+									</select>
+									
+								</span>
+							</div>
+							<div class="indivlCenterPhoto">
+								<span class="textTitle">舆情影响力</span>
+								<span>
+									<select type="select" name="influenceLevel" value="${leader.influence }">
+										<option value="1" <c:if test="${'1' eq leader.influence }"> selected="selected" </c:if>>1级</option>
+										<option value="2" <c:if test="${'2' eq leader.influence }"> selected="selected" </c:if>>2级</option>
+										<option value="3" <c:if test="${'3' eq leader.influence }"> selected="selected" </c:if>>3级</option>
+										<option value="4" <c:if test="${'4' eq leader.influence }"> selected="selected" </c:if>>4级</option>
+										<option value="5" <c:if test="${'5' eq leader.influence }"> selected="selected" </c:if>>5级</option>
+										<option value="6" <c:if test="${'6' eq leader.influence }"> selected="selected" </c:if>>6级</option>
+										<option value="7" <c:if test="${'7' eq leader.influence }"> selected="selected" </c:if>>7级</option>
+										<option value="8" <c:if test="${'8' eq leader.influence }"> selected="selected" </c:if>>8级</option>
+										<option value="9" <c:if test="${'9' eq leader.influence }"> selected="selected" </c:if>>9级</option>
+									</select>
+								</span>
+							</div>
+					</form>
+						
+						
+						<div class="indivlCenterPhoto">
+							<button onclick="submitForm()">更新</button>
+						</div>	
+					</div>
+				</td>
+				<td class="indivlCenterbak" valign="top">
+					<div class="informationSourceTitle">
+						<span class="sourceLeft">参与历史事件</span>
+					</div>
+					<div class="tableListDivTable">
+					<table font-color="black" border="1px" align="center" width=80%>
+						<tr>
+							<th align="center">社交账号</th>
+							<th align="center">时间描述</th>
+							<th align="center">类型</th>
+							<th align="center">扮演角色</th>
+							<th align="center">所持观点</th>
+					   </tr>
+				
+					   <c:forEach var="history" items="${lhr }">
+					   <tr>
+							<td align="center">${history.mediaLeaderId.socialAccount }</td>
+							<td align="center">${history.description }</a></td>
+							<td align="center">${history.type }</td>
+							<td align="center">${history.role}</td>
+							<td align="center">${history.view}</td>
+					  </tr>
+					 </c:forEach>
+				  </table>
+				  </div>
+				</td>
+			</tr>
+		</table>
+	</div>
+<script type="text/javascript">
+
+//文件上传表单提交
+function fileSubmitForm(){
+
+	if($("#leaderPhoto").find("input[type='file']").val()==""){
+		alert("导入文件不能为空");
+		return false;
+	}
+
+	var postData={};
+	postData["networkId"]=${leader.id};
+	
+	//文件开始上传
+	//alert(data[parentId]);
+	 $.ajaxFileUpload({
+
+		url:$("#leaderPhoto").attr("action"), //需要链接到服务器地址
+		type: 'post',
+		data: postData,
+		secureuri:false,
+	//	dataType: 'json',
+		fileElementId:'photo', //文件选择框的id属性
+
+		dataType: 'json', //服务器返回的格式，可以是json
+    
+		success: function(data) //相当于java中try语句块的用法
+		{ 
+			
+			if(data.error){
+				alert(data.error);
+
+			}
+			else{
+					alert("信息更新成功！");
+					//为了兼容ie6、7、8版本，增加time作为随机数，这样就可以让ie版本的浏览器不会因为缓存而不访问服务器
+				    var time = new Date().getTime();
+					$(".photoLeft").find("img").attr("src",'/leaderRecognition/getImage?networkId=${leader.id }&time='+time);
+					
+				}		
+		}
+	}); 
+
+}
+
+
+//表单提交
+function submitForm(){
+	var select = $("#leaderDetail").find("select");
+	var postData={};
+	postData[$(select[0]).attr("name")]=$(select[0]).val();
+	postData[$(select[1]).attr("name")]=$(select[1]).val();
+	postData["networkId"]=${leader.id};
+
+	//更新个人信息
+	 $.ajax({
+
+		url:$("#leaderDetail").attr("action"), //需要链接到服务器地址
+		type: 'post',
+		data: postData,
+		secureuri:false,
+		dataType: 'json', 
+		success: function(data){   //相当于java中try语句块的用法
+			if(data.error){
+				alert(data.error);
+			}
+			else{
+				alert("信息更新成功！");
+	
+				}
+		}
+	}); 
+
+}
+
+</script>
+</body>
+</html>

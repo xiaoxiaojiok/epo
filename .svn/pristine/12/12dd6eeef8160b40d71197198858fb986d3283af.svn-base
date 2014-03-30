@@ -1,0 +1,86 @@
+package com.gzgb.epo.service.cityRegion;
+
+import java.util.List;
+
+import org.hibernate.QueryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.gzgb.epo.dao.cityRegion.CityRegionDao;
+import com.gzgb.epo.dao.knowledgeDictLib.KnowledgeDictLibDao;
+import com.gzgb.epo.dao.regionBaseInfo.RegionBaseInfoDao;
+import com.gzgb.epo.entity.CityRegion;
+import com.gzgb.epo.entity.Education;
+import com.gzgb.epo.entity.Hierarchy;
+import com.gzgb.epo.entity.KnowledgeDictLib;
+import com.gzgb.epo.entity.RegionBaseInfo;
+import com.gzgb.epo.service.base.BaseService;
+import com.gzgb.epo.service.knowledgeDictLib.KnowledgeDictLibService;
+
+/**
+ * 
+ * <pre>
+ *  地区service
+ * </pre>
+ * 
+ * @author Liuyongbin
+ * @version 1.0, 2014-1-6
+ */
+@Service
+@Transactional(readOnly = true)
+public class CityRegionService extends BaseService<CityRegion>{
+
+	private static Logger logger = LoggerFactory.getLogger(KnowledgeDictLibService.class);
+
+	@Autowired
+	private CityRegionDao crDao;
+	/**
+	 * 
+	 * <pre>
+	 * 根据地区级别找出记录List
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+
+	public List<CityRegion> getListByLevel(int level) throws QueryException{
+		try {
+			logger.info("---getListByLevel()方法");
+			List<CityRegion>  list =  crDao.getListByLevel(level);
+			return list;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	
+	/**
+	 * 
+	 * <pre>
+	 * 根据parentId找出记录List
+	 * </pre>
+	 * 
+	 * @param
+	 * @return
+	 */
+
+	public List<CityRegion> getListByParentId(Long parentId) throws QueryException{
+		try {
+			logger.info("---getListByParentId()方法");
+			List<CityRegion>  list =  crDao.getListByParentId(parentId);
+			return list;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+
+}

@@ -1,0 +1,126 @@
+package com.gzgb.epo.service.reportFocusDistribution;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gzgb.epo.dao.mcode.McodeDao;
+import com.gzgb.epo.dao.reportDistribution.ReportDistributionDao;
+import com.gzgb.epo.dao.reportFocusDistribution.ReportFocusDistributionDao;
+import com.gzgb.epo.entity.MainmediaAttention;
+import com.gzgb.epo.entity.ReportDistribution;
+import com.gzgb.epo.entity.ReportFocusDistribution;
+import com.gzgb.epo.service.base.BaseService;
+import com.gzgb.epo.service.remarkRecord.RemarkRecordService;
+
+/**
+ * 
+ * <pre>
+ * 报道区域分布Service
+ * </pre>
+ * 
+ * @author LiuYongbin
+ * @version 1.0, 2014-2-26
+ */
+@Service
+public class ReportFocusDistributionService extends BaseService<ReportFocusDistribution> {
+
+	private static Logger logger = LoggerFactory.getLogger(RemarkRecordService.class);
+	@Autowired
+	private ReportFocusDistributionDao rfdDao;
+	@Autowired
+	private McodeDao mcDao;
+
+	/**
+	 * 
+	 * <pre>
+	 * 根据cityRegionId和开始时间查找前number个关键字
+	 * </pre>
+	 * @param month 月份
+	 * @param cityRegionId 地区的Id
+	 * @param isAbout 是否涉穂
+	 * 
+	 * @return
+	 */
+	public List<String> getTopNumberFocusName(Long cityRegionId, Integer startTime, Integer isAbout, Integer number){
+		try {
+			logger.info("---getTopNumberFocusName()方法");
+			List<String> list = rfdDao.getTopNumberFocusName(startTime, cityRegionId, isAbout, number);
+			return list;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 *根据cityRegionId和开始时间,情感倾向/政治倾向类型，关注焦点的名字查找对应的List<正面/右倾的数量， 中立的数量， 负面/左倾的数量>
+	 * </pre>
+	 * @param cityRegionId 地区的Id
+	 * @param type 情感/政治类型
+	 * @param startTime 开始时间
+	 * @param name 关注焦点名称
+	 * @param isAbout 是否涉穂
+	 * 
+	 * @return
+	 */
+	public List<Long> getCountList(Long cityRegionId, Integer type, Integer startTime,  String name, Integer isAbout){
+		try {
+			logger.info("---getCountList()方法");
+			List<ReportFocusDistribution> list = rfdDao.findSpecialList(startTime, cityRegionId, isAbout, name);
+			long positiveCount = 0;
+			long neutralCount = 0;
+			long negativeCount = 0;
+			List<Long> returnList = new ArrayList<Long>();
+			if(list == null || list.size() == 0){
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+			else{
+				
+				if(type == 0){
+					for(ReportFocusDistribution rr : list){
+						if("1".equals(rr.getFocusEmotion().getMvalue()))
+							positiveCount+=rr.getWeigth();
+						else if("2".equals(rr.getFocusEmotion().getMvalue()))
+							neutralCount+=rr.getWeigth();
+						else
+							negativeCount+=rr.getWeigth();		
+					}
+				}
+				else{
+					for(ReportFocusDistribution rr : list){
+						if("1".equals(rr.getFocusPolitical().getMvalue()))
+							positiveCount+=rr.getWeigth();
+						else if("2".equals(rr.getFocusPolitical().getMvalue()))
+							neutralCount+=rr.getWeigth();
+						else
+							negativeCount+=rr.getWeigth();		
+					}
+					
+				}		
+				returnList.add(positiveCount);
+				returnList.add(neutralCount);
+				returnList.add(negativeCount);
+				return returnList;
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return null;
+		}
+
+	}
+	
+
+}

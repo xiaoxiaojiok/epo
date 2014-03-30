@@ -1,0 +1,565 @@
+package com.gzgb.epo.controller.leaderRecognition;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.SecurityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.gzgb.epo.entity.CityRegion;
+import com.gzgb.epo.entity.LeaderHistoryRecord;
+import com.gzgb.epo.entity.LeaderInfluence;
+import com.gzgb.epo.entity.Mcode;
+import com.gzgb.epo.entity.MediaLeader;
+import com.gzgb.epo.entity.Menu;
+import com.gzgb.epo.entity.RemarkRecord;
+import com.gzgb.epo.service.cityRegion.CityRegionService;
+
+import com.gzgb.epo.service.leaderHostoryRecord.LeaderHistoryRecordService;
+import com.gzgb.epo.service.leaderInfluence.LeaderInfluenceService;
+import com.gzgb.epo.service.mcode.McodeService;
+import com.gzgb.epo.service.mediaLeader.MediaLeaderService;
+import com.gzgb.epo.service.menu.MenuService;
+import com.gzgb.epo.service.messageCountChange.MessageCountChangeService;
+import com.gzgb.epo.service.remarkRecord.RemarkRecordService;
+import com.gzgb.epo.service.shiro.ShiroDbRealm.ShiroUser;
+import com.gzgb.epo.service.user.UserService;
+import com.gzgb.epo.util.DateUtil;
+import com.gzgb.epo.util.ImageProcessor;
+/**
+ * 
+ * <pre>
+ * 舆论领袖识别控制器
+ * </pre>
+ * 
+ * @author XiaoJian
+ * @version 1.0, 2013-12-18
+ */
+@Controller
+@RequestMapping(value = "/leaderRecognition")
+public class LeaderRecognitionController {
+
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private LeaderHistoryRecordService lhrService;
+	@Autowired
+	private LeaderInfluenceService liService;
+	@Autowired
+	private MessageCountChangeService mccService;
+	@Autowired
+	private RemarkRecordService rrService;
+
+	@Autowired
+	private CityRegionService crService;
+	@Autowired
+	private MediaLeaderService leaderService;
+	@Autowired
+	private MenuService menuService;
+	@Autowired
+	private McodeService mcService;
+	Logger logger = LoggerFactory.getLogger(LeaderRecognitionController.class);
+
+	/**
+	 * 进入舆论领袖识别页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "index/{pMenuId}")
+	public String index(@PathVariable Long pMenuId,Model model, HttpServletRequest request) {
+		List<String> accountList = new ArrayList<String>();
+		List<MediaLeader> leaderList = leaderService.findAll(MediaLeader.class);
+		for (MediaLeader leader : leaderList) {
+			accountList.add(leader.getSocialAccount());
+		}
+		List<CityRegion> provinceList = crService.getListByLevel(1);
+		List<Mcode> mcode_hierarchy = mcService.findByMtye("hierarchy_type");
+		List<Mcode> mcode_political = mcService.findByMtye("politics_type");
+		model.addAttribute("provinceList", provinceList);
+		model.addAttribute("accountList", accountList);
+		model.addAttribute("hierarchyList", mcode_hierarchy);
+		model.addAttribute("politicalList", mcode_political);
+		menuService.getLeftMenu(pMenuId,model);
+		return "leaderRecognition/leaderRecognitionIndex";
+	}
+
+
+	/**
+	 * 进入舆论领袖个人中心页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "leaderPersonalCenter")
+	public String leaderPersonalCenter(Model model, HttpServletRequest request, Long networkId) {
+		MediaLeader leader = leaderService.findById(networkId, MediaLeader.class);
+		model.addAttribute("leader", leader);
+		List<LeaderHistoryRecord> lhr = lhrService.findByNetWorkId(leader.getId());	
+		model.addAttribute("lhr", lhr);
+		return "leaderRecognition/leaderPersonalCenter";
+	}
+	
+	@RequestMapping(value = "getImage")
+	public String getImage(HttpServletResponse response,  HttpServletRequest request, Long networkId) {
+		MediaLeader leader = leaderService.findById(networkId, MediaLeader.class);
+		String i = request.getParameter("networkId");
+		java.io.OutputStream out;
+		try {
+			out = response.getOutputStream();
+			if(leader == null){
+				 
+				InputStream in = new FileInputStream(request.getSession().getServletContext().getRealPath("/static/images")+"/nopicture.jpg");
+    			byte[] image = new byte[in.available()];
+	    		in.read(image);
+	    		in.close();
+	    		out.write(image);
+				out.flush();
+				out.close();
+				return null;
+			}	
+			
+			byte[] image = leader.getImage();
+			if(image == null){
+				InputStream in = new FileInputStream(request.getSession().getServletContext().getRealPath("/static/images")+"/nopicture.jpg");
+				image = new byte[in.available()];
+	    		in.read(image);
+	    		in.close();
+	    		out.write(image);
+				out.flush();
+				out.close();
+				return null;
+			}
+			out.write(image);
+			out.flush();
+			out.close();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+
+	}
+
+	
+	/**
+	 * ajax LeaderList
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "getLeaderList")
+	public @ResponseBody
+	Map<String, Object> getLeaderList(String socialaccount, Long regionProvince, Long regionCity, String hierarchy, String political, Integer influence, Integer page) {
+		Map<String, String> mapString = new HashMap<String, String>();
+		Map<String, Long> mapLong = new HashMap<String,Long>();
+		Map<String, Integer> mapInteger = new HashMap<String,Integer>();
+		List<CityRegion> cityRegionList = null;
+		if (socialaccount != null ){
+			socialaccount = socialaccount.trim();
+			if(socialaccount != null && socialaccount.length() > 0)
+			mapString.put("socialAccount", socialaccount);
+		}
+		if(regionProvince != 0){
+			if (regionCity != null && regionCity != 0)
+				mapLong.put("regionId.id", regionCity);
+			else{
+				 cityRegionList = crService.getListByParentId(regionProvince);
+				 cityRegionList.add(crService.findById(regionProvince, CityRegion.class));
+				
+			}
+		}	
+		if (!hierarchy.equals("0")){
+			Long hierarchyId = mcService.findByMtypeAndMvalue("hierarchy_type", hierarchy).getId();
+			mapLong.put("hierarchy.id", hierarchyId);
+		}
+			
+		if (!political.equals("0")){
+			Long politicalId = mcService.findByMtypeAndMvalue("politics_type", political).getId();
+			mapLong.put("political.id", politicalId);
+		}
+			
+		if (influence != 0)
+			mapInteger.put("influence", influence);
+		Map<String, Object> myMap = leaderService.getAllWithList(mapString, null, mapInteger, mapLong, cityRegionList, page, null, "socialAccount",
+				"desc");
+		if (page == null || page == 0) {
+			page = 1;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
+
+		// String parentName = parent.getKdlName();
+		if (myMap != null && !"".equals(myMap.get("rows").toString())) {
+			List<MediaLeader> list = (List<MediaLeader>) myMap.get("rows");
+			for (int i = 0; i < list.size(); i++) {
+				MediaLeader leader = list.get(i);
+				Map<String, Object> map1 = new HashMap<String, Object>();
+				map1.put("networkid", leader.getId());
+				map1.put("socialaccount", leader.getSocialAccount());
+				map1.put("region", leader.getRegionId().getName());
+				map1.put("hierarchy", leader.getHierarchy().getMkey());
+				map1.put("political", leader.getPolitical().getMkey());
+				map1.put("influence", leader.getInfluence()+"级");
+				map1.put("url", "/leaderRecognition/leaderDetail?networkId="
+						+ leader.getId());
+				dataList.add(map1);
+			}
+		}
+		Map<String, Integer> pageList = new HashMap<String, Integer>();
+		int total = (myMap == null) ? 0 : Integer.parseInt(myMap.get("total")
+				.toString());
+		pageList.put("size", 10); // 默认为10
+		int size = 1;
+		if (total > 10) {
+			if (total % 10 != 0) {
+				size = total / 10 + 1;
+			} else {
+				size = total / 10;
+			}
+		}
+		pageList.put("count", size);
+		pageList.put("current", page);
+		pageList.put("total", total);
+
+		map.put("data", dataList);
+		map.put("page", pageList);
+		return map;
+	}
+
+	/**
+	 * 进入舆论领袖详细页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "leaderDetail")
+	public String leaderDetail(Model model, HttpServletRequest request,
+			String networkId) {
+		MediaLeader leader = leaderService.findById(Long.valueOf(networkId), MediaLeader.class);
+		model.addAttribute("leader", leader);
+		List<LeaderHistoryRecord> lhr = lhrService.findByNetWorkId(leader.getId());	
+		List<RemarkRecord> rr = rrService.findByNetWorkId(leader.getId());
+		model.addAttribute("rr", rr);
+		model.addAttribute("lhr", lhr);
+		return "leaderRecognition/leaderDetail";
+	}
+	
+	/**
+	 * ajax getPoliticalChangeByMonth
+	 * @return
+	 */
+	@RequestMapping(value = "getPoliticalChangeByMonth")
+	public @ResponseBody Map<String,Object> getPoliticalChangeByMonth(Integer month, Long networkid){
+        List<Long> positiveList = new ArrayList<Long>();
+        List<Long> neutralList = new ArrayList<Long>();
+        List<Long> negativeList = new ArrayList< Long>();
+        List<String> timeList = new ArrayList<String>();
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+       // DateUtil du = new DateUtil();
+        for(int i=month; i>0; i--){
+    		Calendar  cal = Calendar.getInstance();
+    		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-i);
+    		String time = DateUtil.getYearAndMonthOfDate(cal.getTime());
+    		List<Integer> startAndEnd = DateUtil.getStartAndEndTime(cal);
+    		List<Long> countList = rrService.getCountListBetweenTime(startAndEnd, networkid);
+    		timeList.add(time);
+    		if(countList == null || countList.size() == 0){
+    			positiveList.add(Long.valueOf(0));
+    			neutralList.add(Long.valueOf(0));
+    			negativeList.add(Long.valueOf(0));
+    		}
+    		else{
+    			positiveList.add(countList.get(0));
+    			neutralList.add(countList.get(1));
+    			negativeList.add(countList.get(2));
+    		}
+    		
+        }
+        returnMap.put("positive", positiveList);
+        returnMap.put("neutral", neutralList);
+        returnMap.put("negative", negativeList);
+        returnMap.put("time", timeList);
+        return returnMap;
+        
+	}
+		
+	/**
+	 * ajax getCountChangeByType
+	 * @return
+	 */
+	@RequestMapping(value = "getCountChangeByType")
+	public @ResponseBody List<Map<String, Object>> getCountChangeByType(Integer month, Long networkid,String type){
+        List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
+     //   DateUtil du = new DateUtil();
+       // String type = "发布";
+        for(int i=month; i>0; i--){
+        	Map<String, Object> countMap = new HashMap<String, Object>();
+    		Calendar  cal = Calendar.getInstance();
+    		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-i);
+    		String time = DateUtil.getYearAndMonthOfDate(cal.getTime());
+    		List<Integer> startAndEnd = DateUtil.getStartAndEndTime(cal);
+    		long count = mccService.getTotalOfMonthByType(startAndEnd, networkid, type);
+    		countMap.put("time", time);
+    		countMap.put("count", count);
+    		returnList.add(countMap);
+        }
+
+        return returnList;
+        
+	}
+		
+	/**
+	 * ajax getInfluenceByType
+	 * @return
+	 */
+	@RequestMapping(value = "getInfluenceByType")
+	public @ResponseBody List<Map<String, Object>> getInfluenceByTypeAndTime(Long networkid,String type, Integer month){
+        List<Map<String, Object>> returnList = new ArrayList<Map<String,Object>>();
+        Integer startTime = null;
+        if(month == null || month == 0)
+        	startTime = 0;
+        else{
+        //	DateUtil du = new DateUtil();
+			Calendar  cal = Calendar.getInstance();
+		 	cal.set(Calendar.MONTH, cal.get(Calendar.MONTH)-month); 
+		 	
+		 	List<Integer> startAndEnd = DateUtil.getStartAndEndTime(cal);
+		 	startTime = startAndEnd.get(0);
+        }
+        List<LeaderInfluence> li = liService.findByNetWorkIdAndTypeAndTime(networkid, type, startTime);
+        Map<String, Long> map = new HashMap<String, Long>();
+        if(li != null && li.size() >0){
+        	if("hierarchy".equals(type)){ 
+        		for (LeaderInfluence influence : li) {
+	        		if(map.containsKey(influence.getHierarchyId().getMkey())){
+	    			    long count = map.get(influence.getHierarchyId().getMkey());
+	    				map.remove(influence.getHierarchyId().getMkey());
+	    				map.put(influence.getHierarchyId().getMkey(),count+influence.getCount());
+	    			}
+	        		else{
+	        			map.put(influence.getHierarchyId().getMkey(),influence.getCount());
+	        		}
+        		}
+        	}
+        	else if("region".equals(type)){
+        		for (LeaderInfluence influence : li) {
+	        		if(map.containsKey(influence.getCityRegionId().getName())){
+	    			    long count = map.get(influence.getCityRegionId().getName());
+	    				map.remove(influence.getCityRegionId().getName());
+	    				map.put(influence.getCityRegionId().getName(),count+influence.getCount());
+	    			}
+	        		else{
+	        			map.put(influence.getCityRegionId().getName(),influence.getCount());
+	        		}
+        		}
+        	}
+        	else{
+        		for (LeaderInfluence influence : li) {
+	        		if(map.containsKey(influence.getEducationId().getMkey())){
+	    			    long count = map.get(influence.getEducationId().getMkey());
+	    				map.remove(influence.getEducationId().getMkey());
+	    				map.put(influence.getEducationId().getMkey(),count+influence.getCount());
+	    			}
+	        		else{
+	        			map.put(influence.getEducationId().getMkey(),influence.getCount());
+	        		}
+        		}
+        	}
+        }
+        if("hierarchy".equals(type)){
+        	List<Mcode> hierarchy = mcService.findByMtye("hierarchy_type");
+        	for(int i=0; i<hierarchy.size(); i++){
+        		Map<String, Object> map1 = new HashMap<String, Object>();
+        		if(!map.containsKey(hierarchy.get(i).getMkey())){
+        			map1.put("name", hierarchy.get(i).getMkey());
+            		map1.put("count", 0);
+        			returnList.add(map1);
+        		}
+        		else{
+        			map1.put("name", hierarchy.get(i).getMkey());
+            		map1.put("count",map.get(hierarchy.get(i).getMkey()));
+        			returnList.add(map1);
+        		}
+        			
+        	}
+        }
+
+        else if("education".equals(type)){
+        	List<Mcode> education = mcService.findByMtye("education_type");
+        	for(int i=0; i<education.size(); i++){
+        		Map<String, Object> map1 = new HashMap<String, Object>();
+        		if(!map.containsKey(education.get(i).getMkey())){
+        			map1.put("name", education.get(i).getMkey());
+            		map1.put("count", 0);
+        			returnList.add(map1);
+        		}
+        		else{
+        			map1.put("name", education.get(i).getMkey());
+            		map1.put("count",map.get(education.get(i).getMkey()));
+        			returnList.add(map1);
+        		}
+        			
+        	}
+        }
+        else{
+        	for(String key : map.keySet()){
+        		Map<String, Object> map1 = new HashMap<String, Object>();
+        		map1.put("name", key);
+        		map1.put("count", map.get(key));
+        		returnList.add(map1);
+        	}
+        }
+        return returnList;
+        
+	}
+
+	/**
+	 * ajax 更新舆论领袖的个人信息
+	 * @return
+	 */
+	@RequestMapping(value = "updateLeaderPhoto")
+	public @ResponseBody Map<String, Object> updateLeaderPhoto( MultipartFile photo, HttpServletRequest request, HttpServletResponse response, Long networkId){
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		 Map<String, Object>  map = new HashMap<String, Object>();
+		 String realPath = null;
+		 MediaLeader leader = leaderService.findById(networkId, MediaLeader.class);
+		 //上传文件的原名(即上传前的文件名字)   
+		 String originalFilename = null;
+		 
+				try{
+					File uploadFile = new File("/upload");
+					if(!uploadFile.exists())
+						uploadFile.mkdir();
+				}catch(Exception e){
+					e.printStackTrace();
+					map.put("error","系统出问题 ，请稍后再上传文件！");
+					return map;
+	
+				}
+			
+			//如果用的是Tomcat服务器，则文件会上传到\\%TOMCAT_HOME%\\webapps\\YourWebProject\\upload\\文件夹中   
+	        //这里实现文件上传操作用的是commons.io.FileUtils类,它会自动判断/upload是否存在,不存在会自动创建   
+	         realPath = request.getSession().getServletContext().getRealPath("/upload");  
+	         String fileName = null;
+	        //如果只是上传一个文件,则只需要MultipartFile类型接收文件即可,而且无需显式指定@RequestParam注解   
+	        //如果想上传多个文件,那么这里就要用MultipartFile[]类型来接收文件,并且要指定@RequestParam注解   
+	        //上传多个文件时,前台表单中的所有<input type="file"/>的name都应该是excel,否则参数里的excel无法获取到所有上传的文件   
+	            if(photo.isEmpty()){  
+	                map.put("error", "文件不能为空");
+	               return map;  
+	               
+	            }else{  
+		                originalFilename = photo.getOriginalFilename(); 
+		                int index = originalFilename.lastIndexOf('.');
+		                if(index != -1){
+		                	if( !"JPG".equals(originalFilename.substring((index+1), originalFilename.length()))&&!"jpg".equals(originalFilename.substring((index+1), originalFilename.length())) &&!"PNG".equals(originalFilename.substring((index+1), originalFilename.length()))
+		                			&& !"png".equals(originalFilename.substring((index+1), originalFilename.length())) &&!"bmp".equals(originalFilename.substring((index+1), originalFilename.length())) &&!"BMP".equals(originalFilename.substring((index+1), originalFilename.length()))){
+		                		 map.put("error", "文件格式不对，正确的文件格式应该是jpg/JPG,png/PNG或bmp/BMP格式！");
+		      	               return map;  
+		                	}
+		                }
+		                if(index == -1){
+		                	map.put("error", "文件没有后缀名， 请检查文件格式是否为jpg/JPG,png/PNG或bmp/BMP格式！");
+		 	               return map; 
+		                }
+		                try {  
+		                	 fileName = new Date().toString();
+		                	 fileName = fileName.replace(':', '-');
+		                	 fileName+=originalFilename;
+		                    photo.transferTo(new File(realPath,  fileName));  
+		                } catch (IOException e) {  
+		                    e.printStackTrace();  
+		                    map.put("error", "上传失败，请重新上传！");
+		                    return map;  
+		                   
+		                }  
+	            }
+	          //将上传的图片等比例缩小
+	    		String filePath = ImageProcessor.createIcon(realPath, fileName);
+	    		if(filePath == null){
+	    			 map.put("error", "上传失败，请重新上传！");
+	                    return map;  
+	    		}else{
+	    			//将缩小的图片存进数据库
+		    		try{
+		    			InputStream in = new FileInputStream(filePath);
+		    			byte[] image = new byte[in.available()];
+			    		in.read(image);
+			    		in.close();
+			    		leader.setImage(image);
+			    		leaderService.update(leader);
+			    	  	return map;
+		    		}catch(Exception e){
+		    			
+		    			e.printStackTrace();
+		    			return map;
+		    		}
+	    		}
+ 
+	}
+		
+	
+	/**
+	 * ajax 更新舆论领袖的个人信息
+	 * @return
+	 */
+	@RequestMapping(value = "updateLeader")
+	public @ResponseBody Map<String, Object> updateLeader(HttpServletRequest request, HttpServletResponse response, Long networkId, String political, Integer influenceLevel){
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		 Map<String, Object>  map = new HashMap<String, Object>();
+		 String realPath = null;
+		 MediaLeader leader = leaderService.findById(networkId, MediaLeader.class);
+		 Mcode mcode = mcService.findByMtypeAndMvalue("politics_type", political);
+		 leader.setPolitical(mcode);		 
+		 leader.setInfluence(influenceLevel);
+		 try{
+			 leaderService.update(leader);
+			 map.put("data", "更新个人信息成功！");
+			 return map;
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 map.put("error", "更新个人信息失败！");
+			 return map;
+		 }
+		 
+	  
+	}
+		
+	/**
+	 * ajax 根据省份的Id获得对应的所有城市
+	 * @return
+	 */
+	@RequestMapping(value = "getCityByProvince")
+	public @ResponseBody List<Map<String, Object>> getCityByProvince(HttpServletRequest request, HttpServletResponse response, Long provinceId){
+		List<CityRegion> list = crService.getListByParentId(provinceId);
+		List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
+		for(int i=0; i<list.size(); i++){
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", list.get(i).getId());
+			map.put("name", list.get(i).getName());
+			returnList.add(map);
+		}
+	  return returnList;
+	}
+		
+
+}
