@@ -11,6 +11,7 @@
 
 <script type="text/javascript" src="${ctx}/static/js/site.js"></script>
 
+
 </head>
 <body>
 <div class="con">
@@ -89,22 +90,19 @@
 				<div class="addPoint">
 	<!-- addPointInput start -->
 
-<form action="/webGatherNode/update" method="post" id="form">
-<input type="hidden" name="id" value="${webGatherNode.id }"/>
-<input type="hidden" name="old_wgnName" value="${webGatherNode.wgnName }"/>
-<input type="hidden" name="old_wgnUniqueId" value="${webGatherNode.wgnUniqueId }"/>
+<form action="/webGatherNode/addGatherNode" method="post" id="form">
 	<div title="node-form" class="addPointInput">
 		<div class="addPointInputBox">
 			<span class="inputTitle"><tt>*</tt>采集点名称：</span>
 			<span class="inputDiv">
-				<input id="WebGatherNode_wgnName" type="text" value="${webGatherNode.wgnName }" name="wgnName" onchange="checkUnique(this,'/webGatherNode/ajaxUnique?old_wgnName=${webGatherNode.wgnName }','')" maxlength="255" />
+				<input id="WebGatherNode_wgnName" type="text" name="wgnName" onchange="checkUnique(this,'/webGatherNode/ajaxUnique','')" maxlength="255" />
 			</span>
 			<span class="inputPrompt"></span>
 		</div>
 		<div class="addPointInputBox">
 			<span class="inputTitle"><tt>*</tt>采集点标记：</span>
 			<span class="inputDiv">
-			<input id="WebGatherNode_wgnUniqueId" type="text" value="${webGatherNode.wgnUniqueId }" name="wgnUniqueId" onchange="checkUnique(this,'/webGatherNode/ajaxUnique_1?old_wgnUniqueId=${webGatherNode.wgnUniqueId }','')" maxlength="64" />
+			<input id="WebGatherNode_wgnUniqueId" type="text" name="wgnUniqueId" onchange="checkUnique(this,'/webGatherNode/ajaxUnique_1','')" maxlength="64" />
 			</span>
 			<span class="inputPrompt"></span>
 		</div>
@@ -114,7 +112,7 @@
 			<select id="webSiteID" class="select" name="webSiteID">
 					
 					<c:forEach items="${webSiteNameList}" var="types">
-						<option <c:if test="${types.key eq webGatherNode.webSiteID}">selected="selected"</c:if> value="${types.key}">${types.value}</option>
+						<option <c:if test="${types.key eq webSiteID}">selected="selected"</c:if> value="${types.key}">${types.value}</option>
 					</c:forEach>
 			</select>
 			</span>
@@ -124,8 +122,8 @@
 			<span class="inputTitle"><tt>*</tt>是否繁体：</span>
 			<span class="inputDiv">
 				<select id="WebGatherNode_wgnTraditional" name="wgnTraditional">
-					<option  <c:if test="${0 eq webGatherNode.wgnTraditional}">selected="selected"</c:if> value="0">否</option>
-					<option  <c:if test="${1 eq webGatherNode.wgnTraditional}">selected="selected"</c:if> value="1">是</option>
+					<option selected="selected" value="0">否</option>
+					<option value="1">是</option>
 				</select>
 			</span>
 			<span class="inputPrompt"></span>
@@ -133,7 +131,7 @@
 		<div class="addPointInputBox">
 			<span class="inputTitle"><tt>*</tt>采集权重：</span>
 			<span class="inputDiv">
-			<input id="WebGatherNode_wgnWeight" type="text" value="${webGatherNode.wgnWeight }" name="wgnWeight" maxlength="10" size="80" onchange="resetMessage('wgnWeight')" />
+			<input id="WebGatherNode_wgnWeight" type="text" value="5" name="wgnWeight" maxlength="10" size="80" onchange="resetMessage('wgnWeight')" />
 			</span>
 			<span class="inputPrompt"></span>
 		</div>
@@ -142,11 +140,11 @@
 			<span class="inputTitle"><tt>*</tt>来源类别：</span>
 			<span class="inputDiv">
 			<select id="WebGatherNode_wgnType" name="wgnType">
-				<option <c:if test="${1 eq webGatherNode.wgnType}">selected="selected"</c:if> value="1">新闻类</option>
-				<option <c:if test="${2 eq webGatherNode.wgnType}">selected="selected"</c:if> value="2">评论类</option>
-				<option <c:if test="${3 eq webGatherNode.wgnType}">selected="selected"</c:if> value="3">微博类</option>
-				<option <c:if test="${4 eq webGatherNode.wgnType}">selected="selected"</c:if> value="4">论坛类</option>
-				<option <c:if test="${5 eq webGatherNode.wgnType}">selected="selected"</c:if> value="5">博客类</option>
+				<option value="1">新闻类</option>
+				<option value="2">评论类</option>
+				<option value="3">微博类</option>
+				<option value="4">论坛类</option>
+				<option value="5">博客类</option>
 				</select>
 			</span>
 			<span class="inputPrompt"></span>
@@ -154,9 +152,9 @@
 		<div id="WebGatherNode_wgnSpiderEnable" class="addPointInputBox">
 			<span class="inputTitle"><tt>*</tt>开启蜘蛛：</span>
 			<span class="radioDiv">
-				<input id="WebGatherNode_wgnSpiderEnable_0" type="radio" name="wgnSpiderEnable" <c:if test="${0 eq webGatherNode.wgnSpiderEnable}">checked="checked"</c:if> value="0" onclick="spider(this)" />
+				<input id="WebGatherNode_wgnSpiderEnable_0" type="radio" name="wgnSpiderEnable" checked="checked" value="0" onclick="spider(this)" />
 				<label for="WebGatherNode_wgnSpiderEnable_0">关闭</label>
-				<input id="WebGatherNode_wgnSpiderEnable_1" type="radio" name="wgnSpiderEnable" <c:if test="${1 eq webGatherNode.wgnSpiderEnable}">checked="checked"</c:if> value="1" onclick="spider(this)" />
+				<input id="WebGatherNode_wgnSpiderEnable_1" type="radio" name="wgnSpiderEnable" value="1" onclick="spider(this)" />
 				<label for="WebGatherNode_wgnSpiderEnable_1">开启</label>
 			</span>
 			<span class="inputPrompt"></span>
@@ -179,14 +177,14 @@
 				<div class="addPointInputBox">
 					<span class="inputTitle">采集深度：</span>
 					<span class="inputDiv">
-					<input id="WebGatherNode_wgnDepthLimit" class="inputWidth1" type="text" value="${webGatherNode.wgnDepthLimit }" name="wgnDepthLimit" maxlength="10" onchange="resetMessage('wgnDepthLimit')" />
+					<input id="WebGatherNode_wgnDepthLimit" class="inputWidth1" type="text" value="1" name="wgnDepthLimit" maxlength="10" onchange="resetMessage('wgnDepthLimit')" />
 					</span>
 				</div>
 
 				<div class="addPointInputBox">
 					<span class="inputTitle">采集延迟：</span>
 					<span class="inputDiv inputDiv1">
-					<input id="WebGatherNode_wgnDelay" class="inputWidth1" type="text" value="${webGatherNode.wgnDelay }" name="wgnDelay" maxlength="10" onchange="resetMessage('wgnDelay')" />
+					<input id="WebGatherNode_wgnDelay" class="inputWidth1" type="text" value="1" name="wgnDelay" maxlength="10" onchange="resetMessage('wgnDelay')" />
 					</span>
 					<span class="inputText">秒</span>
 				</div>
@@ -194,7 +192,7 @@
 				<div class="addPointInputBox">
 					<span class="inputTitle">采集频率：</span>
 					<span class="inputDiv inputDiv1">
-					<input id="WebGatherNode_wgnTimeInterval" class="inputWidth1" type="text" value="${webGatherNode.wgnTimeInterval }" name="wgnTimeInterval" maxlength="10" onchange="resetMessage('wgnTimeInterval')" />
+					<input id="WebGatherNode_wgnTimeInterval" class="inputWidth1" type="text" value="3600" name="wgnTimeInterval" maxlength="10" onchange="resetMessage('wgnTimeInterval')" />
 					</span>
 					<span class="inputText">秒</span>
 				</div>
@@ -202,9 +200,9 @@
 				<div class="addPointInputBox">
 					<span class="inputTitle">使用Cookies：</span>
 					<span class="radioDiv">
-						<input id="WebGatherNode_wgnCookiesEnable_0" type="radio" name="wgnCookiesEnable" <c:if test="${1 eq webGatherNode.wgnCookiesEnable}">checked="checked"</c:if> value="1" />
+						<input id="WebGatherNode_wgnCookiesEnable_0" type="radio" name="wgnCookiesEnable" checked="checked" value="1" />
 						<label for="WebGatherNode_wgnCookiesEnable_0">是</label>
-						<input id="WebGatherNode_wgnCookiesEnable_1" type="radio" name="wgnCookiesEnable" <c:if test="${0 eq webGatherNode.wgnCookiesEnable}">checked="checked"</c:if> value="0" />
+						<input id="WebGatherNode_wgnCookiesEnable_1" type="radio" name="wgnCookiesEnable" value="0" />
 						<label for="WebGatherNode_wgnCookiesEnable_1">否</label>
 					</span>
 				</div>
@@ -212,23 +210,23 @@
 				<div class="addPointInputBox addPointInputBox1">
 					<span class="inputTitle">用户代理：</span>
 					<span class="inputTextarea">
-					<textarea id="WebGatherNode_wgnUserAgents" name="wgnUserAgents" onchange="resetMessage('wgnUserAgents')">${webGatherNode.wgnUserAgents}</textarea>
+					<textarea id="WebGatherNode_wgnUserAgents" name="wgnUserAgents" onchange="resetMessage('wgnUserAgents')">Mozilla/5.0 (Windows NT 5.1; rv:17.0) Gecko/20100101 Firefox/17.0 Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1) Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; QQDownload 732; .NET4.0C; .NET4.0E) Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; SV1; QQDownload 732; .NET4.0C; .NET4.0E; 360SE)</textarea>
 					</span>
 				</div>
 
 				<div class="addPointInputBox addPointInputBox1">
 					<span class="inputTitle">代理列表：</span>
 					<span class="inputTextarea">
-					<textarea id="WebGatherNode_wgnProxies" name="wgnProxies" onchange="resetMessage('wgnProxies')">${webGatherNode.wgnProxies}</textarea>
+					<textarea id="WebGatherNode_wgnProxies" name="wgnProxies" onchange="resetMessage('wgnProxies')"></textarea>
 					</span>
 				</div>
 
 				<div class="addPointInputBox">
 					<span class="inputTitle">是否登录：</span>
 					<span class="radioDiv" id="WebGatherNode_wgnLoginEnable">
-					<input id="WebGatherNode_wgnLoginEnable_0" type="radio" name="wgnLoginEnable" <c:if test="${0 eq webGatherNode.wgnLoginEnable}">checked="checked"</c:if> value="0" onclick="spiderLogin(this)" />
+					<input id="WebGatherNode_wgnLoginEnable_0" type="radio" name="wgnLoginEnable" checked="checked" value="0" onclick="spiderLogin(this)" />
 					<label for="WebGatherNode_wgnLoginEnable_0">否</label>
-					<input id="WebGatherNode_wgnLoginEnable_1" type="radio" name="wgnLoginEnable" <c:if test="${1 eq webGatherNode.wgnLoginEnable}">checked="checked"</c:if> value="1" onclick="spiderLogin(this)" />
+					<input id="WebGatherNode_wgnLoginEnable_1" type="radio" name="wgnLoginEnable" value="1" onclick="spiderLogin(this)" />
 					<label for="WebGatherNode_wgnLoginEnable_1">是</label>
 					</span>
 				</div>
@@ -237,21 +235,21 @@
 					<div class="addPointInputBox">
 						<span class="inputTitle">登录入口：</span>
 						<span class="inputDiv">
-						<input id="WebGatherNode_wgnLoginEntry" type="text" value="${webGatherNode.wgnLoginEntry }" name="wgnLoginEntry" maxlength="128" />
+						<input id="WebGatherNode_wgnLoginEntry" type="text" name="wgnLoginEntry" maxlength="128" />
 						</span>
 					</div>
 
 					<div class="addPointInputBox">
 						<span class="inputTitle">登录帐号：</span>
 						<span class="inputDiv">
-						<input id="WebGatherNode_wgnLoginAccount" type="text" value="${webGatherNode.wgnLoginAccount }" name="wgnLoginAccount" maxlength="64" />
+						<input id="WebGatherNode_wgnLoginAccount" type="text" name="wgnLoginAccount" maxlength="64" />
 						</span>
 					</div>
 
 					<div class="addPointInputBox">
 						<span class="inputTitle">登录密码：</span>
 						<span class="inputDiv">
-						<input id="WebGatherNode_wgnLoginPassword" type="text" value="${webGatherNode.wgnLoginPassword }" name="wgnLoginPassword" maxlength="32" />
+						<input id="WebGatherNode_wgnLoginPassword" type="text" name="wgnLoginPassword" maxlength="32" />
 						</span>
 					</div>
 					</div>
@@ -264,34 +262,34 @@
 				<div class="addPointInputBox addPointInputBox1">
 					<span class="inputTitle">采集入口：</span>
 					<span class="inputTextarea">
-						<textarea id="WebGatherNode_wgnEntryUrl" name="wgnEntryUrl">${webGatherNode.wgnEntryUrl }</textarea>
+						<textarea id="WebGatherNode_wgnEntryUrl" name="wgnEntryUrl"></textarea>
 					</span>
 				</div>
 
 				<div class="addPointInputBox addPointInputBox1">
 					<span class="inputTitle">允许域名：</span>
 					<span class="inputTextarea">
-						<textarea id="WebGatherNode_wgnAllowDomain" name="wgnAllowDomain">${webGatherNode.wgnAllowDomain }</textarea>
+						<textarea id="WebGatherNode_wgnAllowDomain" name="wgnAllowDomain"></textarea>
 					</span>
 				</div>
 
 				<div class="addPointInputBox addPointInputBox1">
 					<span class="inputTitle">允许链接格式：</span>
 					<span class="inputTextarea">
-						<textarea id="WebGatherNode_wgnAllowRule" name="wgnAllowRule" cols="80">${webGatherNode.wgnAllowRule }</textarea>
+						<textarea id="WebGatherNode_wgnAllowRule" name="wgnAllowRule" cols="80"></textarea>
 					</span>
 				</div>
 
 				<div class="addPointInputBox addPointInputBox1">
 					<span class="inputTitle">禁止链接格式：</span>
 					<span class="inputTextarea">
-						<textarea id="WebGatherNode_wgnDenyRule" name="wgnDenyRule" cols="80">${webGatherNode.wgnDenyRule }</textarea>
+						<textarea id="WebGatherNode_wgnDenyRule" name="wgnDenyRule" cols="80"></textarea>
 					</span>
 				</div>
 				<div class="addPointInputBox">
 					<span class="inputTitle">处理链接操作：</span>
 					<span class="inputDiv">
-					<input id="WebGatherNode_wgnProcessLinks" type="text" value="${webGatherNode.wgnProcessLinks }" name="wgnProcessLinks" style="width:462px" maxlength="255" />
+					<input id="WebGatherNode_wgnProcessLinks" type="text" name="wgnProcessLinks" style="width:462px" maxlength="255" />
 					</span>
 				</div>
 			</div>
@@ -303,16 +301,16 @@
 					<div class="addPointInputBox">
 						<span class="inputTitle">分页规则匹配：</span>
 						<span class="inputDiv">
-						<input id="WebGatherNode_wgnNextPage" type="text" value="${webGatherNode.wgnNextPage }" name="wgnNextPage" style="width:558px" maxlength="255" />
+						<input id="WebGatherNode_wgnNextPage" type="text" name="wgnNextPage" style="width:558px" maxlength="255" />
 						</span>
 					</div>
 
 					<div class="addPointInputBox">
 						<span class="inputTitle">是否过滤网页：</span>
 						<span class="radioDiv">
-						<input id="WebGatherNode_wgnIsClean_0" type="radio" name="wgnIsClean" <c:if test="${0 eq webGatherNode.wgnIsClean}">checked="checked"</c:if> value="0" />
+						<input id="WebGatherNode_wgnIsClean_0" type="radio" name="wgnIsClean" checked="checked" value="0" />
 						<label for="WebGatherNode_wgnIsClean_0">否</label>
-						<input id="WebGatherNode_wgnIsClean_1" type="radio" name="wgnIsClean" <c:if test="${1 eq webGatherNode.wgnIsClean}">checked="checked"</c:if> value="1" />
+						<input id="WebGatherNode_wgnIsClean_1" type="radio" name="wgnIsClean" value="1" />
 						<label for="WebGatherNode_wgnIsClean_1">是</label>
 						</span>
 						<span class="inputPrompt"></span>
@@ -321,7 +319,7 @@
 					<div class="addPointInputBox">
 						<span class="inputTitle">采集更新时间：</span>
 						<span class="inputDiv inputDiv1">
-						<input id="WebGatherNode_wgnTimeRefresh" class="inputWidth1" type="text" value="${webGatherNode.wgnTimeRefresh }" name="wgnTimeRefresh" maxlength="10" />
+						<input id="WebGatherNode_wgnTimeRefresh" class="inputWidth1" type="text" value="0" name="wgnTimeRefresh" maxlength="10" />
 						</span>
 						<span class="inputText">秒</span>
 					</div>
@@ -343,49 +341,7 @@
 							<th align="center" width="7%">必要项</th>
 							<th align="center" width="5%">操作</th>
 						</tr>
-						<c:forEach items="${configItemList}" var="configItem">
-							<tr>
-								<td><input name="item[title][]" alt="字段名称" value="${configItem.title }" size="7" /></td>
-								<td>
-									<select name="item[name][]" alt="字段标识" onchange="setDefaultValue(this)">
-										<option value="">-----</option>
-										<option <c:if test="${configItem.name == 'title'}">selected="selected"</c:if> value="title">title</option>
-										<option <c:if test="${configItem.name == 'content'}">selected="selected"</c:if> value="content">content</option>
-										<option <c:if test="${configItem.name == 'author'}">selected="selected"</c:if> value="author">author</option>
-										<option <c:if test="${configItem.name == 'comment_c'}">selected="selected"</c:if> value="comment_c">comment_c</option>
-										<option <c:if test="${configItem.name == 'pubdate'}">selected="selected"</c:if> value="pubdate">pubdate</option>
-										<option <c:if test="${configItem.name == 'source'}">selected="selected"</c:if> value="source">source</option>
-										<option <c:if test="${configItem.name == 'views'}">selected="selected"</c:if> value="views">views</option>
-										<option <c:if test="${configItem.name == 'realUrl'}">selected="selected"</c:if> value="realUrl">realUrl</option>
-										<option <c:if test="${configItem.name == 'facePic'}">selected="selected"</c:if> value="facePic">facePic</option>
-										<option <c:if test="${configItem.name == 'isAuth'}">selected="selected"</c:if> value="isAuth">isAuth</option>
-										<option <c:if test="${configItem.name == 'picture'}">selected="selected"</c:if> value="picture">picture</option>
-										<option <c:if test="${configItem.name == 'thumb'}">selected="selected"</c:if> value="thumb">thumb</option>
-										<option <c:if test="${configItem.name == 'editor'}">selected="selected"</c:if> value="editor">editor</option>
-										<option <c:if test="${configItem.name == 'reserved'}">selected="selected"</c:if> value="reserved">reserved</option>
-										<option <c:if test="${configItem.name == 'reservedTime'}">selected="selected"</c:if> value="reservedTime">reservedTime</option>
-										<option <c:if test="${configItem.name == 'keywords'}">selected="selected"</c:if> value="keywords">keywords</option>
-										<option <c:if test="${configItem.name == 'reply'}">selected="selected"</c:if> value="reply">reply</option>
-									</select>
-								</td>
-								<td>
-									<select name="item[type][]" alt="字段类型">
-										<option <c:if test="${configItem.type == 'xpath'}">selected="selected"</c:if> value="xpath">Xpath</option>
-										<option <c:if test="${configItem.type == 'value'}">selected="selected"</c:if> value="value">Value</option>
-									</select>
-								</td>
-								<td><input name="item[variable][]" value="${configItem.variable}" alt="字段参数" size="16" /></td>
-								<td><input name="item[regex][]" value="${configItem.regex}" alt="过滤正则式" size="16" /></td>
-								<td><input name="item[unit][]" value='${configItem.unit}' alt="处理器" size="14" /></td>
-								<td>
-									<select name="item[required][]" alt="必要项">
-										<option <c:if test="${configItem.required eq 0}">selected="selected"</c:if> value="0">否</option>
-										<option <c:if test="${configItem.required eq 1}">selected="selected"</c:if> value="1">是</option>
-									</select>
-								</td>
-								<td><a href="###" onclick="itemRemove(this)"> - </a></td>
-							</tr>
-						</c:forEach>
+						
 						<tr>
 							<td><input name="item[title][]" alt="字段名称" size="7" /></td>
 							<td>
@@ -407,7 +363,6 @@
 									<option value="reserved">reserved</option>
 									<option value="reservedTime">reservedTime</option>
 									<option value="keywords">keywords</option>
-									<option value="reply">reply</option>
 								</select>
 							</td>
 							<td>
@@ -428,18 +383,20 @@
 							<td><a href="###" onclick="itemClone(this)"> + </a></td>
 						</tr>
 					</table>
+					</div>
 				</div>
 			</div>
 			<!-- 内容规则 end -->
+			</form>
 		</div>
-		</form>
+		
 	</div>
 	<!-- addPointCon end -->
 
 	<!-- submit start -->
 	<div class="submitBox">
-		<span class="submitBnt_1"><a onclick="return submitNormalForm('/webGatherNode/update')" href="###"></a></span>
-		<span class="returnBnt"><a id="backUrl" href="${backUrl }" onclick="window.history.back()"></a></span>
+		<span class="submitBnt"><a onclick="return submitNormalForm('/webGatherNode/addGatherNode')" href="###"></a></span>
+		<span class="returnBnt"><a id="backUrl" href="#" onclick="window.history.back()"></a></span>
 	</div>
 	<!-- submit end -->
 
@@ -449,10 +406,9 @@
 	</div>
 <!-- submit success end -->
 
-</div>
-				
+	
 				<!-- 页面内容  end -->
-				</div>
+
 			</td>
 		</tr>
 	</table>
@@ -566,7 +522,7 @@ function checkValue() {
 	var spiderItemData = {'item[title][]':[],'item[name][]':[],'item[type][]':[],'item[variable][]':[],'item[regex][]':[],'item[unit][]':[],'item[required][]':[]};
 
 	//检查主表单值
-	var mainData = $('div[title="node-form"] input[type=text],input[type=hidden] ,div[title="node-form"] select,div[title="node-form"] input[type=radio]:checked ,div[title="node-form"] textarea');
+	var mainData = $('div[title="node-form"] input[type=text],div[title="node-form"] select,div[title="node-form"] input[type=radio]:checked ,div[title="node-form"] textarea');
 	for (var i = 0; i < mainData.length; i++) {
 		spiderItemData[$(mainData[i]).attr('name')] = $(mainData[i]).val();
 	}
@@ -606,21 +562,17 @@ function submitNormalForm(requestUrl) {
 				//保存成功
 				if (response.success){
 					//操作成功处理
-					messageContent(1,'更新成功');
-					setTimeout(function() {window.location = $('#backUrl').attr('href')}, 2000);
+					messageContent(1,'添加成功');
+					setTimeout(function() {window.location = $('#backUrl').attr('href');}, 2000);
 					return;
 				}
 
 				//提示错误
 				responseMessage(response);
 				messageContent(0,'');
-				setTimeout(function() {window.location = $('#backUrl').attr('href')}, 2000);
-				return;
 			},
 			error:function() {
 				messageContent(1,'网络发生错误');
-				setTimeout(function() {window.location = $('#backUrl').attr('href')}, 2000);
-				return;
 			}});
 			
 		}
@@ -735,9 +687,16 @@ function setDefaultValue(objName)
 			'item[unit][]'		: '',
 			'item[required][]'	: 0
 		},
-		
+		thumb:{
+			'item[title][]'		: '缩略图',
+			'item[type][]'		: 'xpath',
+			'item[variable][]'	: '',
+			'item[regex][]'		: '',
+			'item[unit][]'		: '',
+			'item[required][]'	: 0
+		},
 		editor:{
-			'item[title][]'		: '编辑',
+			'item[title][]'		: '编辑者',
 			'item[type][]'		: 'xpath',
 			'item[variable][]'	: '',
 			'item[regex][]'		: '',
@@ -745,37 +704,29 @@ function setDefaultValue(objName)
 			'item[required][]'	: 0
 		},
 		reserved:{
-			'item[title][]'		: '转载数',
-			'item[type][]'		: 'xpath',
-			'item[variable][]'	: '',
-			'item[regex][]'		: '',
-			'item[unit][]'		: '',
-			'item[required][]'	: 0
-		},
-		reservedTime:{
-			'item[title][]'		: '最近转载时间',
-			'item[type][]'		: 'xpath',
-			'item[variable][]'	: '',
-			'item[regex][]'		: '',
-			'item[unit][]'		: '',
-			'item[required][]'	: 0
-		},
-		keywords:{
-			'item[title][]'		: '关键字',
-			'item[type][]'		: 'xpath',
-			'item[variable][]'	: '',
-			'item[regex][]'		: '',
-			'item[unit][]'		: '',
-			'item[required][]'	: 0
-		},
-		reply:{
-			'item[title][]'		: '回复数',
-			'item[type][]'		: 'xpath',
-			'item[variable][]'	: '',
-			'item[regex][]'		: '',
-			'item[unit][]'		: '',
-			'item[required][]'	: 0
-		}
+				'item[title][]'		: '转载量',
+				'item[type][]'		: 'xpath',
+				'item[variable][]'	: '',
+				'item[regex][]'		: '',
+				'item[unit][]'		: '',
+				'item[required][]'	: 0
+			},
+			reservedTime:{
+				'item[title][]'		: '最近转载时间',
+				'item[type][]'		: 'xpath',
+				'item[variable][]'	: '',
+				'item[regex][]'		: '',
+				'item[unit][]'		: '',
+				'item[required][]'	: 0
+			},
+			keywords:{
+				'item[title][]'		: '关键字',
+				'item[type][]'		: 'xpath',
+				'item[variable][]'	: '',
+				'item[regex][]'		: '',
+				'item[unit][]'		: '',
+				'item[required][]'	: 0
+			}
 		
 	};
 
@@ -803,6 +754,7 @@ $(function() {
 	changeBnt("addPointConBntDiv","basic");
 })
 </script>
+
 <%@include file="../bottom.jsp"%>
 </body>
 </html>

@@ -364,8 +364,7 @@
 										<option <c:if test="${configItem.name == 'editor'}">selected="selected"</c:if> value="editor">editor</option>
 										<option <c:if test="${configItem.name == 'reserved'}">selected="selected"</c:if> value="reserved">reserved</option>
 										<option <c:if test="${configItem.name == 'reservedTime'}">selected="selected"</c:if> value="reservedTime">reservedTime</option>
-										<option <c:if test="${configItem.name == 'keywords'}">selected="selected"</c:if> value="keywords">keywords</option>
-										<option <c:if test="${configItem.name == 'reply'}">selected="selected"</c:if> value="reply">reply</option>
+										
 									</select>
 								</td>
 								<td>
@@ -403,11 +402,9 @@
 									<option value="isAuth">isAuth</option>
 									<option value="picture">picture</option>
 									<option value="thumb">thumb</option>
-									<option value="editor">editor</option>
-									<option value="reserved">reserved</option>
-									<option value="reservedTime">reservedTime</option>
-									<option value="keywords">keywords</option>
-									<option value="reply">reply</option>
+									<option value="thumb">editor</option>
+									<option value="thumb">reserved</option>
+									<option value="thumb">reservedTime</option>
 								</select>
 							</td>
 							<td>
@@ -439,7 +436,7 @@
 	<!-- submit start -->
 	<div class="submitBox">
 		<span class="submitBnt_1"><a onclick="return submitNormalForm('/webGatherNode/update')" href="###"></a></span>
-		<span class="returnBnt"><a id="backUrl" href="${backUrl }" onclick="window.history.back()"></a></span>
+		<span class="returnBnt"><a id="backUrl" href="#" onclick="window.history.back()"></a></span>
 	</div>
 	<!-- submit end -->
 
@@ -614,13 +611,9 @@ function submitNormalForm(requestUrl) {
 				//提示错误
 				responseMessage(response);
 				messageContent(0,'');
-				setTimeout(function() {window.location = $('#backUrl').attr('href')}, 2000);
-				return;
 			},
 			error:function() {
 				messageContent(1,'网络发生错误');
-				setTimeout(function() {window.location = $('#backUrl').attr('href')}, 2000);
-				return;
 			}});
 			
 		}
@@ -735,41 +728,8 @@ function setDefaultValue(objName)
 			'item[unit][]'		: '',
 			'item[required][]'	: 0
 		},
-		
-		editor:{
-			'item[title][]'		: '编辑',
-			'item[type][]'		: 'xpath',
-			'item[variable][]'	: '',
-			'item[regex][]'		: '',
-			'item[unit][]'		: '',
-			'item[required][]'	: 0
-		},
-		reserved:{
-			'item[title][]'		: '转载数',
-			'item[type][]'		: 'xpath',
-			'item[variable][]'	: '',
-			'item[regex][]'		: '',
-			'item[unit][]'		: '',
-			'item[required][]'	: 0
-		},
-		reservedTime:{
-			'item[title][]'		: '最近转载时间',
-			'item[type][]'		: 'xpath',
-			'item[variable][]'	: '',
-			'item[regex][]'		: '',
-			'item[unit][]'		: '',
-			'item[required][]'	: 0
-		},
-		keywords:{
-			'item[title][]'		: '关键字',
-			'item[type][]'		: 'xpath',
-			'item[variable][]'	: '',
-			'item[regex][]'		: '',
-			'item[unit][]'		: '',
-			'item[required][]'	: 0
-		},
-		reply:{
-			'item[title][]'		: '回复数',
+		thumb:{
+			'item[title][]'		: '缩略图',
 			'item[type][]'		: 'xpath',
 			'item[variable][]'	: '',
 			'item[regex][]'		: '',
