@@ -458,12 +458,12 @@ public class UserController {
 		user.setPassword(Encrypt.MD5(u.getPassword())); // MD5加密
 		DepartmentBaseInfo d = dbService.findById(dbiIdLong, DepartmentBaseInfo.class);
 		RegionBaseInfo r = rbService.findById(rbiIdLong, RegionBaseInfo.class);
-	//	if(d!=null){
+		if(d!=null){
 			user.setDbiId(d);
-	//	}
-	//	if(r!=null){
+		}
+		if(r!=null){
 			user.setRbiId(r);
-	//	}
+		}
 		String[] roles=null;
 		List<Role> roleList = new ArrayList<Role>();
 		if(!"".equals(roleIds) && roleIds !=null){

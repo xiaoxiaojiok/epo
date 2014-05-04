@@ -88,8 +88,7 @@ public class KnowledgeDictLibManageController {
 		    long totalitem = kdiService.getCountOfAll();
 		    int countOfLevelOneLib = kdlService.getCountOfLib();
 		    Long userId = (Long)request.getSession().getAttribute("userId");
-			ShiroUser shiroUser = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-		    User user = userService.findById(shiroUser.getId(), User.class);
+			User user = userService.findById(userId, User.class);
 			if(user == null){
 				return "error/403";
 			}
@@ -579,8 +578,7 @@ public class KnowledgeDictLibManageController {
 		if(childrenLibId == null || childrenLibId == 0){
 			Long userId = (Long)request.getSession().getAttribute("userId");
 			User user = userService.findById(userId, User.class);
-			if(user == null)
-				return null;
+			
 			//如果该用户只有县区的Id，没有部门的Id， 那没该用户可以看到指定县区的词库以及所有部门的词库，包括公共的词库
 			if(user.getRbiId() != null && user.getDbiId() == null){
 				kdlIdList = new ArrayList<Long>();
@@ -804,32 +802,8 @@ public class KnowledgeDictLibManageController {
 		
 		DateUtil du = new DateUtil();
 		KnowledgeDictLib parent = kdlService.findById(kdlParentId, KnowledgeDictLib.class);
-		Long userId = (Long)request.getSession().getAttribute("userId");
 		
-		User user = userService.findById(userId, User.class);
-		if(user == null)
-			return null;
-		//在查看县区词库的情况下，如果该用户有县区的Id限制， 该用户只能看到所限制的县区的词库。
-		if(kdlParentId == 2){
-			if(user.getRbiId() != null){
-				mapLong.put("rbiId.id", user.getRbiId().getId());
-			}
-			else{
-				mapLong.put("kdlParentId.id", parent.getId());
-			}
-			//在查看部门词库的情况下，如果该用户有部门的Id限制， 该用户只能看到所限制的部门的词库。
-		}else if(kdlParentId == 3){
-			if(user.getDbiId() != null){
-				mapLong.put("dbiId.id", user.getDbiId().getId());
-			}
-			else{
-				mapLong.put("kdlParentId.id", parent.getId());
-			}
-			//其他情况下，默认能看到所有的词库
-		}else{
-			mapLong.put("kdlParentId.id", parent.getId());
-		}
-		
+		mapLong.put("kdlParentId.id", parent.getId());
 		Map<String,Object> myMap = kdlService.getAll(KnowledgeDictLib.class,null, null, null,mapLong, page, null, null, null);
 		if(page==null || page == 0){
 			page = 1;
