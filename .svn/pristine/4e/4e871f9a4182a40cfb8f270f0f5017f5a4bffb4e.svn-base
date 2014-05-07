@@ -37,7 +37,7 @@ public interface Constants {
 	/**
 	 * 设置日期
 	 */
-	final static Date date = DateUtil.parseDateTime("2013-5-05 23:23:23");
+	final static Date date = DateUtil.parseDateTime("2013-11-05 23:23:23");
 //	final static Date date = new Date();
 
 }
